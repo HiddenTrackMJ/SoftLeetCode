@@ -2,7 +2,7 @@
 #include <map>
 #include <sstream>
 #include <string>
-#include <vector>
+#include <stack>
 
 using std::vector;
 
@@ -12,8 +12,23 @@ struct ListNode {
   ListNode(int x) : val(x), next(NULL) {}
 };
 
+struct TreeNode {
+  int val;
+  TreeNode* left;
+  TreeNode* right;
+  TreeNode(int x) : val(x), left(NULL), right(NULL){}
+};
+
 class Solution {
  public:
+  ListNode* int2node(int* a, int len);
+
+  ListNode* addTwoNumbers(ListNode* l1, ListNode* l2);
+
+  vector<int> inorderTraversal(TreeNode* root);
+
+  vector<int> inorderTraversal2(TreeNode* root);
+
   vector<int> Solution::twoSum(vector<int>& nums, int target) {
     // std::cout << "nice";
     vector<int> others;
@@ -38,6 +53,7 @@ class Solution {
   }
 
   vector<int> Solution::twoSum2(vector<int>& nums, int target) {
+
     std::map<int, int> past;
     size_t len = nums.size();
     for (int i = 0; i < len; i++) {
@@ -70,10 +86,11 @@ class Solution {
     ss.clear();
     return res;
   }
-  ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
-    std::stringstream ss;
-    std::string res1;
-    std::string res2;
+
+   ListNode* addTwoNumbers2(ListNode* l1, ListNode* l2) {
+     std::stringstream ss;
+     std::string res1;
+     std::string res2;
 
     while (l1 != NULL) {
       int i = l1->val;
@@ -131,92 +148,4 @@ class Solution {
     return s;
   }
 
-  // ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
-  //  std::stringstream ss;
-  //  std::string res1;
-  //  std::string res2;
-
-  //  while (l1 != NULL) {
-  //    int i = l1->val;
-  //    res1 = std::to_string(i) + res1;
-  //    l1 = l1->next;
-  //  }
-  //  std::cout << "res: " << res1 << std::endl;
-  //  int n = str2int(res1);
-  //  std::cout << "n: " << n << std::endl;
-
-  //  ss.clear();
-  //  while (l2 != NULL) {
-  //    int i = l2->val;
-  //    res2 = std::to_string(i) + res2;
-  //    std::cout << "res: " << res2 << std::endl;
-  //    l2 = l2->next;
-  //  }
-  //  std::cout << "res: " << res2 << std::endl;
-  //  int m = str2int(res2);
-  //  std::cout << "m: " << m << std::endl;
-
-  //  ss.clear();
-  //  int sum = m + n;
-  //  std::string out = int2str(sum);
-  //  std::cout << "out: " << out << std::endl;
-
-  //
-  //  int len = out.size();
-  //  ListNode* s;
-  //  for (int i = len - 1; i >= 0; i--) {
-  //    if (i == len - 1) {
-  //      int x;
-  //      ss << out[i];
-  //      ss >> x;
-  //      ss.clear();
-  //      ListNode* emm = new ListNode(x);
-  //      std::cout << "x: " << x << std::endl;
-  //      s = emm;
-  //    } else {
-  //      int x;
-  //      ss << out[i];
-  //      ss >> x;
-  //      ss.clear();
-  //      ListNode* emm = new ListNode(x);
-  //      std::cout << "y: " << x << std::endl;
-  //
-  //      emm->next = s;
-  //      s = emm;
-  //    }
-  //  }
-
-  //  std::string res3;
-  //  while (s != NULL) {
-  //    int i = s->val;
-  //    std::cout << "res: " << res3 << std::endl;
-  //    res3 = res3 + std::to_string(i);
-  //    std::cout << "res: " << res3 << std::endl;
-  //    s = s->next;
-  //  }
-  //  std::cout << "res: " << res3 << std::endl;
-  //  int z = str2int(res3);
-  //  std::cout << "z: " << z << std::endl;
-  //  return s;
-  //}
-
-  int strStr(string haystack, string needle) {
-     
-    int len_a = haystack.size();
-    int len_b = needle.size();
-    int len = len_a - len_b + 1;
-
-    for (int i = 0; i < len; i++) {
-      char* x = &haystack[0];
-    }
-
-
-  }
 };
-
-//  vector<int> Solution::twoSum(vector<int>& nums, int target) {
-//  std::cout << "nice";
-//  for (std::vector<int>::iterator it = nums.begin(); it != nums.end(); ++it) {
-//    std::cout << *it;
-//  }
-//}
