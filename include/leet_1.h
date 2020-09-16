@@ -22,6 +22,8 @@ struct TreeNode {
 
 class Solution {
  public:
+  void solveSudoku(vector<vector<char>>& board);
+
   ListNode* int2node(int* a, int len);
 
   ListNode* addTwoNumbers(ListNode* l1, ListNode* l2);
@@ -33,13 +35,13 @@ class Solution {
   vector<int> Solution::twoSum(vector<int>& nums, int target) {
     //std::cout << "nice";
     vector<int> others;
-    size_t len = nums.size();
+    int len = nums.size();
 
-    for (size_t i = 0; i < len; i++) {
+    for (int i = 0; i < len; i++) {
       std::cout << "nice: " << i << std::endl;
       int cur = nums[i];
       int other = target - cur;
-      for (size_t j = i + 1; j < len; j++) {
+      for (int j = i + 1; j < len; j++) {
         int next = nums[j];
         if (other == next) {
           others.push_back(i);
@@ -57,18 +59,17 @@ class Solution {
   vector<int> Solution::twoSum2(vector<int>& nums, int target) {
 
     std::map<int, int> past;
-    size_t len = nums.size();
+    int len = nums.size();
     for (int i = 0; i < len; i++) {
       int cur = nums[i];
       int other = target - cur;
       if (auto it = past.find(other) != past.end()) {
-        vector<int> others = {i, past[other]};
-        return others;
+        //vector<int> others = {i, past[other]};
+        return {i, past[other]};
       }
       past.insert(std::make_pair(cur, i));
     }
-    vector<int> others;
-    return others;
+    return {};
   }
 
   double str2int(std::string res) {

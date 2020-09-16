@@ -11,8 +11,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 #set(CMAKE_CXX_FLAGS "-D__STDC_CONSTANT_MACROS")
 
 if(MSVC)
-	SET(CMAKE_CXX_FLAGS "/EHsc")  # deal with MSVC Warning C4530, mac
-    SET(CMAKE_CXX_FLAGS "/utf-8" "${CMAKE_CXX_FLAGS}")    # for CPP
+	#SET(CMAKE_CXX_FLAGS "/EHsc")  # deal with MSVC Warning C4530, mac
+    #SET(CMAKE_CXX_FLAGS "/utf-8" "${CMAKE_CXX_FLAGS}")    # for CPP
     SET(CMAKE_C_FLAGS "/utf-8" "${CMAKE_C_FLAGS}")        # for C
 else()
 	set(CMAKE_CXX_FLAGS "-D__STDC_CONSTANT_MACROS")

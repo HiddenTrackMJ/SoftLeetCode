@@ -118,7 +118,6 @@ ListNode* Solution::addTwoNumbers(ListNode* l1, ListNode* l2) {
   return res;
 }
 
-
  void inorder(TreeNode* root, vector<int>& res) {
   if (!root) {
     return;
@@ -128,7 +127,6 @@ ListNode* Solution::addTwoNumbers(ListNode* l1, ListNode* l2) {
   inorder(root->right, res);
 }
 
-
 vector<int> Solution::inorderTraversal(TreeNode* root) {
   vector<int> res;
   inorder(root, res);
@@ -137,13 +135,13 @@ vector<int> Solution::inorderTraversal(TreeNode* root) {
 
 vector<int> Solution::inorderTraversal2(TreeNode* root) {
   vector<int> res;
-  vector<TreeNode*> nodes;
-  TreeNode* root = root;
+  std::stack<TreeNode*> nodes;
+  //TreeNode* root = root;
   bool flag = false;
-
+ 
   while (root != NULL) {
     if (root->left != NULL && !flag) {
-      nodes.push_back(root);
+      nodes.push(root);
       std::cout << "move to left: " << root->val << std::endl;
       root = root->left;
     } else {
@@ -155,12 +153,66 @@ vector<int> Solution::inorderTraversal2(TreeNode* root) {
         flag = false;
       } else {
         if (nodes.empty()) break;
-        root = nodes.back();
+        root = nodes.top();
         std::cout << "back to middle: " << root->val << std::endl;
-        nodes.pop_back();
+        nodes.pop();
         flag = true;
       }
     }
   }
   return res;
+}
+
+bool row[9][9];
+bool col[9][9];
+bool block[3][3][9];
+vector<std::pair<int, int>> blank_pt;
+bool valid;
+
+void repeat(vector<vector<char>>& board, int pos) {
+  if (blank_pt.size() == pos) {
+    valid = true;
+    return;
+  }
+
+  auto i = blank_pt[pos].first;
+  auto j = blank_pt[pos].second;
+  
+  for (int n = 0; n < 9 && !valid; ++n) {
+    if (!row[i][n] && !col[j][n] && !block[i / 3][j / 3][n]) {
+      row[i][n] = true;
+      col[j][n] = true;
+      block[i / 3][j / 3][n] = true; 
+      board[i][j] = n + '0' + 1;
+      repeat(board, pos + 1);
+      row[i][n] = false;
+      col[j][n] = false;
+      block[i / 3][j / 3][n] = false; 
+    }
+  }
+}
+
+void Solution::solveSudoku(vector<vector<char>>& board) {
+  memset(row, false, sizeof(row));
+  memset(col, false, sizeof(col));
+  memset(block, false, sizeof(block));
+  valid = false;
+
+  for (int i = 0; i < 9; i++) {
+    for (int j = 0; j < 9; j++) {
+      int num = board[i][j] - '0';
+      //std::cout << i << j << ": " << num << std::endl;
+      if (board[i][j] == '.') {
+        blank_pt.emplace_back(i, j);
+      } else {
+        int num = board[i][j] - '0' - 1;
+        row[i][num] = true;
+        col[j][num] = true;
+        block[i / 3][j / 3][num] = true; 
+      }
+    }
+  }
+
+
+  repeat(board, 0);
 }
