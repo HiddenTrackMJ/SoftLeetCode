@@ -1,5 +1,4 @@
 #include <iostream>
-#include <vector>
 #include <map>
 #include <sstream>
 #include <string>
@@ -33,7 +32,7 @@ class Solution {
   vector<int> inorderTraversal2(TreeNode* root);
 
   vector<int> Solution::twoSum(vector<int>& nums, int target) {
-    //std::cout << "nice";
+    // std::cout << "nice";
     vector<int> others;
     int len = nums.size();
 
@@ -48,7 +47,6 @@ class Solution {
           others.push_back(j);
           return others;
         } else {
-        
         }
       }
     }
@@ -76,12 +74,12 @@ class Solution {
     std::stringstream ss;
     double n;
     ss << res;
-    ss >> n;  
+    ss >> n;
     ss.clear();
     return n;
   }
 
-   std::string int2str(double n) {
+  std::string int2str(double n) {
     std::stringstream ss;
     std::string res;
     ss << n;
@@ -95,60 +93,60 @@ class Solution {
      std::string res1;
      std::string res2;
 
-     while (l1 != NULL) {
-       int i = l1->val;
-       res1 = std::to_string(i) + res1;
-       l1 = l1->next;
-     }
+    while (l1 != NULL) {
+      int i = l1->val;
+      res1 = std::to_string(i) + res1;
+      l1 = l1->next;
+    }
 
-     double n = (double)str2int(res1);
-     std::cout << "n: " << n << std::endl;
-     ss.clear();
-     while (l2 != NULL) {
-       int i = l2->val;
-       res2 = std::to_string(i) + res2;
-       l2 = l2->next;
-     }
+    double n = (double)str2int(res1);
+    std::cout << "n: " << n << std::endl;
+    ss.clear();
+    while (l2 != NULL) {
+      int i = l2->val;
+      res2 = std::to_string(i) + res2;
+      l2 = l2->next;
+    }
 
-     double m = (double)str2int(res2);
-     std::cout << "m: " << m << std::endl;
-     ss.clear();
-     double sum = m + n;
-     std::string out = int2str(sum);
-     std::cout << "sum: " << sum << std::endl;
-     int len = out.size();
-     ListNode* s;
-     for (int i = 0; i < len; i++) {
-       if (i == 0) {
-         int x;
-         ss << out[i];
-         ss >> x;
-         ss.clear();
-         ListNode* emm = new ListNode(x);
-         s = emm;
-       } else {
-         int x;
-         ss << out[i];
-         ss >> x;
-         ss.clear();
-         ListNode* emm = new ListNode(x);
-         emm->next = s;
-         s = emm;
-       }
-     }
-       //std::string res3;
-       //while (s != NULL) {
-       //  int i = s->val;
+    double m = (double)str2int(res2);
+    std::cout << "m: " << m << std::endl;
+    ss.clear();
+    double sum = m + n;
+    std::string out = int2str(sum);
+    std::cout << "sum: " << sum << std::endl;
+    int len = out.size();
+    ListNode* s;
+    for (int i = 0; i < len; i++) {
+      if (i == 0) {
+        int x;
+        ss << out[i];
+        ss >> x;
+        ss.clear();
+        ListNode* emm = new ListNode(x);
+        s = emm;
+      } else {
+        int x;
+        ss << out[i];
+        ss >> x;
+        ss.clear();
+        ListNode* emm = new ListNode(x);
+        emm->next = s;
+        s = emm;
+      }
+    }
+    // std::string res3;
+    // while (s != NULL) {
+    //  int i = s->val;
 
-       //  res3 = std::to_string(i) + res3;
+    //  res3 = std::to_string(i) + res3;
 
-       //  s = s->next;
-       //}
-       //std::cout << "res: " << res3 << std::endl;
-       //int z = str2int(res3);
-       //std::cout << "z: " << z << std::endl;
+    //  s = s->next;
+    //}
+    // std::cout << "res: " << res3 << std::endl;
+    // int z = str2int(res3);
+    // std::cout << "z: " << z << std::endl;
 
-     return s;
-   }
+    return s;
+  }
 
 };
