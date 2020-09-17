@@ -28,10 +28,9 @@ ListNode* Solution::addTwoNumbers(ListNode* l1, ListNode* l2) {
 
   while (l1 != NULL || l2 != NULL) {
     if (l1 != NULL && l2 != NULL) {
- 
       int cur1 = l1->val;
       int cur2 = l2->val;
-      
+
       int sum = cur1 + cur2;
       if (flag) {
         ++sum;
@@ -60,7 +59,6 @@ ListNode* Solution::addTwoNumbers(ListNode* l1, ListNode* l2) {
       delete x;
 
     } else if (l1 != NULL && l2 == NULL) {
-
       int cur1 = l1->val;
       int sum = cur1;
       if (flag) {
@@ -81,7 +79,6 @@ ListNode* Solution::addTwoNumbers(ListNode* l1, ListNode* l2) {
       delete x;
 
     } else if (l1 == NULL && l2 != NULL) {
-
       int cur2 = l2->val;
       int sum = cur2;
       if (flag) {
@@ -100,7 +97,7 @@ ListNode* Solution::addTwoNumbers(ListNode* l1, ListNode* l2) {
       tmp = x;
       l2 = l2->next;
       delete x;
-    } 
+    }
   }
   if (flag) {
     ListNode* x = new ListNode(1);
@@ -109,7 +106,7 @@ ListNode* Solution::addTwoNumbers(ListNode* l1, ListNode* l2) {
     tmp = x;
     delete x;
   }
-  //while (l2 != NULL) {
+  // while (l2 != NULL) {
   //  int res = l2->val;
   //  std::cout << "x: " << res << std::endl;
   //  l2 = l2->next;
@@ -118,7 +115,7 @@ ListNode* Solution::addTwoNumbers(ListNode* l1, ListNode* l2) {
   return res;
 }
 
- void inorder(TreeNode* root, vector<int>& res) {
+void inorder(TreeNode* root, vector<int>& res) {
   if (!root) {
     return;
   }
@@ -137,9 +134,9 @@ vector<int> Solution::inorderTraversal(TreeNode* root) {
 vector<int> Solution::inorderTraversal2(TreeNode* root) {
   vector<int> res;
   std::stack<TreeNode*> nodes;
-  //TreeNode* res = res;
+  // TreeNode* res = res;
   bool flag = false;
- 
+
   while (root != NULL) {
     if (root->left != NULL && !flag) {
       nodes.push(root);
@@ -178,17 +175,17 @@ void repeat(vector<vector<char>>& board, int pos) {
 
   auto i = blank_pt[pos].first;
   auto j = blank_pt[pos].second;
-  
+
   for (int n = 0; n < 9 && !valid; ++n) {
     if (!row[i][n] && !col[j][n] && !block[i / 3][j / 3][n]) {
       row[i][n] = true;
       col[j][n] = true;
-      block[i / 3][j / 3][n] = true; 
+      block[i / 3][j / 3][n] = true;
       board[i][j] = n + '0' + 1;
       repeat(board, pos + 1);
       row[i][n] = false;
       col[j][n] = false;
-      block[i / 3][j / 3][n] = false; 
+      block[i / 3][j / 3][n] = false;
     }
   }
 }
@@ -202,22 +199,20 @@ void Solution::solveSudoku(vector<vector<char>>& board) {
   for (int i = 0; i < 9; i++) {
     for (int j = 0; j < 9; j++) {
       int num = board[i][j] - '0';
-      //std::cout << i << j << ": " << num << std::endl;
+      // std::cout << i << j << ": " << num << std::endl;
       if (board[i][j] == '.') {
         blank_pt.emplace_back(i, j);
       } else {
         int num = board[i][j] - '0' - 1;
         row[i][num] = true;
         col[j][num] = true;
-        block[i / 3][j / 3][num] = true; 
+        block[i / 3][j / 3][num] = true;
       }
     }
   }
 
-
   repeat(board, 0);
 }
-
 
 void inorder_reverse(TreeNode* root) {
   if (!root) {
@@ -243,34 +238,22 @@ TreeNode* Solution::invertTree2(TreeNode* root) {
   bool flag = false;
 
   TreeNode* res = root;
-
-    while (res != NULL) {
-
-    if (res->left != NULL && !flag) {
-      nodes.push(res);
-      res = res->left;
-
-    } else {
-
-
-      if (res->right != NULL) {
-        std::cout << "push: " << res->val << std::endl;
-        auto left = res->left;
-        auto right = res->right;
-        res->left = right;
-        res->right = left;
-        res = res->left;
-        flag = false;
-      } else {
-
-        if (nodes.empty()) break;
-        res = nodes.top();
-        nodes.pop();
-        flag = true;
-      }
+  nodes.push(root);
+  if (!root) {
+    return root;
+  }
+  while (!nodes.empty()) {
+    res = nodes.top();
+    nodes.pop();
+    auto tmp = res->left;
+    res->left = res->right;
+    res->right = tmp;
+    if (res->left) {
+      nodes.push(res->left);
     }
-
-
+    if (res->right) {
+      nodes.push(res->right);
+    }
   }
   return root;
 }
