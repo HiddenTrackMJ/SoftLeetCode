@@ -3,6 +3,7 @@
 #include <sstream>
 #include <string>
 #include <stack>
+#include <vector>
 
 using std::vector;
 
@@ -21,6 +22,8 @@ struct TreeNode {
 
 class Solution {
  public:
+  TreeNode* invertTree(TreeNode* root);
+
   ListNode* int2node(int* a, int len);
 
   ListNode* addTwoNumbers(ListNode* l1, ListNode* l2);

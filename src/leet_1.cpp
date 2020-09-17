@@ -125,9 +125,9 @@ ListNode* Solution::addTwoNumbers(ListNode* l1, ListNode* l2) {
   }
   inorder(root->left, res);
   res.push_back(root->val);
+  std::cout << "cur:" << root->val << std::endl;
   inorder(root->right, res);
 }
-
 
 vector<int> Solution::inorderTraversal(TreeNode* root) {
   vector<int> res;
@@ -138,7 +138,7 @@ vector<int> Solution::inorderTraversal(TreeNode* root) {
 vector<int> Solution::inorderTraversal2(TreeNode* root) {
   vector<int> res;
   vector<TreeNode*> nodes;
-  TreeNode* root = root;
+  //TreeNode* root = root;
   bool flag = false;
 
   while (root != NULL) {
@@ -163,4 +163,25 @@ vector<int> Solution::inorderTraversal2(TreeNode* root) {
     }
   }
   return res;
+}
+
+void inorder_reverse(TreeNode* root, vector<int>& res) {
+  if (!root) {
+    return;
+  }
+  inorder_reverse(root->left, res);
+  auto left = root->left;
+  auto right = root->right;
+  root->left = left;
+  root->right = right;
+  inorder_reverse(root->right, res);
+}
+
+TreeNode* Solution::invertTree(TreeNode* root) {
+  while (root) {
+    auto left = root->left;
+    auto right = root->right;
+    root;
+  }
+  return root;
 }
