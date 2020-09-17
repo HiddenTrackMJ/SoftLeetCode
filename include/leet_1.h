@@ -24,6 +24,8 @@ class Solution {
  public:
   void solveSudoku(vector<vector<char>>& board);
 
+  TreeNode* invertTree2(TreeNode* root);
+
   TreeNode* invertTree(TreeNode* root);
 
   ListNode* int2node(int* a, int len);

@@ -122,7 +122,7 @@ int main() {
   c->right = g;
 
   s.inorderTraversal(a);
-  //s.invertTree(a);
+  s.invertTree2(a);
   s.inorderTraversal(a);
 
 

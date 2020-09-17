@@ -110,8 +110,8 @@ ListNode* Solution::addTwoNumbers(ListNode* l1, ListNode* l2) {
     delete x;
   }
   //while (l2 != NULL) {
-  //  int root = l2->val;
-  //  std::cout << "x: " << root << std::endl;
+  //  int res = l2->val;
+  //  std::cout << "x: " << res << std::endl;
   //  l2 = l2->next;
   //}
 
@@ -137,7 +137,7 @@ vector<int> Solution::inorderTraversal(TreeNode* root) {
 vector<int> Solution::inorderTraversal2(TreeNode* root) {
   vector<int> res;
   std::stack<TreeNode*> nodes;
-  //TreeNode* root = root;
+  //TreeNode* res = res;
   bool flag = false;
  
   while (root != NULL) {
@@ -217,25 +217,60 @@ void Solution::solveSudoku(vector<vector<char>>& board) {
 
   repeat(board, 0);
 }
-}
 
-void inorder_reverse(TreeNode* root, vector<int>& res) {
+
+void inorder_reverse(TreeNode* root) {
   if (!root) {
     return;
   }
-  inorder_reverse(root->left, res);
+
+  inorder_reverse(root->left);
   auto left = root->left;
   auto right = root->right;
-  root->left = left;
-  root->right = right;
-  inorder_reverse(root->right, res);
+
+  inorder_reverse(root->right);
+  root->left = right;
+  root->right = left;
 }
 
 TreeNode* Solution::invertTree(TreeNode* root) {
-  while (root) {
-    auto left = root->left;
-    auto right = root->right;
-    root;
+  inorder_reverse(root);
+  return root;
+}
+
+TreeNode* Solution::invertTree2(TreeNode* root) {
+  std::stack<TreeNode*> nodes;
+  bool flag = false;
+
+  TreeNode* res = root;
+
+    while (res != NULL) {
+
+    if (res->left != NULL && !flag) {
+      nodes.push(res);
+      res = res->left;
+
+    } else {
+
+
+      if (res->right != NULL) {
+        std::cout << "push: " << res->val << std::endl;
+        auto left = res->left;
+        auto right = res->right;
+        res->left = right;
+        res->right = left;
+        res = res->left;
+        flag = false;
+      } else {
+
+        if (nodes.empty()) break;
+        res = nodes.top();
+        nodes.pop();
+        flag = true;
+      }
+    }
+
+
   }
   return root;
 }
