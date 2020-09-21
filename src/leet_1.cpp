@@ -257,3 +257,30 @@ TreeNode* Solution::invertTree2(TreeNode* root) {
   }
   return root;
 }
+
+void inorder_search(TreeNode* root, int& res) {
+  if (!root) {
+    return;
+  }
+  res += root->val;
+  std::cout << "cur1:" << root->val << "; res:" << res << std::endl;
+  inorder_search(root->left, res);
+  inorder_search(root->right, res);
+}
+
+void inorder_convert(TreeNode* root) {
+  if (!root) {
+    return;
+  }
+  int res = 0;
+  inorder_search(root->right, res);
+  root->val += res;
+  inorder_convert(root->left);
+  inorder_convert(root->right);
+}
+
+TreeNode* Solution::convertBST(TreeNode* root) {
+  int res = 0;
+  inorder_convert(root);
+  return root;
+}

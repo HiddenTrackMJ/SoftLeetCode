@@ -22,6 +22,8 @@ struct TreeNode {
 
 class Solution {
  public:
+  TreeNode* convertBST(TreeNode* root);
+
   void solveSudoku(vector<vector<char>>& board);
 
   TreeNode* invertTree2(TreeNode* root);

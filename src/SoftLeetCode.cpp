@@ -5,6 +5,8 @@
 
 #include "leet_1.h"
 
+//#pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")
+
 using namespace std;
 
 
@@ -106,25 +108,44 @@ int main() {
 
 
   /*    No.226     */
-  TreeNode* a = new TreeNode(4);
-  TreeNode* b = new TreeNode(2);
-  TreeNode* c = new TreeNode(7);
-  TreeNode* d = new TreeNode(1);
-  TreeNode* e = new TreeNode(3);
-  TreeNode* f = new TreeNode(6);
-  TreeNode* g = new TreeNode(9);
+  //TreeNode* a = new TreeNode(4);
+  //TreeNode* b = new TreeNode(2);
+  //TreeNode* c = new TreeNode(7);
+  //TreeNode* d = new TreeNode(1);
+  //TreeNode* e = new TreeNode(3);
+  //TreeNode* f = new TreeNode(6);
+  //TreeNode* g = new TreeNode(9);
 
-  a->left = b;
-  a->right = c;
-  b->left = d;
-  b->right = e;
-  c->left = f;
-  c->right = g;
+  //a->left = b;
+  //a->right = c;
+  //b->left = d;
+  //b->right = e;
+  //c->left = f;
+  //c->right = g;
 
-  s.inorderTraversal(a);
-  s.invertTree2(a);
-  s.inorderTraversal(a);
+  //s.inorderTraversal(a);
+  //s.invertTree2(a);
+  //s.inorderTraversal(a);
 
+
+  /*    No.538     */
+   TreeNode* a = new TreeNode(5);
+   TreeNode* b = new TreeNode(2);
+   TreeNode* c = new TreeNode(13);
+   TreeNode* d = new TreeNode(1);
+   TreeNode* e = new TreeNode(3);
+   TreeNode* f = new TreeNode(6);
+   TreeNode* g = new TreeNode(9);
+
+   a->left = b;
+   a->right = c;
+   //b->left = d;
+   //b->right = e;
+   //c->left = f;
+   //c->right = g;
+
+   s.convertBST(a);
+   s.inorderTraversal(a);
 
   return 0;
 }
