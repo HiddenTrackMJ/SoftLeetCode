@@ -263,24 +263,43 @@ void inorder_search(TreeNode* root, int& res) {
     return;
   }
   res += root->val;
-  std::cout << "cur1:" << root->val << "; res:" << res << std::endl;
+  //std::cout << "cur1:" << root->val << "; res:" << res << std::endl;
   inorder_search(root->left, res);
   inorder_search(root->right, res);
 }
 
-void inorder_convert(TreeNode* root) {
+void inorder_convert(TreeNode* root, int more, int root_val) {
   if (!root) {
     return;
   }
+
   int res = 0;
   inorder_search(root->right, res);
-  root->val += res;
-  inorder_convert(root->left);
-  inorder_convert(root->right);
+  int tmp = root->val;
+  root->val = root->val + more + res;
+  std::cout << "cur1:" << tmp << " ;cur2:" << root->val
+            << "; res:" << res << "; more:" << more << "; origin:" << root_val
+            << std::endl;
+  more = root->val;
+
+  if (tmp >= root_val) {
+    std::cout << "xxx"
+              << "cur:" << tmp << " ;origin:" << root_val
+              << std::endl;
+    inorder_convert(root->right, 0, root_val);
+  } else {
+    std::cout << "yyy"
+              << "cur:" << tmp << " ;origin:" << root_val
+              << std::endl;
+    inorder_convert(root->right, more - res - tmp, root_val);
+  }
+
+
+  inorder_convert(root->left, more, root_val);
 }
 
 TreeNode* Solution::convertBST(TreeNode* root) {
   int res = 0;
-  inorder_convert(root);
+  inorder_convert(root, 0, root->val);
   return root;
 }
