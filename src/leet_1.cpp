@@ -298,8 +298,63 @@ void inorder_convert(TreeNode* root, int more, int root_val) {
   inorder_convert(root->left, more, root_val);
 }
 
+void inorder_convert2(TreeNode* root, int& more) {
+  if (!root) {
+    return;
+  }
+
+  inorder_convert2(root->right, more);
+  more += root->val;
+  root->val = more;
+  inorder_convert2(root->left, more);
+}
+
+
+void traversal(TreeNode* root, int& pre) {
+  std::stack<TreeNode*> st;
+  TreeNode* cur = root;
+  while (cur != NULL || !st.empty()) {
+    if (cur != NULL) {
+      st.push(cur);
+      cur = cur->right;  // ÓÒ
+    } else {
+      cur = st.top();  // ÖÐ
+      st.pop();
+      cur->val += pre;
+      pre = cur->val;
+      cur = cur->left;  // ×ó
+    }
+  }
+}
+
 TreeNode* Solution::convertBST(TreeNode* root) {
   int res = 0;
-  inorder_convert(root, 0, root->val);
+  //inorder_convert(root, 0, root->val);
+
+  //inorder_convert2(root, res);
+  traversal(root, res);
   return root;
+}
+
+
+int Solution::minCameraCover(TreeNode* root) {
+  int res = 0;
+  if (!root) {
+    return res;
+  }
+  TreeNode* cur = root;
+  std::stack<TreeNode*> nodes;
+  int s1, s2;
+
+  while (cur || !nodes.empty()) {
+    if (cur->left) {
+      nodes.push(cur);
+      cur = cur->left;
+
+    } else {
+      cur = nodes.top();
+      nodes.pop();
+      cur = cur->right;
+    }
+  }
 }

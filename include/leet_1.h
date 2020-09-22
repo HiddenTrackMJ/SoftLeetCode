@@ -22,6 +22,8 @@ struct TreeNode {
 
 class Solution {
  public:
+  int minCameraCover(TreeNode* root);
+
   TreeNode* convertBST(TreeNode* root);
 
   void solveSudoku(vector<vector<char>>& board);
