@@ -336,25 +336,120 @@ TreeNode* Solution::convertBST(TreeNode* root) {
   return root;
 }
 
+int dfs_camera(TreeNode* cur, int& res) {
+  if (cur == NULL) return 2;
+
+  int left = dfs_camera(cur->left, res);
+  int right = dfs_camera(cur->right, res);
+
+  if (left ==2 && right == 2) {
+    return 0;
+  } else if (left == 0 || right == 0) {
+    res++;
+    return 1;
+  } else if (left == 1 || right == 1) {
+    return 2;
+  }
+}
+
 
 int Solution::minCameraCover(TreeNode* root) {
   int res = 0;
-  if (!root) {
-    return res;
+  if (dfs_camera(root, res) == 0) {  // root ÎÞ¸²¸Ç
+    res++;
   }
-  TreeNode* cur = root;
-  std::stack<TreeNode*> nodes;
-  int s1, s2;
+  return res;
 
-  while (cur || !nodes.empty()) {
-    if (cur->left) {
-      nodes.push(cur);
-      cur = cur->left;
 
-    } else {
-      cur = nodes.top();
-      nodes.pop();
-      cur = cur->right;
+  //TreeNode* cur1 = root;
+  //std::stack<TreeNode*> nodes;
+  //int s1, s2;
+
+  //while (cur1 || !nodes.empty()) {
+  //  if (cur1->left) {
+  //    nodes.push(cur1);
+  //    cur1 = cur1->left;
+
+  //  } else {
+  //    cur1 = nodes.top();
+  //    nodes.pop();
+  //    cur1 = cur1->right;
+  //  }
+  //}
+}
+
+
+TreeNode* Solution::mergeTrees(TreeNode* t1, TreeNode* t2) {
+  //TreeNode* res;
+  TreeNode* cur1 = t1;
+  TreeNode* cur2 = t2;
+  std::stack<TreeNode*> nodes1;
+  std::stack<TreeNode*> nodes2;
+
+  TreeNode* res;
+  nodes1.push(t1);
+  nodes2.push(t2);
+
+  if (!t1) {
+    return t2;
+  }
+
+  if (!t2) {
+    return t1;
+  }
+
+  //auto merged = new TreeNode(t1->val + t2->val);
+  //merged->left = mergeTrees(t1->left, t2->left);
+  //merged->right = mergeTrees(t1->right, t2->right);
+  //return merged;
+
+
+  while (!nodes1.empty() || !nodes2.empty()) {
+    cur1 = nodes1.top();
+    nodes1.pop();
+
+    cur2 = nodes2.top();
+    nodes2.pop();
+
+    cur1->val += cur2->val;
+    std::cout << "push: " << cur1->val << std::endl;
+
+    if (cur1->left && cur2->left) {
+      std::cout << "1111 "  << std::endl;
+      nodes1.push(cur1->left);
+      nodes2.push(cur2->left);
+    } else if (cur1->left && !cur2->left) {
+      std::cout << "2222: " << cur1->val << std::endl;
+      nodes1.push(cur1->left);
+      TreeNode* n = new TreeNode(0);
+      cur2->left = n;
+      nodes2.push(cur2->left);
+    } else if (!cur1->left && cur2->left) {
+      std::cout << "3333 " << std::endl;
+      TreeNode* n = new TreeNode(0);
+      cur1->left = n;
+      nodes1.push(cur1->left);
+      nodes2.push(cur2->left);
+    }
+
+    if (cur1->right && cur2->right) {
+      std::cout << "4444 " << std::endl;
+      nodes1.push(cur1->right);
+      nodes2.push(cur2->right);
+    } else if (cur1->right && !cur2->right) {
+      std::cout << "5555: " << cur1->val  << std::endl;
+      nodes1.push(cur1->right);
+      TreeNode* n = new TreeNode(0);
+      cur2->right = n;
+      nodes2.push(cur2->right);
+    } else if (!cur1->right && cur2->right) {
+      std::cout << "6666 " << std::endl;
+      TreeNode* n = new TreeNode(0);
+      cur1->right = n;
+      nodes1.push(cur1->right);
+      nodes2.push(cur2->right);
     }
   }
+
+  return t1;
 }

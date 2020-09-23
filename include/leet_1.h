@@ -22,6 +22,8 @@ struct TreeNode {
 
 class Solution {
  public:
+  TreeNode* mergeTrees(TreeNode* t1, TreeNode* t2);
+
   int minCameraCover(TreeNode* root);
 
   TreeNode* convertBST(TreeNode* root);
