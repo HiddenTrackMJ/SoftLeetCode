@@ -156,19 +156,25 @@ int main() {
   TreeNode* f = new TreeNode(6);
   TreeNode* g = new TreeNode(4);
 
+  TreeNode* x = new TreeNode(-2);
+  TreeNode* y = new TreeNode(-4);
+  TreeNode* z = new TreeNode(-1);
+
   a->left = b;
   a->right = c;
-   b->left = d;
+  b->left = d;
   b->right = e;
-   c->left = f;
+  c->left = f;
   c->right = g;
+  x->left = y;
+  x->right = z;
 
   //int res = s.minCameraCover(a);
   //std::cout << res << std::endl;
 
   /*   No.617     */
 
-  auto res = s.mergeTrees(a, b);
+  auto res = s.mergeTrees(a, x);
   s.inorderTraversal(res);
 
 

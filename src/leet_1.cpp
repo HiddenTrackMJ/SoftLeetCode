@@ -404,7 +404,7 @@ TreeNode* Solution::mergeTrees(TreeNode* t1, TreeNode* t2) {
   //return merged;
 
 
-  while (!nodes1.empty() || !nodes2.empty()) {
+  while (!nodes1.empty() && !nodes2.empty()) {
     cur1 = nodes1.top();
     nodes1.pop();
 
@@ -419,7 +419,7 @@ TreeNode* Solution::mergeTrees(TreeNode* t1, TreeNode* t2) {
       nodes1.push(cur1->left);
       nodes2.push(cur2->left);
     } else if (cur1->left && !cur2->left) {
-      std::cout << "2222: " << cur1->val << std::endl;
+      std::cout << "2222: " << cur1->val << " ; xxx: " << cur1->left->val << std::endl;
       nodes1.push(cur1->left);
       TreeNode* n = new TreeNode(0);
       cur2->left = n;
@@ -437,7 +437,8 @@ TreeNode* Solution::mergeTrees(TreeNode* t1, TreeNode* t2) {
       nodes1.push(cur1->right);
       nodes2.push(cur2->right);
     } else if (cur1->right && !cur2->right) {
-      std::cout << "5555: " << cur1->val  << std::endl;
+      std::cout << "5555: " << cur1->val << " ; xxx: " << cur1->right->val
+                << std::endl;
       nodes1.push(cur1->right);
       TreeNode* n = new TreeNode(0);
       cur2->right = n;
