@@ -359,37 +359,10 @@ int Solution::minCameraCover(TreeNode* root) {
     res++;
   }
   return res;
-
-
-  //TreeNode* cur1 = root;
-  //std::stack<TreeNode*> nodes;
-  //int s1, s2;
-
-  //while (cur1 || !nodes.empty()) {
-  //  if (cur1->left) {
-  //    nodes.push(cur1);
-  //    cur1 = cur1->left;
-
-  //  } else {
-  //    cur1 = nodes.top();
-  //    nodes.pop();
-  //    cur1 = cur1->right;
-  //  }
-  //}
 }
 
 
 TreeNode* Solution::mergeTrees(TreeNode* t1, TreeNode* t2) {
-  //TreeNode* res;
-  TreeNode* cur1 = t1;
-  TreeNode* cur2 = t2;
-  std::stack<TreeNode*> nodes1;
-  std::stack<TreeNode*> nodes2;
-
-  TreeNode* res;
-  nodes1.push(t1);
-  nodes2.push(t2);
-
   if (!t1) {
     return t2;
   }
@@ -398,13 +371,24 @@ TreeNode* Solution::mergeTrees(TreeNode* t1, TreeNode* t2) {
     return t1;
   }
 
-  //auto merged = new TreeNode(t1->val + t2->val);
-  //merged->left = mergeTrees(t1->left, t2->left);
-  //merged->right = mergeTrees(t1->right, t2->right);
-  //return merged;
+  TreeNode* cur1 = t1;
+  TreeNode* cur2 = t2;
+  std::stack<TreeNode*> nodes1;
+  std::stack<TreeNode*> nodes2;
+  nodes1.push(t1);
+  nodes2.push(t2);
+
+  //std::stack<std::pair<TreeNode*, TreeNode*>> nodes;
+  //nodes.push(std::make_pair(t1, t2));
+
+
 
 
   while (!nodes1.empty() && !nodes2.empty()) {
+    //std::make_pair(cur1, cur2) = nodes.top();
+    //nodes.pop();
+
+
     cur1 = nodes1.top();
     nodes1.pop();
 
@@ -413,40 +397,23 @@ TreeNode* Solution::mergeTrees(TreeNode* t1, TreeNode* t2) {
 
     cur1->val += cur2->val;
     std::cout << "push: " << cur1->val << std::endl;
+    if (cur1->left || cur2->left) {
+      TreeNode* n = new TreeNode(0);
+      if (!cur1->left) cur1->left = n;
+      if (!cur2->left) cur2->left = n;
 
-    if (cur1->left && cur2->left) {
-      std::cout << "1111 "  << std::endl;
-      nodes1.push(cur1->left);
-      nodes2.push(cur2->left);
-    } else if (cur1->left && !cur2->left) {
-      std::cout << "2222: " << cur1->val << " ; xxx: " << cur1->left->val << std::endl;
-      nodes1.push(cur1->left);
-      TreeNode* n = new TreeNode(0);
-      cur2->left = n;
-      nodes2.push(cur2->left);
-    } else if (!cur1->left && cur2->left) {
-      std::cout << "3333 " << std::endl;
-      TreeNode* n = new TreeNode(0);
-      cur1->left = n;
+      //nodes.push(std::make_pair(cur1->left, cur2->left));
       nodes1.push(cur1->left);
       nodes2.push(cur2->left);
     }
 
-    if (cur1->right && cur2->right) {
-      std::cout << "4444 " << std::endl;
-      nodes1.push(cur1->right);
-      nodes2.push(cur2->right);
-    } else if (cur1->right && !cur2->right) {
-      std::cout << "5555: " << cur1->val << " ; xxx: " << cur1->right->val
-                << std::endl;
-      nodes1.push(cur1->right);
+    if (cur1->right || cur2->right) {
       TreeNode* n = new TreeNode(0);
-      cur2->right = n;
-      nodes2.push(cur2->right);
-    } else if (!cur1->right && cur2->right) {
-      std::cout << "6666 " << std::endl;
-      TreeNode* n = new TreeNode(0);
-      cur1->right = n;
+
+      if (!cur1->right) cur1->right = n;
+      if (!cur2->right) cur2->right = n;
+      //nodes.push(std::make_pair(cur1->right, cur2->right));
+
       nodes1.push(cur1->right);
       nodes2.push(cur2->right);
     }
