@@ -4,6 +4,7 @@
 #include <string>
 #include <stack>
 #include <vector>
+#include <map>
 
 using std::vector;
 
@@ -22,6 +23,8 @@ struct TreeNode {
 
 class Solution {
  public:
+  vector<int> findMode(TreeNode* root);
+
   TreeNode* mergeTrees(TreeNode* t1, TreeNode* t2);
 
   int minCameraCover(TreeNode* root);

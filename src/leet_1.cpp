@@ -421,3 +421,73 @@ TreeNode* Solution::mergeTrees(TreeNode* t1, TreeNode* t2) {
 
   return t1;
 }
+
+std::vector<int> res;
+TreeNode* now = nullptr;
+int count = -1;
+int max_count = -1;
+
+void dfs_findMode(TreeNode* cur, std::map<int, int>& mode_map) {
+  if (!cur) {
+    return;
+  }
+
+  dfs_findMode(cur->left, mode_map);
+
+  //auto x = mode_map.find(cur->val);
+  //if (x == mode_map.end()) {
+  //  mode_map[cur->val] == 1;
+  //} else {
+  //  std::cout << "now : " << cur->val << std::endl;
+  //  mode_map[cur->val]++;
+  //}
+
+  if (!now) {
+    std::cout << "now3 : " << count << std::endl;
+    count = 1;
+  } else if (now->val == cur->val) {
+    std::cout << "now4 : " << count << std::endl;
+    count++;
+  } else {
+    std::cout << "now5 : " << count << std::endl;
+    count = 1;
+  }
+  now = cur;
+
+  if (max_count < count) {
+    max_count = count;
+    //std::cout << "now1 : " << count << std::endl;
+    res.clear();
+    res.push_back(now->val);
+  } else if (max_count == count) {
+    //std::cout << "now2 : " << count << std::endl;
+    res.push_back(now->val);
+  }
+
+  dfs_findMode(cur->right, mode_map);
+}
+
+vector<int> Solution::findMode(TreeNode* root) {
+  if (!root) {
+    return {};
+  }
+
+
+  std::map<int, int> mode_map;
+  dfs_findMode(root, mode_map);
+  
+  //auto iter = mode_map.begin();
+  //int tmp = 0;
+  //while (iter != mode_map.end()) {
+  //  std::cout << iter->first << " : " << iter->second << std::endl;
+  //  if (tmp < iter->second) {
+  //    tmp = iter->second;
+  //    res.clear();
+  //    res.push_back(iter->first);
+  //  } else if (tmp == iter->second) {
+  //    res.push_back(iter->first);
+  //  }
+  //  iter++;
+  //}
+  return res;
+}

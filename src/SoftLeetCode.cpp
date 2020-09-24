@@ -149,8 +149,8 @@ int main() {
 
   /*   No.968     */
   TreeNode* a = new TreeNode(0);
-  TreeNode* b = new TreeNode(-2);
-  TreeNode* c = new TreeNode(3);
+  TreeNode* b = new TreeNode(0);
+  TreeNode* c = new TreeNode(0);
   TreeNode* d = new TreeNode(-4);
   TreeNode* e = new TreeNode(-1);
   TreeNode* f = new TreeNode(6);
@@ -162,21 +162,32 @@ int main() {
 
   a->left = b;
   a->right = c;
-  b->left = d;
-  b->right = e;
-  c->left = f;
-  c->right = g;
-  x->left = y;
-  x->right = z;
+  //b->left = d;
+  //b->right = e;
+  //c->left = f;
+  //c->right = g;
+  //x->left = y;
+  //x->right = z;
 
   //int res = s.minCameraCover(a);
   //std::cout << res << std::endl;
 
   /*   No.617     */
 
-  auto res = s.mergeTrees(a, x);
-  s.inorderTraversal(res);
+  //auto res = s.mergeTrees(a, x);
+  //s.inorderTraversal(res);
 
+
+  /*   No.501     */
+
+  auto res = s.findMode(a);
+   size_t len = res.size();
+   for (size_t j = 0; j < len; j++) {
+    std::cout << "res"
+              << j
+              << " : " << res.back() << std::endl;
+     res.pop_back();
+  }
 
   return 0;
 }
