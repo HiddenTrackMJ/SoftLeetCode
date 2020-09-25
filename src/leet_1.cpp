@@ -491,3 +491,45 @@ vector<int> Solution::findMode(TreeNode* root) {
   //}
   return res;
 }
+
+TreeNode* dfs_buildTree(int inorder_start, int inorder_end, int postorder_start,
+                   int postorder_end, vector<int>& inorder, vector<int>& postorder) {
+
+  int in_root = 0;
+  int root_val = postorder[postorder_end];
+  std::cout << "push : " << root_val << " ;inorder_start : " << inorder_start
+            << " ;inorder_end : " << inorder_end
+            << " ;postorder_start : " << postorder_start
+            << " ;postorder_end : " << postorder_end << std::endl;
+  TreeNode* cur_root = new TreeNode(root_val);
+  if (inorder_end - inorder_start == 0) {
+    return cur_root;
+  }
+
+  while (inorder[in_root] != root_val && in_root < inorder_end) {
+    in_root++;
+  }
+
+  int left_num = in_root - inorder_start;
+  std::cout << "left num: " << left_num << std::endl;
+  if (left_num > 0) {
+    cur_root->left = dfs_buildTree(inorder_start, in_root - 1, postorder_start,
+                                   postorder_start + left_num - 1, inorder, postorder);
+  }
+
+  int right_num = inorder_end - in_root;
+  std::cout << "right_num: " << right_num << std::endl;
+  if (right_num > 0) {
+    cur_root->right = dfs_buildTree(in_root + 1, inorder_end, postorder_end - right_num,
+                      postorder_end - 1, inorder, postorder);
+  }
+
+  return cur_root;
+}
+
+TreeNode* Solution::buildTree(vector<int>& inorder, vector<int>& postorder) {
+  
+  int len = postorder.size();
+  if (len == 0) return nullptr;
+  else return dfs_buildTree(0, len - 1, 0, len - 1, inorder, postorder);
+}

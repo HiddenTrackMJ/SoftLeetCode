@@ -23,6 +23,8 @@ struct TreeNode {
 
 class Solution {
  public:
+  TreeNode* buildTree(vector<int>& inorder, vector<int>& postorder);
+
   vector<int> findMode(TreeNode* root);
 
   TreeNode* mergeTrees(TreeNode* t1, TreeNode* t2);

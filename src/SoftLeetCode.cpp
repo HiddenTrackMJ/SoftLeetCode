@@ -148,20 +148,20 @@ int main() {
    //s.inorderTraversal(a);
 
   /*   No.968     */
-  TreeNode* a = new TreeNode(0);
-  TreeNode* b = new TreeNode(0);
-  TreeNode* c = new TreeNode(0);
-  TreeNode* d = new TreeNode(-4);
-  TreeNode* e = new TreeNode(-1);
-  TreeNode* f = new TreeNode(6);
-  TreeNode* g = new TreeNode(4);
+  //TreeNode* a = new TreeNode(0);
+  //TreeNode* b = new TreeNode(0);
+  //TreeNode* c = new TreeNode(0);
+  //TreeNode* d = new TreeNode(-4);
+  //TreeNode* e = new TreeNode(-1);
+  //TreeNode* f = new TreeNode(6);
+  //TreeNode* g = new TreeNode(4);
 
-  TreeNode* x = new TreeNode(-2);
-  TreeNode* y = new TreeNode(-4);
-  TreeNode* z = new TreeNode(-1);
+  //TreeNode* x = new TreeNode(-2);
+  //TreeNode* y = new TreeNode(-4);
+  //TreeNode* z = new TreeNode(-1);
 
-  a->left = b;
-  a->right = c;
+  //a->left = b;
+  //a->right = c;
   //b->left = d;
   //b->right = e;
   //c->left = f;
@@ -180,14 +180,22 @@ int main() {
 
   /*   No.501     */
 
-  auto res = s.findMode(a);
-   size_t len = res.size();
-   for (size_t j = 0; j < len; j++) {
-    std::cout << "res"
-              << j
-              << " : " << res.back() << std::endl;
-     res.pop_back();
-  }
+  //auto res = s.findMode(a);
+  // size_t len = res.size();
+  // for (size_t j = 0; j < len; j++) {
+  //  std::cout << "res"
+  //            << j
+  //            << " : " << res.back() << std::endl;
+  //   res.pop_back();
+  //}
+
+
+  /*   No.106     */
+  vector<int> a = {9, 3, 15, 20, 7};
+  vector<int> b = {9, 15, 7, 20, 3};
+
+  auto res = s.buildTree(a, b);
+  s.inorderTraversal(res);
 
   return 0;
 }
