@@ -18,11 +18,19 @@ struct TreeNode {
   int val;
   TreeNode* left;
   TreeNode* right;
+  TreeNode() : val(0), left(nullptr), right(nullptr) {}
   TreeNode(int x) : val(x), left(NULL), right(NULL){}
+  TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
 };
 
 class Solution {
  public:
+  vector<int> postorderTraversal2(TreeNode* root);
+
+  vector<int> postorderTraversal(TreeNode* root);
+
+  vector<vector<int>> pathSum(TreeNode* root, int sum);
+
   TreeNode* buildTree(vector<int>& inorder, vector<int>& postorder);
 
   vector<int> findMode(TreeNode* root);

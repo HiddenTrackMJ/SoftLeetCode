@@ -533,3 +533,57 @@ TreeNode* Solution::buildTree(vector<int>& inorder, vector<int>& postorder) {
   if (len == 0) return nullptr;
   else return dfs_buildTree(0, len - 1, 0, len - 1, inorder, postorder);
 }
+
+
+
+vector<vector<int>> Solution::pathSum(TreeNode* root, int sum) {
+  std::map<TreeNode*, vector<int>> node_path;
+  vector<vector<int>> res;
+  TreeNode* cur = root;
+
+  while (cur) {
+
+  }
+
+}
+
+void dfs_post(TreeNode* cur, vector<int> res) {
+  if (!cur) {
+    return;
+  }
+  dfs_post(cur->left, res);
+  dfs_post(cur->right, res);
+  std::cout << "push: " << cur->val << std::endl;
+  res.push_back(cur->val);
+}
+
+vector<int> Solution::postorderTraversal(TreeNode* root) {
+  if (!root) {
+    return {};
+  }
+  vector<int> res;
+  dfs_post(root, res);
+  return res;
+}
+
+vector<int> Solution::postorderTraversal2(TreeNode* root) {
+  if (!root) {
+    return {};
+  }
+  vector<int> res;
+  TreeNode* cur = root;
+  std::stack<TreeNode*> nodes;
+  //nodes.push(root);
+
+  while (cur || !nodes.empty()) {
+    if (cur) {
+      nodes.push(cur);
+      cur = cur->left;
+    } else {
+    
+    }
+  }
+
+
+  return res;
+}
