@@ -202,7 +202,7 @@ int main() {
   
 
   /*   No.145     */
-  s.postorderTraversal(a);
+  s.postorderTraversal2(a);
 
 
   return 0;

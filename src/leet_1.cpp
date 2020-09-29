@@ -434,12 +434,12 @@ void dfs_findMode(TreeNode* cur, std::map<int, int>& mode_map) {
 
   dfs_findMode(cur->left, mode_map);
 
-  //auto x = mode_map.find(cur->val);
+  //auto x = mode_map.find(root->val);
   //if (x == mode_map.end()) {
-  //  mode_map[cur->val] == 1;
+  //  mode_map[root->val] == 1;
   //} else {
-  //  std::cout << "now : " << cur->val << std::endl;
-  //  mode_map[cur->val]++;
+  //  std::cout << "now : " << root->val << std::endl;
+  //  mode_map[root->val]++;
   //}
 
   if (!now) {
@@ -571,16 +571,24 @@ vector<int> Solution::postorderTraversal2(TreeNode* root) {
     return {};
   }
   vector<int> res;
-  TreeNode* cur = root;
+  TreeNode* cur = nullptr;
   std::stack<TreeNode*> nodes;
   //nodes.push(root);
 
-  while (cur || !nodes.empty()) {
-    if (cur) {
-      nodes.push(cur);
-      cur = cur->left;
+  while (root || !nodes.empty()) {
+    while (root) {
+      nodes.push(root);
+      root = root->left;
+    }
+    root = nodes.top();
+    nodes.pop();
+    if (root->right == nullptr || root->right == cur) {
+      res.push_back(root->val);
+      cur = root;
+      root = nullptr;
     } else {
-    
+      nodes.push(root);
+      root = root->right;
     }
   }
 
