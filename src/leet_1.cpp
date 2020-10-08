@@ -537,14 +537,76 @@ TreeNode* Solution::buildTree(vector<int>& inorder, vector<int>& postorder) {
 
 
 vector<vector<int>> Solution::pathSum(TreeNode* root, int sum) {
-  std::map<TreeNode*, vector<int>> node_path;
-  vector<vector<int>> res;
-  TreeNode* cur = root;
-
-  while (cur) {
-
+  if (root == nullptr) {
+    return {};
   }
 
+  std::stack <std::tuple<TreeNode*, int, std::vector<int>>> nodes;
+  vector<vector<int>> res;
+  TreeNode* cur;
+  vector<int> cur_path = {root->val};
+  nodes.push(std::make_tuple(root, root->val, cur_path));
+  int cur_sum;
+
+  while (!nodes.empty()) {
+    auto tup = nodes.top();
+    nodes.pop();
+    cur = std::get<0>(tup);
+    cur_sum = std::get<1>(tup);
+    cur_path = std::get<2>(tup);
+    std::cout << "cur: " << cur->val << " ; cur_sum: " << cur_sum << std::endl;
+    size_t len = cur_path.size();
+    for (size_t j = 0; j < len; j++) {
+      std::cout << cur_path[j];
+    }
+    std::cout << std::endl;
+    if (!cur->left && !cur->right) {
+      if (cur_sum == sum) {
+        res.push_back(cur_path);
+
+        std::cout << "cur1: " << cur->val << " ; cur_sum1: " << cur_sum
+                  << std::endl;
+      }
+    } else {
+      if (cur->right) {
+        auto tmp_path = cur_path;
+        tmp_path.push_back(cur->right->val);
+        nodes.push(
+            std::make_tuple(cur->right, cur->right->val + cur_sum, tmp_path));
+      }
+
+      if (cur->left) {
+        auto tmp_path = cur_path;
+        tmp_path.push_back(cur->left->val);
+        nodes.push(
+            std::make_tuple(cur->left, cur->left->val + cur_sum, tmp_path));
+      }
+    }
+  }
+
+  return res;
+}
+
+vector<vector<int>> ret;
+vector<int> path;
+
+void dfs(TreeNode* root, int sum) {
+  if (root == nullptr) {
+    return;
+  }
+  path.emplace_back(root->val);
+  sum -= root->val;
+  if (root->left == nullptr && root->right == nullptr && sum == 0) {
+    ret.emplace_back(path);
+  }
+  dfs(root->left, sum);
+  dfs(root->right, sum);
+  path.pop_back();
+}
+
+vector<vector<int>> Solution::pathSum2(TreeNode* root, int sum) {
+  dfs(root, sum);
+  return ret;
 }
 
 void dfs_post(TreeNode* cur, vector<int> res) {
@@ -616,4 +678,35 @@ Node* Solution::connect(Node* root) {
     }
   }
   return root;
+}
+
+void Solution::reverseString(vector<char>& s) {
+  size_t len = s.size();
+  if (len == 0) return;
+  size_t n = 0;
+  if (len % 2 == 0)
+    n = len / 2 - 1;
+  else
+    n = len / 2;
+  std::cout << "n: " << n << std::endl;
+  for (int i = 0; i <= n; i++) {
+    char tmp = s[i];
+    s[i] = s[len - 1 - i];
+    s[len - 1 - i] = tmp;
+  }
+}
+
+
+void Solution::sortColors(vector<int>& nums) {
+  int len = nums.size();
+  if (len == 0) return;
+  for (int j = 1; j < len; j++) {
+    int key = nums[j];
+    int i = j - 1;
+    while (i >= 0 && nums[i] > key) {
+      nums[i + 1] = nums[i];
+      i = i - 1;
+    }
+    nums[i + 1] = key;
+  }
 }

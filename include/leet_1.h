@@ -41,11 +41,17 @@ class Node {
 
 class Solution {
  public:
+  void sortColors(vector<int>& nums);
+
+  void reverseString(vector<char>& s);
+
   Node* connect(Node* root);
 
   vector<int> postorderTraversal2(TreeNode* root);
 
   vector<int> postorderTraversal(TreeNode* root);
+
+  vector<vector<int>> pathSum2(TreeNode* root, int sum);
 
   vector<vector<int>> pathSum(TreeNode* root, int sum);
 
