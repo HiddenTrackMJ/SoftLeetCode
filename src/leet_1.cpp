@@ -710,3 +710,30 @@ void Solution::sortColors(vector<int>& nums) {
     nums[i + 1] = key;
   }
 }
+
+vector<vector<int>> Solution::levelOrder(TreeNode* root) {
+  if (!root) {
+    return {};
+  }
+  vector<vector<int>> res;
+  vector<TreeNode*> cur = {root};
+  std::vector<vector<TreeNode*>> nodes;
+  vector<TreeNode*> next;
+  vector<int> now;
+  nodes.push_back(cur);
+  while (!nodes.empty()) {
+     
+    cur = nodes.back();
+    nodes.pop_back();
+    next.clear();
+    now.clear();
+    for (int i = 0; i < cur.size(); i++) {
+      now.push_back(cur[i]->val);
+      if (cur[i]->left) next.push_back(cur[i]->left);
+      if (cur[i]->right) next.push_back(cur[i]->right);
+    }
+    res.push_back(now);
+    if (next.size() > 0) nodes.push_back(next);
+  }
+  return res;
+}

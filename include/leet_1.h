@@ -41,6 +41,8 @@ class Node {
 
 class Solution {
  public:
+  vector<vector<int>> levelOrder(TreeNode* root);
+
   void sortColors(vector<int>& nums);
 
   void reverseString(vector<char>& s);
