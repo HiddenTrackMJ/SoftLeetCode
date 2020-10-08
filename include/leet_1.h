@@ -4,6 +4,7 @@
 #include <string>
 #include <stack>
 #include <vector>
+#include <queue>
 #include <map>
 
 using std::vector;
@@ -40,6 +41,8 @@ class Node {
 
 class Solution {
  public:
+  Node* connect(Node* root);
+
   vector<int> postorderTraversal2(TreeNode* root);
 
   vector<int> postorderTraversal(TreeNode* root);

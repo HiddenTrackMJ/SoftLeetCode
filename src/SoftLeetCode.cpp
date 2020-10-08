@@ -148,24 +148,24 @@ int main() {
    //s.inorderTraversal(a);
 
   /*   No.968     */
-  TreeNode* a = new TreeNode(0);
-  TreeNode* b = new TreeNode(0);
-  TreeNode* c = new TreeNode(0);
-  TreeNode* d = new TreeNode(-4);
-  TreeNode* e = new TreeNode(-1);
-  TreeNode* f = new TreeNode(6);
-  TreeNode* g = new TreeNode(4);
+  //TreeNode* a = new TreeNode(0);
+  //TreeNode* b = new TreeNode(0);
+  //TreeNode* c = new TreeNode(0);
+  //TreeNode* d = new TreeNode(-4);
+  //TreeNode* e = new TreeNode(-1);
+  //TreeNode* f = new TreeNode(6);
+  //TreeNode* g = new TreeNode(4);
 
   //TreeNode* x = new TreeNode(-2);
   //TreeNode* y = new TreeNode(-4);
   //TreeNode* z = new TreeNode(-1);
 
-  a->left = b;
-  a->right = c;
-  b->left = d;
-  b->right = e;
-  c->left = f;
-  c->right = g;
+  //a->left = b;
+  //a->right = c;
+  //b->left = d;
+  //b->right = e;
+  //c->left = f;
+  //c->right = g;
   //x->left = y;
   //x->right = z;
 
@@ -202,8 +202,15 @@ int main() {
   
 
   /*   No.145     */
-  s.postorderTraversal2(a);
+  //s.postorderTraversal2(a);
 
+  /*   No.117     */
+  Node* a = new Node(0);
+  Node* b = new Node(0);
+  Node* c = new Node(0);
+  a->left = b;
+  a->right = c;
+  s.connect(a);
 
   return 0;
 }

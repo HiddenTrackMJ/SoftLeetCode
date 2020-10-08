@@ -595,3 +595,25 @@ vector<int> Solution::postorderTraversal2(TreeNode* root) {
 
   return res;
 }
+
+
+Node* Solution::connect(Node* root) {
+  if (!root) return nullptr;
+  std::queue<Node*> q;
+  q.push(root);
+  while (!q.empty()) {
+    int levelNum = q.size();
+    Node* next = NULL;
+
+    while (levelNum--) {
+      Node* node = q.front();
+      q.pop();
+      if (node->right) q.push(node->right);
+      if (node->left) q.push(node->left);
+
+      node->next = next;
+      next = node;
+    }
+  }
+  return root;
+}
