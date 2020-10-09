@@ -140,24 +140,24 @@ int main() {
   // s.inorderTraversal(a);
 
   /*   No.968     */
-  TreeNode* a = new TreeNode(1);
-  TreeNode* b = new TreeNode(-2);
-  TreeNode* c = new TreeNode(-3);
-  TreeNode* d = new TreeNode(1);
-  TreeNode* e = new TreeNode(3);
-  TreeNode* f = new TreeNode(-2);
-  TreeNode* g = new TreeNode(-1);
+  //TreeNode* a = new TreeNode(1);
+  //TreeNode* b = new TreeNode(-2);
+  //TreeNode* c = new TreeNode(-3);
+  //TreeNode* d = new TreeNode(1);
+  //TreeNode* e = new TreeNode(3);
+  //TreeNode* f = new TreeNode(-2);
+  //TreeNode* g = new TreeNode(-1);
 
   // TreeNode* x = new TreeNode(-2);
   // TreeNode* y = new TreeNode(-4);
   // TreeNode* z = new TreeNode(-1);
 
-  a->left = b;
-  a->right = c;
-  b->left = d;
-  b->right = e;
-  c->left = f;
-  d->left = g;
+  //a->left = b;
+  //a->right = c;
+  //b->left = d;
+  //b->right = e;
+  //c->left = f;
+  //d->left = g;
   // c->right = g;
   // x->left = y;
   // x->right = z;
@@ -234,16 +234,28 @@ int main() {
   //}
 
   /*   No.102     */
-  auto res = s.levelOrder(a);
-  size_t len = res.size();
-  for (size_t j = 0; j < len; j++) {
-    size_t len2 = res[j].size();
-    std::cout << " res: ";
-    for (size_t i = 0; i < len2; i++) {
-      std::cout << res[j][i] << " ";
-    }
-    std::cout << std::endl;
-  }
+  //auto res = s.levelOrder(a);
+  //size_t len = res.size();
+  //for (size_t j = 0; j < len; j++) {
+  //  size_t len2 = res[j].size();
+  //  std::cout << " res: ";
+  //  for (size_t i = 0; i < len2; i++) {
+  //    std::cout << res[j][i] << " ";
+  //  }
+  //  std::cout << std::endl;
+  //}
+
+  /*   No.141     */
+  ListNode* a = new ListNode(3);
+  ListNode* b = new ListNode(2);
+  ListNode* c = new ListNode(0);
+  ListNode* d = new ListNode(-4);
+  a->next = b;
+  b->next = c;
+  c->next = d;
+  //d->next = b;
+  auto is_cycle = s.hasCycle(a);
+  std::cout << "res: " << is_cycle << std::endl;
 
   return 0;
 }

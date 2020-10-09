@@ -711,29 +711,82 @@ void Solution::sortColors(vector<int>& nums) {
   }
 }
 
+//vector<vector<int>> Solution::levelOrder(TreeNode* root) {
+//  if (!root) {
+//    return {};
+//  }
+//  vector<vector<int>> res;
+//  vector<TreeNode*> cur = {root};
+//  std::vector<vector<TreeNode*>> nodes;
+//  vector<TreeNode*> next;
+//  vector<int> now;
+//  nodes.push_back(cur);
+//  while (!nodes.empty()) {
+//     
+//    cur = nodes.back();
+//    nodes.pop_back();
+//    next.clear();
+//    now.clear();
+//    for (int i = 0; i < cur.size(); i++) {
+//      now.push_back(cur[i]->val);
+//      if (cur[i]->left) next.push_back(cur[i]->left);
+//      if (cur[i]->right) next.push_back(cur[i]->right);
+//    }
+//    res.push_back(now);
+//    if (next.size() > 0) nodes.push_back(next);
+//  }
+//  return res;
+//}
+
+
 vector<vector<int>> Solution::levelOrder(TreeNode* root) {
   if (!root) {
     return {};
   }
   vector<vector<int>> res;
-  vector<TreeNode*> cur = {root};
-  std::vector<vector<TreeNode*>> nodes;
+  std::vector<TreeNode*> nodes;
   vector<TreeNode*> next;
   vector<int> now;
-  nodes.push_back(cur);
+  nodes.push_back(root);
+
   while (!nodes.empty()) {
-     
-    cur = nodes.back();
-    nodes.pop_back();
-    next.clear();
+    //std::vector<TreeNode*> nodes = nodes;
     now.clear();
-    for (int i = 0; i < cur.size(); i++) {
-      now.push_back(cur[i]->val);
-      if (cur[i]->left) next.push_back(cur[i]->left);
-      if (cur[i]->right) next.push_back(cur[i]->right);
+    next.clear();
+    std::cout << "nodes: " << nodes.size() << std::endl;
+    for (int i = 0; i < nodes.size(); i++) {
+      now.push_back(nodes[i]->val);
+      if (nodes[i]->left) next.push_back(nodes[i]->left);
+      if (nodes[i]->right) next.push_back(nodes[i]->right);
     }
     res.push_back(now);
-    if (next.size() > 0) nodes.push_back(next);
+    nodes.clear();
+    
+    if (next.size() > 0) {
+      nodes = next;
+    }
   }
   return res;
+}
+
+bool Solution::hasCycle(ListNode* head) {
+  std::unordered_set<ListNode*> seen;
+  while (head != nullptr) {
+    if (seen.count(head)) {
+      return true;
+    }
+    seen.insert(head);
+    head = head->next;
+  }
+  return false;
+}
+
+ bool hasCycle2(ListNode* head) {
+  ListNode *fast = head, *slow = head;
+  while (fast && fast->next) {
+    fast = fast->next->next;
+    slow = slow->next;
+    if (slow == fast) return true;
+  }
+  return false;
 }

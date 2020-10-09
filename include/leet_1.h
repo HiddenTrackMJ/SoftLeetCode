@@ -6,6 +6,7 @@
 #include <vector>
 #include <queue>
 #include <map>
+#include <unordered_set>
 
 using std::vector;
 
@@ -41,6 +42,10 @@ class Node {
 
 class Solution {
  public:
+  bool hasCycle2(ListNode* head);
+
+  bool hasCycle(ListNode* head);
+
   vector<vector<int>> levelOrder(TreeNode* root);
 
   void sortColors(vector<int>& nums);
