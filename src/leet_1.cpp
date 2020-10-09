@@ -781,7 +781,7 @@ bool Solution::hasCycle(ListNode* head) {
   return false;
 }
 
- bool hasCycle2(ListNode* head) {
+ bool Solution::hasCycle2(ListNode* head) {
   ListNode *fast = head, *slow = head;
   while (fast && fast->next) {
     fast = fast->next->next;

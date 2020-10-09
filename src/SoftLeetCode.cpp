@@ -253,8 +253,8 @@ int main() {
   a->next = b;
   b->next = c;
   c->next = d;
-  //d->next = b;
-  auto is_cycle = s.hasCycle(a);
+  d->next = b;
+  auto is_cycle = s.hasCycle2(a);
   std::cout << "res: " << is_cycle << std::endl;
 
   return 0;
