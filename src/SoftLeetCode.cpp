@@ -246,23 +246,26 @@ int main() {
   //}
 
   /*   No.141     */
-  ListNode* a = new ListNode(3);
-  ListNode* b = new ListNode(2);
-  ListNode* c = new ListNode(0);
-  ListNode* d = new ListNode(-4);
-  a->next = b;
-  b->next = c;
-  c->next = d;
-  d->next = b;
-  auto is_cycle = s.hasCycle2(a);
-  std::cout << "res: " << is_cycle << std::endl;
+  //ListNode* a = new ListNode(3);
+  //ListNode* b = new ListNode(2);
+  //ListNode* c = new ListNode(0);
+  //ListNode* d = new ListNode(-4);
+  //a->next = b;
+  //b->next = c;
+  //c->next = d;
+  //d->next = b;
+  //auto is_cycle = s.hasCycle2(a);
+  //std::cout << "res: " << is_cycle << std::endl;
 
   /*   No.142     */
-  auto detect_cycle = s.detectCycle(a);
-  std::cout << "res: " << detect_cycle->val << std::endl;
+  //auto detect_cycle = s.detectCycle(a);
+  //std::cout << "res: " << detect_cycle->val << std::endl;
 
 
-
+  /*  LCP No.19   */
+  string leaves = "yry";
+  auto res = s.minimumOperations(leaves);
+  std::cout << "res: " << res << std::endl;
 
   return 0;
 }

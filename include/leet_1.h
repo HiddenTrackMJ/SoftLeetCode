@@ -9,6 +9,7 @@
 #include <unordered_set>
 
 using std::vector;
+using std::string;
 
 struct ListNode {
   int val;
@@ -42,6 +43,10 @@ class Node {
 
 class Solution {
  public:
+  int minimumOperations2(string leaves);
+
+  int minimumOperations(string leaves);
+
   ListNode* detectCycle(ListNode* head);
 
   bool hasCycle2(ListNode* head);

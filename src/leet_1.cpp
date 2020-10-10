@@ -807,3 +807,83 @@ bool Solution::hasCycle(ListNode* head) {
   }
   return nullptr;
 }
+
+
+ int min(int a, int b) { return (a < b ? a : b); }
+
+ int Solution::minimumOperations(string leaves) {
+   int n = leaves.size();
+   int g = (leaves[0] == 'y' ? 1 : -1);
+   int gmin = g;
+   int ans = INT_MAX;
+   for (int i = 1; i < n; ++i) {
+     int isYellow = (leaves[i] == 'y');
+     g += 2 * isYellow - 1;
+     if (i != n - 1) {
+       ans = min(ans, gmin - g);
+     }
+     gmin = min(gmin, g);
+   }
+   return ans + (g + n) / 2;
+ }
+
+  int Solution::minimumOperations2(string leaves) {
+   int len = leaves.size();
+   int res;
+   int res1 = 0;
+   int res1_r = 0;
+
+   int res2 = 0;
+   int res2_l = 0;
+   int res2_r = 0;
+
+   bool flag = true;
+   bool flag2 = true;
+   int i = 0, j = len - 1;
+   while(1) {
+     std::cout << "i: " << i << " ;j: " << j << std::endl;
+     if (i == j) break;
+     if (i == j - 1) break;
+
+     if (leaves[i] == 'r') {
+       ++i;
+       res1++;
+       if (flag) res1_r++;
+     } else if (leaves[i] == 'y') {
+       ++i;
+       res2++;
+       if (flag2) res2_l++;
+     }
+
+     if (leaves[j] == 'r') {
+       --j;
+       res1++;
+       if (flag) res1_r++;
+     } else if (leaves[j] == 'y') {
+       --j;
+       res2++;
+       if (flag2) res2_r++;
+     } 
+
+    if (leaves[i] == 'y' && leaves[j] == 'y') {
+       if (flag) flag = false;
+    }
+    if (leaves[i] == 'r' && leaves[j] == 'r') {
+      if (!flag) {
+        if (flag2) flag2 = false;
+      }
+    }
+
+   }
+   res1 = res2 = 0;
+   for (int i = 0; i < len; i++) {
+     if (leaves[i] == 'r') {
+       res1++;
+     } else if (leaves[i] == 'y') {
+       res2++;
+     }
+   }
+   std::cout << "res1: " << res1 << " ;res2: " << res2 << " ;res1_r: " << res1_r
+             << " ;res2_l: " << res2_l << " ;res2_r: " << res2_r << std::endl;
+   return min(res1 - res1_r, min(res2 - res2_l, res2 - res2_r));
+ }
