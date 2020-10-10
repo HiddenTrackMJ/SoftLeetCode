@@ -5,6 +5,7 @@
 #include <stack>
 #include <vector>
 #include <queue>
+#include <algorithm>
 #include <map>
 #include <unordered_set>
 
@@ -43,6 +44,8 @@ class Node {
 
 class Solution {
  public:
+  vector<vector<int>> fourSum(vector<int>& nums, int target);
+
   int minimumOperations2(string leaves);
 
   int minimumOperations(string leaves);
@@ -119,7 +122,6 @@ class Solution {
   }
 
   vector<int> Solution::twoSum2(vector<int>& nums, int target) {
-
     std::map<int, int> past;
     int len = nums.size();
     for (int i = 0; i < len; i++) {

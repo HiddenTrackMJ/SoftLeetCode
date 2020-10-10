@@ -913,3 +913,32 @@ bool Solution::hasCycle(ListNode* head) {
              << " ;res2_l: " << res2_l << " ;res2_r: " << res2_r << std::endl;
    return min(res1 - res1_r, min(res2 - res2_l, res2 - res2_r));
  }
+
+  vector<vector<int>> Solution::fourSum(vector<int>& nums, int target) {
+   int len = nums.size();
+    if (len < 4) {
+     return {};
+    }
+   vector<vector<int>> res = {};
+   sort(nums.begin(), nums.end());
+   for (int i = 0; i < len; i++) {
+     std::cout << "nice: " << i << std::endl;
+     int cur1 = nums[i];
+     for (int j = i + 1; j < len; j++) {
+       int cur2 = nums[j];
+       for (int x = j + 1; x < len; x++) {
+         int cur3 = nums[x];
+         for (int y = x + 1; y < len; y++) {
+           int cur4 = nums[y];
+           if (cur1 + cur2 + cur3 + cur4 == target) {
+             res.push_back({cur1, cur2, cur3, cur4});
+           }
+         }
+       }
+     }
+   }
+   sort(res.begin(), res.end());
+   res.erase(unique(res.begin(), res.end()), res.end());
+   //std::cout << "nice: " << res[0][0] << std::endl;
+   return res;
+ }
