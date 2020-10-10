@@ -257,5 +257,12 @@ int main() {
   auto is_cycle = s.hasCycle2(a);
   std::cout << "res: " << is_cycle << std::endl;
 
+  /*   No.142     */
+  auto detect_cycle = s.detectCycle(a);
+  std::cout << "res: " << detect_cycle->val << std::endl;
+
+
+
+
   return 0;
 }

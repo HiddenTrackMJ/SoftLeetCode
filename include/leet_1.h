@@ -42,6 +42,8 @@ class Node {
 
 class Solution {
  public:
+  ListNode* detectCycle(ListNode* head);
+
   bool hasCycle2(ListNode* head);
 
   bool hasCycle(ListNode* head);

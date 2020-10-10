@@ -790,3 +790,26 @@ bool Solution::hasCycle(ListNode* head) {
   }
   return false;
 }
+
+ ListNode* Solution::detectCycle(ListNode* head) {
+  ListNode *fast = head, *slow = head;
+  bool flag = false;
+  while (fast && fast->next) {
+    fast = fast->next->next;
+    slow = slow->next;
+    if (slow == fast) {
+      flag = true;
+    }
+  }
+
+  if (flag) {
+    ListNode* q = head;
+    while (q != slow) {
+      std::cout << "q: " << q->val << std::endl;
+      q = q->next;
+      slow = slow->next;
+    }
+    return q;
+  }
+  else return nullptr;
+ }
