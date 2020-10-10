@@ -1,7 +1,8 @@
 ### SoftLeetCode
 
 #### Todo
- - [ ] 了解莫里斯遍历 https://www.cnblogs.com/AnnieKim/archive/2013/06/15/morristraversal.html
+ - [x] 了解莫里斯遍历 https://www.cnblogs.com/AnnieKim/archive/2013/06/15/morristraversal.html
+ - [ ] 了解动态规划
 
 #### 已完成
 ![](进度.png)

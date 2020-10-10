@@ -93,6 +93,8 @@ class Solution {
 
   vector<int> inorderTraversal2(TreeNode* root);
 
+  vector<int> inorderTraversal3(TreeNode* root);
+
   vector<int> Solution::twoSum(vector<int>& nums, int target) {
     // std::cout << "nice";
     vector<int> others;

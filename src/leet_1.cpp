@@ -161,6 +161,32 @@ vector<int> Solution::inorderTraversal2(TreeNode* root) {
   return res;
 }
 
+vector<int> Solution::inorderTraversal3(TreeNode* root) {
+  vector<int> res;
+  TreeNode* pre;  
+
+  while (root != NULL) {
+    if (!root->left) {
+      res.push_back(root->val);
+      root = root->right;
+    } else {
+      pre = root->left;
+      while (pre->right && pre->right != root) {
+        pre = pre->right;
+      }
+      if (!pre->right) {
+        pre->right = root;
+        root = root->left;
+      } else {
+        pre->right = nullptr;
+        res.push_back(root->val);
+        root = root->right;
+      }
+    }
+  }
+  return res;
+}
+
 bool row[9][9];
 bool col[9][9];
 bool block[3][3][9];
