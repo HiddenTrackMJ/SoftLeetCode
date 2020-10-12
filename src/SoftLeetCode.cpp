@@ -297,6 +297,16 @@ int main() {
    auto res = s.getMinimumDifference(a);
    std::cout << res << std::endl;
 
+   int array[] = {1, 2, 3, 4, 5};
+   int (*ptr_array)[5] = &array;
+   for (int i = 0; i < 5; i++) {
+     std::cout << "array[i]: " << array[i] << std::endl;
+     std::cout << "array: " << array + i << std::endl;
+     std::cout << "ptr_array[i]: " << ptr_array[i] << std::endl;
+     std::cout << "ptr_array: " << ptr_array + i << std::endl;
+     std::cout << std::endl;
+   }
+
 
 
    return 0;
