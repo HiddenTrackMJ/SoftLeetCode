@@ -44,6 +44,10 @@ class Node {
 
 class Solution {
  public:
+  int getMinimumDifference(TreeNode* root);
+
+  bool canPartition(vector<int>& nums);
+
   vector<vector<int>> fourSum(vector<int>& nums, int target);
 
   int minimumOperations2(string leaves);

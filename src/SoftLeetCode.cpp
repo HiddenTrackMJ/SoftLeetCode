@@ -269,17 +269,21 @@ int main() {
 
 
   /*   No.18     */
-  vector<int> c = {-2, -1, -1, 1, 1, 2, 2};
-  auto res = s.fourSum(c, 0);
-  size_t len = res.size();
-  for (size_t j = 0; j < len; j++) {
-    size_t len2 = res[j].size();
-    std::cout << " res: ";
-    for (size_t i = 0; i < len2; i++) {
-      std::cout << res[j][i] << " ";
-    }
-    std::cout << std::endl;
-  }
+  //vector<int> c = {-2, -1, -1, 1, 1, 2, 2};
+  //auto res = s.fourSum(c, 0);
+  //size_t len = res.size();
+  //for (size_t j = 0; j < len; j++) {
+  //  size_t len2 = res[j].size();
+  //  std::cout << " res: ";
+  //  for (size_t i = 0; i < len2; i++) {
+  //    std::cout << res[j][i] << " ";
+  //  }
+  //  std::cout << std::endl;
+  //}
 
+  /*   416. 分割等和子集    */
+  vector<int> s_partition = {1, 4, 11, 5};
+  auto res = s.canPartition(s_partition);
+  std::cout << res << std::endl;
   return 0;
 }
