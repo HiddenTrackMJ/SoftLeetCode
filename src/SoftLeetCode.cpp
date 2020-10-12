@@ -281,9 +281,23 @@ int main() {
   //  std::cout << std::endl;
   //}
 
-  /*   416. 分割等和子集    */
-  vector<int> s_partition = {1, 4, 11, 5};
-  auto res = s.canPartition(s_partition);
-  std::cout << res << std::endl;
-  return 0;
+  /*   No.416. 分割等和子集    */
+  //vector<int> s_partition = {1, 4, 11, 5};
+  //auto res = s.canPartition(s_partition);
+  //std::cout << res << std::endl;
+
+  /*  No.530. 二叉搜索树的最小绝对差   */
+   TreeNode* a = new TreeNode(1);
+   TreeNode* b = new TreeNode(3);
+   TreeNode* c = new TreeNode(2);
+
+   a->right = b;
+   b->left = c;
+
+   auto res = s.getMinimumDifference(a);
+   std::cout << res << std::endl;
+
+
+
+   return 0;
 }

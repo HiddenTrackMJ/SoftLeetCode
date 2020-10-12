@@ -960,16 +960,19 @@ bool Solution::hasCycle(ListNode* head) {
    return d[sum];
  }
 
+  TreeNode* pre;
   void getMinDif(TreeNode* cur, int& res) {
    if (!cur) return;
     getMinDif(cur->left, res);
-    
+   if (pre) {
+      res = min(res, abs((cur->val) - (pre->val)));
+   }
+   pre = cur;
    getMinDif(cur->right, res);
   }
 
   int Solution::getMinimumDifference(TreeNode* root) {
     int res;
-    TreeNode* pre;
     getMinDif(root, res);
     return res;
   }
