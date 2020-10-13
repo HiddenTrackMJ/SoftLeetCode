@@ -976,3 +976,34 @@ bool Solution::hasCycle(ListNode* head) {
     getMinDif(root, res);
     return res;
   }
+
+  ListNode* Solution::swapPairs(ListNode* head) {
+    if (!head) {
+      return nullptr;
+    }
+
+    if (!head->next) {
+      return head;
+    }
+
+    ListNode* cur = new ListNode(0);
+    cur->next = head;
+    ListNode* tmp = cur;
+
+    while (tmp->next && tmp->next->next) {
+      //ListNode* node1 = tmp->next;
+      //ListNode* node2 = tmp->next->next;
+      //tmp->next = node2;
+      //node1->next = node2->next;
+      //node2->next = node1;
+      //tmp = node1;
+
+      head = tmp->next->next;
+      tmp->next->next = head->next;
+      head->next = tmp->next;
+      tmp->next = head;
+      tmp = head->next;
+    }
+
+    return cur->next;
+  }

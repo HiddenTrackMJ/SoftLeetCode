@@ -44,6 +44,8 @@ class Node {
 
 class Solution {
  public:
+  ListNode* swapPairs(ListNode* head);
+
   int getMinimumDifference(TreeNode* root);
 
   bool canPartition(vector<int>& nums);

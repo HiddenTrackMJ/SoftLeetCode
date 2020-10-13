@@ -287,26 +287,47 @@ int main() {
   //std::cout << res << std::endl;
 
   /*  No.530. 二叉搜索树的最小绝对差   */
-   TreeNode* a = new TreeNode(1);
-   TreeNode* b = new TreeNode(3);
-   TreeNode* c = new TreeNode(2);
+   //TreeNode* a = new TreeNode(1);
+   //TreeNode* b = new TreeNode(3);
+   //TreeNode* c = new TreeNode(2);
 
-   a->right = b;
-   b->left = c;
+   //a->right = b;
+   //b->left = c;
 
-   auto res = s.getMinimumDifference(a);
-   std::cout << res << std::endl;
+   //auto res = s.getMinimumDifference(a);
+   //std::cout << res << std::endl;
 
-   int array[] = {1, 2, 3, 4, 5};
-   int (*ptr_array)[5] = &array;
-   for (int i = 0; i < 5; i++) {
-     std::cout << "array[i]: " << array[i] << std::endl;
-     std::cout << "array: " << array + i << std::endl;
-     std::cout << "ptr_array[i]: " << ptr_array[i] << std::endl;
-     std::cout << "ptr_array: " << ptr_array + i << std::endl;
-     std::cout << std::endl;
-   }
+   //数组指针理解
+   //int array[] = {1, 2, 3, 4, 5};
+   //int (*ptr_array)[5] = &array;
+   //for (int i = 0; i < 5; i++) {
+   //  std::cout << "array[i]: " << array[i] << std::endl;
+   //  std::cout << "array: " << array + i << std::endl;
+   //  std::cout << "ptr_array[i]: " << ptr_array[i] << std::endl;
+   //  std::cout << "ptr_array: " << ptr_array + i << std::endl;
+   //  std::cout << std::endl;
+   //}
 
+   /*    24. 两两交换链表中的节点     */
+    ListNode* a = new ListNode(3);
+    ListNode* b = new ListNode(2);
+    ListNode* c = new ListNode(0);
+    ListNode* d = new ListNode(-4);
+    ListNode* e = new ListNode(-5);
+    ListNode* f = new ListNode(3);
+    ListNode* g = new ListNode(6);
+    a->next = b;
+    b->next = c;
+    c->next = d;
+    d->next = e;
+    e->next = f;
+    f->next = g;
+    auto swap_pair = s.swapPairs(a);
+
+    while (swap_pair) {
+      std::cout << "res: " << swap_pair->val << std::endl;
+      swap_pair = swap_pair->next;
+    }
 
 
    return 0;
