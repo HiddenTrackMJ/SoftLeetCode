@@ -1007,3 +1007,28 @@ bool Solution::hasCycle(ListNode* head) {
 
     return cur->next;
   }
+
+  vector<string> Solution::commonChars(vector<string>& A) {
+    vector<string> res;
+    int len = A.size();
+    int len1 = A[0].size();
+    for (int j = 0; j < len1; j++) {
+      bool flag = true;
+      for (int i = 1; i < len; i++) {
+        auto pos = A[i].find(string(&A[0][j], 1));
+        if ( pos != A[i].npos) {
+          //flag = true;
+          //A[i].erase(pos, 1);
+          A[i][pos] -= 32;
+        } else
+          flag = false;
+      }
+      if (flag) {
+        //std::cout << "i: " << &A[0]
+        //string s(&A[0][j], 1);
+        res.push_back(string(&A[0][j], 1));
+      }
+    }
+    
+    return res;
+  }

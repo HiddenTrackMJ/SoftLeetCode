@@ -309,26 +309,36 @@ int main() {
    //}
 
    /*    24. 两两交换链表中的节点     */
-    ListNode* a = new ListNode(3);
-    ListNode* b = new ListNode(2);
-    ListNode* c = new ListNode(0);
-    ListNode* d = new ListNode(-4);
-    ListNode* e = new ListNode(-5);
-    ListNode* f = new ListNode(3);
-    ListNode* g = new ListNode(6);
-    a->next = b;
-    b->next = c;
-    c->next = d;
-    d->next = e;
-    e->next = f;
-    f->next = g;
-    auto swap_pair = s.swapPairs(a);
+    //ListNode* a = new ListNode(3);
+    //ListNode* b = new ListNode(2);
+    //ListNode* c = new ListNode(0);
+    //ListNode* d = new ListNode(-4);
+    //ListNode* e = new ListNode(-5);
+    //ListNode* f = new ListNode(3);
+    //ListNode* g = new ListNode(6);
+    //a->next = b;
+    //b->next = c;
+    //c->next = d;
+    //d->next = e;
+    //e->next = f;
+    //f->next = g;
+    //auto swap_pair = s.swapPairs(a);
 
-    while (swap_pair) {
-      std::cout << "res: " << swap_pair->val << std::endl;
-      swap_pair = swap_pair->next;
-    }
+    //while (swap_pair) {
+    //  std::cout << "res: " << swap_pair->val << std::endl;
+    //  swap_pair = swap_pair->next;
+    //}
+
+   /*  No.1002. 查找常用字符  */
+  vector<string> str = {"cool", "lock", "cook"};
+  auto common_res = s.commonChars(str);
+  size_t len = common_res.size();
+  std::cout << "res: ";
+  for (size_t j = 0; j < len; j++) {
+    std::cout << common_res[j] << ", ";
+  }
 
 
-   return 0;
+
+  return 0;
 }

@@ -44,6 +44,8 @@ class Node {
 
 class Solution {
  public:
+  vector<string> commonChars(vector<string>& A);
+
   ListNode* swapPairs(ListNode* head);
 
   int getMinimumDifference(TreeNode* root);

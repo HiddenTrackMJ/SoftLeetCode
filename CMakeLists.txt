@@ -30,7 +30,8 @@ message(STATUS "HEADERS: " ${HEADERS})
 
 
 add_executable(${PROJECT_NAME}
-        ${CPPLIST}
+        "./src/leet_1.cpp"
+        "./src/SoftLeetCode.cpp"
         ${HEADERS}
         )
 
@@ -38,11 +39,23 @@ target_include_directories(${PROJECT_NAME}
         PRIVATE
         ${PROJECT_SOURCE_DIR}/include
         ${HEADERS}
-        
         )
 
 target_link_libraries( ${PROJECT_NAME}  
 	    PRIVATE 
-
 )
 
+add_executable( jian
+        "./src/jian_1.cpp"
+        "./src/jian_main.cpp"
+        ${HEADERS}
+        )
+
+target_include_directories( jian
+        PRIVATE
+        ${PROJECT_SOURCE_DIR}/include
+        )
+
+target_link_libraries( jian
+	    PRIVATE 
+)
