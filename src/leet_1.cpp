@@ -1032,3 +1032,34 @@ bool Solution::hasCycle(ListNode* head) {
     
     return res;
   }
+
+
+  Node* Solution::connect2(Node* root) {
+    if (!root) return nullptr;
+    Node* pre = root;
+    Node* cur = nullptr;
+    while (pre->left) {
+      cur = pre;
+      while (cur) {
+        cur->left->next = cur->right;
+        if (cur->next) cur->right->next = cur->next->left;
+        cur = cur->next;
+      }
+      pre = pre->left;
+    }
+    return root;
+
+    /* ตÝน้ */
+    //void dfs_connect(Node * cur, Node * next) {
+    //  if (!cur) return;
+    //  cur->next = next;
+    //  dfs_connect(cur->left, cur->right);
+    //  dfs_connect(cur->right, cur->next ? cur->next->left : nullptr);
+    //}
+
+    //Node* connect(Node * root) {
+    //  dfs_connect(root, nullptr);
+    //  return root;
+    //}
+  }
+

@@ -44,6 +44,8 @@ class Node {
 
 class Solution {
  public:
+  Node* connect2(Node* root);
+
   vector<string> commonChars(vector<string>& A);
 
   ListNode* swapPairs(ListNode* head);

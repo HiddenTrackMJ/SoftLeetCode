@@ -330,15 +330,21 @@ int main() {
     //}
 
    /*  No.1002. 查找常用字符  */
-  vector<string> str = {"cool", "lock", "cook"};
-  auto common_res = s.commonChars(str);
-  size_t len = common_res.size();
-  std::cout << "res: ";
-  for (size_t j = 0; j < len; j++) {
-    std::cout << common_res[j] << ", ";
-  }
+  //vector<string> str = {"cool", "lock", "cook"};
+  //auto common_res = s.commonChars(str);
+  //size_t len = common_res.size();
+  //std::cout << "res: ";
+  //for (size_t j = 0; j < len; j++) {
+  //  std::cout << common_res[j] << ", ";
+  //}
 
-
+  /* No.116. 填充每个节点的下一个右侧节点指针 */
+   Node* a = new Node(0);
+   Node* b = new Node(0);
+   Node* c = new Node(0);
+   a->left = b;
+   a->right = c;
+   s.connect(a);
 
   return 0;
 }
