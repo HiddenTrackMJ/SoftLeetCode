@@ -339,12 +339,24 @@ int main() {
   //}
 
   /* No.116. 填充每个节点的下一个右侧节点指针 */
-   Node* a = new Node(0);
-   Node* b = new Node(0);
+ /*  Node* a = new Node(0);
+   Node* b = new Node(1);
    Node* c = new Node(0);
    a->left = b;
    a->right = c;
-   s.connect(a);
+   s.connect(a);*/
+
+   /*   No. 977. 有序数组的平方    */
+   vector<int> sort_q = {-4, -1, 0, 3, 10};
+   s.sortedSquares(sort_q);
+
+   /*   No. 19. 删除链表的倒数第N个节点   */
+   ListNode* a = new ListNode(0);
+   ListNode* b = new ListNode(1);
+   a->next = b;
+   s.removeNthFromEnd(a, 2);
+
+
 
   return 0;
 }

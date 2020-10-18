@@ -44,6 +44,10 @@ class Node {
 
 class Solution {
  public:
+  ListNode* removeNthFromEnd(ListNode* head, int n);
+
+  vector<int> sortedSquares(vector<int>& A);
+
   Node* connect2(Node* root);
 
   vector<string> commonChars(vector<string>& A);
