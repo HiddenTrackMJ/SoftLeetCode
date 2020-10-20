@@ -356,6 +356,28 @@ int main() {
    //a->next = b;
    //s.removeNthFromEnd(a, 2);
 
+    /*  No. 143. 重排链表   */
+  ListNode* a = new ListNode(0);
+  ListNode* b = new ListNode(1);
+  ListNode* c = new ListNode(2);
+  ListNode* d = new ListNode(3);
+  ListNode* e = new ListNode(4);
+  ListNode* f = new ListNode(5);
+  a->next = b;
+  b->next = c;
+  c->next = d;
+  d->next = e;
+  //e->next = f;
+  s.reorderList(a);
+  while (a) {
+    std::cout << "a: " << a->val << std::endl;
+    a = a->next;
+  }
+   //ListNode* a = new ListNode(0);
+   //ListNode* b = new ListNode(1);
+   //a->next = b;
+   //s.removeNthFromEnd(a, 2);
+
 
    /*   No. 844. 比较含退格的字符串   */
   string S = "ab##";
