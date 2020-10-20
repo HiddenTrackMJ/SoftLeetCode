@@ -44,6 +44,8 @@ class Node {
 
 class Solution {
  public:
+  bool backspaceCompare(string S, string T);
+
   ListNode* removeNthFromEnd(ListNode* head, int n);
 
   vector<int> sortedSquares(vector<int>& A);

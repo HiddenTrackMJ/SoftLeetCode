@@ -347,15 +347,20 @@ int main() {
    s.connect(a);*/
 
    /*   No. 977. 有序数组的平方    */
-   vector<int> sort_q = {-4, -1, 0, 3, 10};
-   s.sortedSquares(sort_q);
+   //vector<int> sort_q = {-4, -1, 0, 3, 10};
+   //s.sortedSquares(sort_q);
 
    /*   No. 19. 删除链表的倒数第N个节点   */
-   ListNode* a = new ListNode(0);
-   ListNode* b = new ListNode(1);
-   a->next = b;
-   s.removeNthFromEnd(a, 2);
+   //ListNode* a = new ListNode(0);
+   //ListNode* b = new ListNode(1);
+   //a->next = b;
+   //s.removeNthFromEnd(a, 2);
 
+
+   /*   No. 844. 比较含退格的字符串   */
+  string S = "ab##";
+  string T = "c#d#";
+  auto back_com = s.backspaceCompare(S, T);
 
 
   return 0;
