@@ -1063,6 +1063,69 @@ bool Solution::hasCycle(ListNode* head) {
     //}
   }
 
+  vector<int> Solution::sortedSquares(vector<int>& A) {
+    //vector<int> res;
+    //for (auto it : A) {
+    //  res.push_back(pow(it, 2));
+    //}
+    ////sort(res.begin(), res.end());
+
+    //for (int j = 1; j < res.size(); j++) {
+    //  int key = res[j];
+    //  int i = j - 1;
+    //  while (i >= 0 && res[i] > key) {
+    //    res[i + 1] = res[i];
+    //    i = i - 1;
+    //  }
+    //  res[i + 1] = key;
+    //}
+    //return res;
+
+    int n = A.size();
+    vector<int> ans(n);
+    for (int i = 0, j = n - 1, pos = n - 1; i <= j;) {
+      if (A[i] * A[i] > A[j] * A[j]) {
+        ans[pos] = A[i] * A[i];
+        ++i;
+      } else {
+        ans[pos] = A[j] * A[j];
+        --j;
+      }
+      --pos;
+    }
+    return ans;
+  }
+
+
+  ListNode* Solution::removeNthFromEnd(ListNode* head, int n) {
+    if (!head->next) return nullptr;
+    vector<ListNode*> nodes;
+    ListNode* cur = head;
+    while (cur) {
+      nodes.push_back(cur);
+      cur = cur->next;
+    }
+    // if(nodee.size() - 1 < 2 + n)
+    int len = nodes.size();
+    if (n <= 1) {
+      std::cout << "333" << std::endl;
+      nodes[len - n - 1]->next = nullptr;
+    }
+
+    else if (len - n - 1 < 0) {
+      std::cout << "111" << std::endl;
+      head = head->next;
+    }
+
+    else {
+      std::cout << "222: " << len - n - 1 << std::endl;
+      nodes[len - n - 1]->next = nodes[len - n + 1];
+    }
+
+    return head;
+  }
+
+
   void Solution::reorderList(ListNode* head) {
 
   }

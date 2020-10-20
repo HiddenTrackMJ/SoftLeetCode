@@ -46,6 +46,10 @@ class Solution {
  public:
   void reorderList(ListNode* head);
 
+  ListNode* removeNthFromEnd(ListNode* head, int n);
+
+  vector<int> sortedSquares(vector<int>& A);
+
   Node* connect2(Node* root);
 
   vector<string> commonChars(vector<string>& A);
