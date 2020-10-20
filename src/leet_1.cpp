@@ -1127,5 +1127,24 @@ bool Solution::hasCycle(ListNode* head) {
 
 
   void Solution::reorderList(ListNode* head) {
-
+    std::vector<ListNode*> nodes;
+    ListNode* cur = head;
+    while (cur) {
+      nodes.push_back(cur);
+      cur = cur->next;
+    }
+    cur = head;
+    int n = nodes.size() - 1;
+    int x;
+    if (nodes.size() % 2 == 0) x = (nodes.size() - 1) / 2 + 2; 
+    else x = (nodes.size() - 1) / 2 + 1; 
+    while (cur && x <= n ) {
+      std::cout << "cur: " << cur->val << ", tail: " << nodes[n]->val << "; xxx: " <<
+          (nodes.size() - 1) / 2 + 1<<std ::endl;
+      nodes[n]->next = cur->next;
+      cur->next = nodes[n];
+      nodes[n - 1]->next = NULL;
+      cur = nodes[n]->next;
+      n--;
+    }
   }

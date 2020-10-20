@@ -347,15 +347,32 @@ int main() {
    s.connect(a);*/
 
    /*   No. 977. 有序数组的平方    */
-   vector<int> sort_q = {-4, -1, 0, 3, 10};
-   s.sortedSquares(sort_q);
+   //vector<int> sort_q = {-4, -1, 0, 3, 10};
+   //s.sortedSquares(sort_q);
 
    /*   No. 19. 删除链表的倒数第N个节点   */
-   ListNode* a = new ListNode(0);
-   ListNode* b = new ListNode(1);
-   a->next = b;
-   s.removeNthFromEnd(a, 2);
+   //ListNode* a = new ListNode(0);
+   //ListNode* b = new ListNode(1);
+   //a->next = b;
+   //s.removeNthFromEnd(a, 2);
 
+    /*  No. 143. 重排链表   */
+  ListNode* a = new ListNode(0);
+  ListNode* b = new ListNode(1);
+  ListNode* c = new ListNode(2);
+  ListNode* d = new ListNode(3);
+  ListNode* e = new ListNode(4);
+  ListNode* f = new ListNode(5);
+  a->next = b;
+  b->next = c;
+  c->next = d;
+  d->next = e;
+  //e->next = f;
+  s.reorderList(a);
+  while (a) {
+    std::cout << "a: " << a->val << std::endl;
+    a = a->next;
+  }
 
 
   return 0;
