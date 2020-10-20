@@ -44,6 +44,8 @@ class Node {
 
 class Solution {
  public:
+  void reorderList(ListNode* head);
+
   Node* connect2(Node* root);
 
   vector<string> commonChars(vector<string>& A);

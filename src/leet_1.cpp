@@ -1063,3 +1063,6 @@ bool Solution::hasCycle(ListNode* head) {
     //}
   }
 
+  void Solution::reorderList(ListNode* head) {
+
+  }
