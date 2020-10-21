@@ -44,6 +44,8 @@ class Node {
 
 class Solution {
  public:
+  bool isLongPressedName(string name, string typed);
+
   void reorderList(ListNode* head);
 
   ListNode* removeNthFromEnd(ListNode* head, int n);

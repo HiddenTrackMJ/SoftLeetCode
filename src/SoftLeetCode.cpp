@@ -356,7 +356,7 @@ int main() {
    //a->next = b;
    //s.removeNthFromEnd(a, 2);
 
-    /*  No. 143. 重排链表   */
+  /*  No. 143. 重排链表   */
   ListNode* a = new ListNode(0);
   ListNode* b = new ListNode(1);
   ListNode* c = new ListNode(2);
@@ -374,6 +374,11 @@ int main() {
     a = a->next;
   }
 
+  /*  No. 925. 长按键入   */
+  string name = "pyplrz";
+  string typed = "ppyypllr";
+  auto long_press = s.isLongPressedName(name, typed);
+  std::cout << "long_press: " << long_press << std::endl;
 
   return 0;
 }

@@ -1148,3 +1148,29 @@ bool Solution::hasCycle(ListNode* head) {
       n--;
     }
   }
+
+  bool Solution::isLongPressedName(string name, string typed) {
+    char cur;
+    int len1 = name.size();
+    int len2 = typed.size();
+    if (len2 == 0 || len2 < len1) return false;
+    int i , j = 0;
+    for (i = 0; i < len2; i++) {
+      if (typed[i] == name[j]) {
+        std::cout << "typed1: " << typed[i] << ", name1: " << name[j]
+                  << ", cur1: " << cur << std::endl;
+        cur = name[j];
+        j++;
+      } else {
+        std::cout << "typed2: " << typed[i] << ", name2: " << name[j]
+                  << ", cur2: " << cur
+                  << std::endl;
+        if (cur != typed[i]) {
+          return false;
+        }
+      }
+    }
+    std::cout << "j: " << j << std::endl;
+    if (j < len1 - 1 || name[j] != typed[i]) return false;
+    return true;
+  }
