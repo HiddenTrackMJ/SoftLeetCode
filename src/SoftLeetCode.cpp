@@ -373,6 +373,16 @@ int main() {
     std::cout << "a: " << a->val << std::endl;
     a = a->next;
   }
+   //ListNode* a = new ListNode(0);
+   //ListNode* b = new ListNode(1);
+   //a->next = b;
+   //s.removeNthFromEnd(a, 2);
+
+
+   /*   No. 844. 比较含退格的字符串   */
+  string S = "ab##";
+  string T = "c#d#";
+  auto back_com = s.backspaceCompare(S, T);
 
   /*  No. 925. 长按键入   */
   string name = "pyplrz";

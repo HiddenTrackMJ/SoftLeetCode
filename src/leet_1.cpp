@@ -1125,6 +1125,36 @@ bool Solution::hasCycle(ListNode* head) {
     return head;
   }
 
+  string delete_backspace(string S) {
+    string res = "";
+    int len = S.size();
+    int count = 0;
+    for (int i = len - 1, n = 0; i >= 0; i--) {
+      if (S[i] == '#') {
+        std::cout << "S[i]1: " << S[i] << std::endl;
+        count++;
+      } else {
+        if (count > 0) {
+          // continue;
+          count--;
+        } else {
+          std::cout << "S[i]2: " << S[i] << std::endl;
+          res = res + S[i];
+          n++;
+        }
+      }
+    }
+    return res;
+  }
+
+  bool Solution::backspaceCompare(string S, string T) {
+    auto res1 = delete_backspace(S);
+    auto res2 = delete_backspace(T);
+    std::cout << "res1: " << res1 << " ,res2: " << res2 << std::endl;
+    if (res1 == res2) std::cout << "sss";
+      return false;
+  }
+
 
   void Solution::reorderList(ListNode* head) {
     std::vector<ListNode*> nodes;

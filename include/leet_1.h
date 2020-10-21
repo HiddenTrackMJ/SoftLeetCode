@@ -44,6 +44,8 @@ class Node {
 
 class Solution {
  public:
+  bool backspaceCompare(string S, string T);
+
   bool isLongPressedName(string name, string typed);
 
   void reorderList(ListNode* head);
