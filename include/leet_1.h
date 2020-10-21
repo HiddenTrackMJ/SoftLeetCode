@@ -9,6 +9,8 @@
 #include <map>
 #include <unordered_set>
 
+using std::max;
+using std::min;
 using std::vector;
 using std::string;
 
