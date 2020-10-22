@@ -385,21 +385,25 @@ int main() {
   //auto back_com = s.backspaceCompare(S, T);
 
   /*  No. 925. 长按键入   */
-  string name = "pyplrz";
-  string typed = "ppyypllr";
-  auto long_press = s.isLongPressedName(name, typed);
-  std::cout << "long_press: " << long_press << std::endl;
+  //string name = "pyplrz";
+  //string typed = "ppyypllr";
+  //auto long_press = s.isLongPressedName(name, typed);
+  //std::cout << "long_press: " << long_press << std::endl;
 
 
   /*  No. 763. 划分字母区间  */
-  string partition = "ababcbacadefegdehijhklij";
-  auto par = s.partitionLabels(partition);
-  size_t len = par.size();
-  std::cout << "par: ";
-  for (size_t j = 0; j < len; j++) {
-    std::cout << par[j] << ", ";
-  }
+  //string partition = "ababcbacadefegdehijhklij";
+  //auto par = s.partitionLabels(partition);
+  //size_t len = par.size();
+  //std::cout << "par: ";
+  //for (size_t j = 0; j < len; j++) {
+  //  std::cout << par[j] << ", ";
+  //}
 
-
+  int a, b, c;
+  std::cin >> a;
+  std::cin >> b;
+  c = a + b;
+  std::cout << c;
   return 0;
 }
