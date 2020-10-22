@@ -9,6 +9,8 @@
 #include <map>
 #include <unordered_set>
 
+using std::cout;
+using std::endl;
 using std::vector;
 using std::string;
 
@@ -44,6 +46,8 @@ class Node {
 
 class Solution {
  public:
+  vector<int> partitionLabels(string S);
+
   bool backspaceCompare(string S, string T);
 
   bool isLongPressedName(string name, string typed);

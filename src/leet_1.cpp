@@ -1204,3 +1204,55 @@ bool Solution::hasCycle(ListNode* head) {
     if (j < len1 - 1 || name[j] != typed[i]) return false;
     return true;
   }
+
+  vector<int> Solution::partitionLabels(string S) {
+    //vector<int> res;
+    //std::map<char, int> pos_map;
+    //int len = S.size();
+    //for (int i = 0; i < len; i++) {
+    //  pos_map[S[i]] = i;    
+    //}
+
+    //for (auto it : pos_map) {
+    //  cout << "it: " << it.first << " , second: " << it.second << endl;
+    //}
+
+    //for (int i = 0; i < len; i++) {
+    //  int j = i;
+    //  int end = pos_map[S[i]];
+    //  while (1) {
+    //    int endc = pos_map[S[j]];
+    //    cout << "end: " << end << " , endc: " << endc << endl;
+    //    end = std::max(endc, end);
+    //    if (j == end) {
+    //      res.push_back(j - i + 1);
+    //      i = j;
+    //      break;
+    //    }
+    //    j++;
+    //  }
+    //}
+    //return res;
+    vector<int> res;
+    int pos_map[26];
+    int len = S.size();
+    for (int i = 0; i < len; i++) {
+      pos_map[S[i] - 'a'] = i;
+    }
+
+    for (int i = 0; i < len; i++) {
+      int j = i;
+      int end = pos_map[S[i] - 'a'];
+      while (1) {
+        int endc = pos_map[S[j] - 'a'];
+        end = std::max(endc, end);
+        if (j == end) {
+          res.push_back(j - i + 1);
+          i = j;
+          break;
+        }
+        j++;
+      }
+    }
+    return res;
+  }
