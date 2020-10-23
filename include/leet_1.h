@@ -48,6 +48,8 @@ class Node {
 
 class Solution {
  public:
+  bool isPalindrome(ListNode* head);
+
   vector<int> partitionLabels(string S);
 
   bool backspaceCompare(string S, string T);
