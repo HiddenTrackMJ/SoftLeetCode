@@ -360,19 +360,19 @@ int main() {
   ListNode* a = new ListNode(0);
   ListNode* b = new ListNode(1);
   ListNode* c = new ListNode(2);
-  ListNode* d = new ListNode(3);
-  ListNode* e = new ListNode(4);
-  ListNode* f = new ListNode(5);
+  ListNode* d = new ListNode(2);
+  ListNode* e = new ListNode(1);
+  ListNode* f = new ListNode(0);
   a->next = b;
   b->next = c;
   c->next = d;
   d->next = e;
-  //e->next = f;
-  s.reorderList(a);
-  while (a) {
-    std::cout << "a: " << a->val << std::endl;
-    a = a->next;
-  }
+  e->next = f;
+  //s.reorderList(a);
+  //while (a) {
+  //  std::cout << "a: " << a->val << std::endl;
+  //  a = a->next;
+  //}
    //ListNode* a = new ListNode(0);
    //ListNode* b = new ListNode(1);
    //a->next = b;
@@ -380,15 +380,29 @@ int main() {
 
 
    /*   No. 844. 比较含退格的字符串   */
-  string S = "ab##";
-  string T = "c#d#";
-  auto back_com = s.backspaceCompare(S, T);
+  //string S = "ab##";
+  //string T = "c#d#";
+  //auto back_com = s.backspaceCompare(S, T);
 
   /*  No. 925. 长按键入   */
-  string name = "pyplrz";
-  string typed = "ppyypllr";
-  auto long_press = s.isLongPressedName(name, typed);
-  std::cout << "long_press: " << long_press << std::endl;
+  //string name = "pyplrz";
+  //string typed = "ppyypllr";
+  //auto long_press = s.isLongPressedName(name, typed);
+  //std::cout << "long_press: " << long_press << std::endl;
+
+
+  /*  No. 763. 划分字母区间  */
+  //string partition = "ababcbacadefegdehijhklij";
+  //auto par = s.partitionLabels(partition);
+  //size_t len = par.size();
+  //std::cout << "par: ";
+  //for (size_t j = 0; j < len; j++) {
+  //  std::cout << par[j] << ", ";
+  //}
+
+  /* No. 234. 回文链表  */
+  auto is_Pali = s.isPalindrome(a);
+  cout << "is_Pali: " << is_Pali << endl;
 
   return 0;
 }

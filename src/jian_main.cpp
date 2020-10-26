@@ -26,10 +26,10 @@ int main() {
   }
 
   for (int i = 0; i < n; i++) {
-    if (a[i] == 'W') x = x - 2;
-    if (a[i] == 'E') x = x + 2;
-    if (a[i] == 'S') y = y - 2;
-    if (a[i] == 'N') y = y + 2;
+    if (a[i] == 'W') x = x - b[i];
+    if (a[i] == 'E') x = x + b[i];
+    if (a[i] == 'S') y = y - b[i];
+    if (a[i] == 'N') y = y + b[i];
   }
   cout << x << " " << y << endl;
 }

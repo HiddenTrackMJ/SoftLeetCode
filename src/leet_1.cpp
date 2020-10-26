@@ -1205,6 +1205,123 @@ bool Solution::hasCycle(ListNode* head) {
     return true;
   }
 
+  vector<int> Solution::partitionLabels(string S) {
+    //vector<int> res;
+    //std::map<char, int> pos_map;
+    //int len = S.size();
+    //for (int i = 0; i < len; i++) {
+    //  pos_map[S[i]] = i;    
+    //}
+
+    //for (auto it : pos_map) {
+    //  cout << "it: " << it.first << " , second: " << it.second << endl;
+    //}
+
+    //for (int i = 0; i < len; i++) {
+    //  int j = i;
+    //  int end = pos_map[S[i]];
+    //  while (1) {
+    //    int endc = pos_map[S[j]];
+    //    cout << "end: " << end << " , endc: " << endc << endl;
+    //    end = std::max(endc, end);
+    //    if (j == end) {
+    //      res.push_back(j - i + 1);
+    //      i = j;
+    //      break;
+    //    }
+    //    j++;
+    //  }
+    //}
+    //return res;
+    vector<int> res;
+    int pos_map[26];
+    int len = S.size();
+    for (int i = 0; i < len; i++) {
+      pos_map[S[i] - 'a'] = i;
+    }
+
+    for (int i = 0; i < len; i++) {
+      int j = i;
+      int end = pos_map[S[i] - 'a'];
+      while (1) {
+        int endc = pos_map[S[j] - 'a'];
+        end = std::max(endc, end);
+        if (j == end) {
+          res.push_back(j - i + 1);
+          i = j;
+          break;
+        }
+        j++;
+      }
+    }
+    return res;
+  }
+
+  ListNode* reverseList(ListNode* head) {
+    ListNode* prev = nullptr;
+    ListNode* curr = head;
+    while (curr != nullptr) {
+      ListNode* nextTemp = curr->next;
+      curr->next = prev;
+      prev = curr;
+      curr = nextTemp;
+    }
+    return prev;
+  }
+
+  ListNode* endOfFirstHalf(ListNode* head) {
+    ListNode* fast = head;
+    ListNode* slow = head;
+    while (fast->next != nullptr && fast->next->next != nullptr) {
+      fast = fast->next->next;
+      slow = slow->next;
+    }
+    return slow;
+  }
+
+  bool Solution::isPalindrome(ListNode* head) { 
+    vector<int> nodes;
+    int len = 0;
+    while (head) {
+      nodes.push_back(head->val);
+      head = head->next;
+      len++;
+    }
+
+    cout << "len: " << len << "; x: " << len / 2 - 1 << endl;
+    for (int i = 0, j = len - 1; i <= len / 2 - 1; i++, j--) {
+      cout << "nodes[i]: " << nodes[i] << "; nodes[j]: " << nodes[j]
+           << endl;
+      if (nodes[i] != nodes[j]) return false;
+    }
+    return true;
+
+    //if (head == nullptr) {
+    //  return true;
+    //}
+
+    //// 找到前半部分链表的尾节点并反转后半部分链表
+    //ListNode* firstHalfEnd = endOfFirstHalf(head);
+    //ListNode* secondHalfStart = reverseList(firstHalfEnd->next);
+
+    //// 判断是否回文
+    //ListNode* p1 = head;
+    //ListNode* p2 = secondHalfStart;
+    //bool result = true;
+    //while (result && p2 != nullptr) {
+    //  if (p1->val != p2->val) {
+    //    result = false;
+    //  }
+    //  p1 = p1->next;
+    //  p2 = p2->next;
+    //}
+
+    //// 还原链表并返回结果
+    //// firstHalfEnd->next = reverseList(secondHalfStart);
+    //return result;
+  }
+  }
+
 
   vector<int> smallerNumbersThanCurrent(vector<int>& nums) {
     vector<int> res;

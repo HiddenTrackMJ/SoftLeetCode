@@ -9,6 +9,8 @@
 #include <map>
 #include <unordered_set>
 
+using std::cout;
+using std::endl;
 using std::max;
 using std::min;
 using std::vector;
@@ -46,6 +48,10 @@ class Node {
 
 class Solution {
  public:
+  bool isPalindrome(ListNode* head);
+
+  vector<int> partitionLabels(string S);
+
   vector<int> smallerNumbersThanCurrent(vector<int>& nums);
 
   bool backspaceCompare(string S, string T);
