@@ -1320,18 +1320,32 @@ bool Solution::hasCycle(ListNode* head) {
     //// firstHalfEnd->next = reverseList(secondHalfStart);
     //return result;
   }
-  }
+  
 
 
-  vector<int> smallerNumbersThanCurrent(vector<int>& nums) {
-    vector<int> res;
-    int len = nums.size();
-    for (int i = 0; i < len; i++) {
-      int s = 0;
-      for (int j = 0; j < len; j++) {
-        if (nums[j] < nums[i]) s++;
-      }
-      res.push_back(s);
+  vector<int> Solution::smallerNumbersThanCurrent(vector<int>& nums) {
+    //vector<int> res;
+    //int len = nums.size();
+    //for (int i = 0; i < len; i++) {
+    //  int s = 0;
+    //  for (int j = 0; j < len; j++) {
+    //    if (nums[j] < nums[i]) s++;
+    //  }
+    //  res.push_back(s);
+    //}
+    //return res;
+
+    vector<int> cnt(101, 0);
+    int n = nums.size();
+    for (int i = 0; i < n; i++) {
+      cnt[nums[i]]++;
     }
-    return res;
+    for (int i = 1; i <= 100; i++) {
+      cnt[i] += cnt[i - 1];
+    }
+    vector<int> ret;
+    for (int i = 0; i < n; i++) {
+      ret.push_back(nums[i] == 0 ? 0 : cnt[nums[i] - 1]);
+    }
+    return ret;
    }
