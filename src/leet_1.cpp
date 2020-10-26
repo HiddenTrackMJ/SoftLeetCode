@@ -1204,3 +1204,17 @@ bool Solution::hasCycle(ListNode* head) {
     if (j < len1 - 1 || name[j] != typed[i]) return false;
     return true;
   }
+
+
+  vector<int> smallerNumbersThanCurrent(vector<int>& nums) {
+    vector<int> res;
+    int len = nums.size();
+    for (int i = 0; i < len; i++) {
+      int s = 0;
+      for (int j = 0; j < len; j++) {
+        if (nums[j] < nums[i]) s++;
+      }
+      res.push_back(s);
+    }
+    return res;
+   }

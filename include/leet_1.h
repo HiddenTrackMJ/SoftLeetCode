@@ -46,6 +46,8 @@ class Node {
 
 class Solution {
  public:
+  vector<int> smallerNumbersThanCurrent(vector<int>& nums);
+
   bool backspaceCompare(string S, string T);
 
   bool isLongPressedName(string name, string typed);
