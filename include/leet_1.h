@@ -48,6 +48,10 @@ class Node {
 
 class Solution {
  public:
+  bool uniqueOccurrences(vector<int>& arr);
+
+  vector<int> preorderTraversal(TreeNode* root);
+
   bool isPalindrome(ListNode* head);
 
   vector<int> partitionLabels(string S);

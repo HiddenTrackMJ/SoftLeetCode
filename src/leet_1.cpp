@@ -1349,3 +1349,57 @@ bool Solution::hasCycle(ListNode* head) {
     }
     return ret;
    }
+
+  void dfs_preorder(TreeNode* root, vector<int>& res) {
+     if (!root) {
+       return;
+     }
+     res.push_back(root->val);
+     dfs_preorder(root->left, res);
+     dfs_preorder(root->right, res);
+   }
+
+   vector<int> Solution::preorderTraversal(TreeNode* root) {
+     //vector<int> res;
+     //dfs_preorder(root, res);
+     //return res;
+
+     vector<int> res;
+     if (root == nullptr) {
+       return res;
+     }
+     std::stack<TreeNode*> nodes;
+     TreeNode* cur = root;
+     while (!nodes.empty() || cur) {
+       while (cur) {
+         res.push_back(cur->val);
+         nodes.push(cur);
+         cur = cur->left;
+       }
+       cur = nodes.top();
+       nodes.pop();
+       cur = cur->right;
+     }
+     return res;
+   }
+
+   bool Solution::uniqueOccurrences(vector<int>& arr) {
+     std::map<int, int> ret;
+     std::map<int, int> cal;
+     for (int i = 0; i < arr.size(); i++) {
+       if (ret[arr[i]]) {
+         ret[arr[i]]++;
+       }
+       else {
+         ret[arr[i]] = 1;
+       }
+     }
+     for (auto it : ret) {
+       if (cal[it.second]) {
+         return false;
+       } else {
+         cal[it.second] = 1;
+       }
+     }
+     return true;
+   }

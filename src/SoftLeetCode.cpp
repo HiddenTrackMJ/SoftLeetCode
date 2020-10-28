@@ -401,8 +401,14 @@ int main() {
   //}
 
   /* No. 234. 回文链表  */
-  auto is_Pali = s.isPalindrome(a);
-  cout << "is_Pali: " << is_Pali << endl;
+  //auto is_Pali = s.isPalindrome(a);
+  //cout << "is_Pali: " << is_Pali << endl;
+
+
+  /*  No. 1207. 独一无二的出现次数  */
+  vector<int> arr = {1, 2, 2, 1, 1, 2};
+  auto is_unique = s.uniqueOccurrences(arr);
+  std::cout << "is_unique: " << is_unique << std::endl;
 
   return 0;
 }
