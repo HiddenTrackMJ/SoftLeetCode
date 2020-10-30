@@ -48,6 +48,10 @@ class Node {
 
 class Solution {
  public:
+  int islandPerimeter(vector<vector<int>>& grid);
+
+  int sumNumbers(TreeNode* root);
+
   bool uniqueOccurrences(vector<int>& arr);
 
   vector<int> preorderTraversal(TreeNode* root);
