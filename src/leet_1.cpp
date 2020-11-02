@@ -1405,9 +1405,43 @@ bool Solution::hasCycle(ListNode* head) {
    }
 
    int Solution::sumNumbers(TreeNode* root) {
+     if (!root) return 0;
+     std::stack<std::pair<TreeNode*, int>> nodes;
+     nodes.push(std::make_pair(root, root->val));
+     auto res = 0;
+     TreeNode* cur;
+     int now;
+     while (!nodes.empty()) {
+       cur = nodes.top().first;
+       now = nodes.top().second;
+       nodes.pop();
+      
+       if (cur->left) 
+         nodes.push(std::make_pair(cur->left, now * 10 + cur->left->val));
 
+       if (cur->right)
+         nodes.push(std::make_pair(cur->right, now * 10 + cur->right->val));
+
+       if (!cur->left && !cur->right) res = res + now;
+     }  
+     return res;
    }
 
    int Solution::islandPerimeter(vector<vector<int>>& grid) {
+     int y = grid.size();
+     int a = 0, b = 0;
+     for (int i = 0; i < y; i++) {
+       int x = grid[i].size();
+       for (int j = 0; j < x; j++) {
+         if (grid[i][j] == 1) {
+           ++a;
+           //if ()
+             if (i < y - 1 && grid [i + 1][j] == 1) ++b;
+           //if ()
+             if (j < x - 1 && grid [i][j + 1] == 1) ++b;
+         }
+       }
+     }
 
+     return a * 4 - b * 2;
    }

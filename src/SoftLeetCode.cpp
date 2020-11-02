@@ -140,20 +140,20 @@ int main() {
   // s.inorderTraversal(a);
 
   /*   No.968     */
-  //TreeNode* a = new TreeNode(1);
-  //TreeNode* b = new TreeNode(-2);
-  //TreeNode* c = new TreeNode(-3);
-  //TreeNode* d = new TreeNode(1);
-  //TreeNode* e = new TreeNode(3);
-  //TreeNode* f = new TreeNode(-2);
-  //TreeNode* g = new TreeNode(-1);
+  TreeNode* a = new TreeNode(1);
+  TreeNode* b = new TreeNode(2);
+  TreeNode* c = new TreeNode(3);
+  TreeNode* d = new TreeNode(1);
+  TreeNode* e = new TreeNode(3);
+  TreeNode* f = new TreeNode(2);
+  TreeNode* g = new TreeNode(1);
 
   // TreeNode* x = new TreeNode(-2);
   // TreeNode* y = new TreeNode(-4);
   // TreeNode* z = new TreeNode(-1);
 
-  //a->left = b;
-  //a->right = c;
+  a->left = b;
+  a->right = c;
   //b->left = d;
   //b->right = e;
   //c->left = f;
@@ -184,7 +184,6 @@ int main() {
   /*   No.106     */
   // vector<int> a = {9, 3, 15, 20, 7};
   // vector<int> b = {9, 15, 7, 20, 3};
-
   // auto res = s.buildTree(a, b);
   // s.inorderTraversal(res);
 
@@ -357,17 +356,17 @@ int main() {
    //s.removeNthFromEnd(a, 2);
 
   /*  No. 143. 重排链表   */
-  ListNode* a = new ListNode(0);
-  ListNode* b = new ListNode(1);
-  ListNode* c = new ListNode(2);
-  ListNode* d = new ListNode(2);
-  ListNode* e = new ListNode(1);
-  ListNode* f = new ListNode(0);
-  a->next = b;
-  b->next = c;
-  c->next = d;
-  d->next = e;
-  e->next = f;
+  //ListNode* a = new ListNode(0);
+  //ListNode* b = new ListNode(1);
+  //ListNode* c = new ListNode(2);
+  //ListNode* d = new ListNode(2);
+  //ListNode* e = new ListNode(1);
+  //ListNode* f = new ListNode(0);
+  //a->next = b;
+  //b->next = c;
+  //c->next = d;
+  //d->next = e;
+  //e->next = f;
   //s.reorderList(a);
   //while (a) {
   //  std::cout << "a: " << a->val << std::endl;
@@ -406,9 +405,21 @@ int main() {
 
 
   /*  No. 1207. 独一无二的出现次数  */
-  vector<int> arr = {1, 2, 2, 1, 1, 2};
-  auto is_unique = s.uniqueOccurrences(arr);
-  std::cout << "is_unique: " << is_unique << std::endl;
+  //vector<int> arr = {1, 2, 2, 1, 1, 2};
+  //auto is_unique = s.uniqueOccurrences(arr);
+  //std::cout << "is_unique: " << is_unique << std::endl;
+
+
+  /*  No. 463. 岛屿的周长  */
+  //vector<vector<int>> grid = {
+  //    {0, 1, 0, 0}, {1, 1, 1, 0}, {0, 1, 0, 0}, {1, 1, 0, 0}};
+  //auto is_land = s.islandPerimeter(grid);
+  //std::cout << "is_land: " << is_land << std::endl;
+
+
+  /*  No. 129. 求根到叶子节点数字之和  */
+  auto sum_tree = s.sumNumbers(a);
+  std::cout << "sum_tree: " << sum_tree << std::endl;
 
   return 0;
 }
