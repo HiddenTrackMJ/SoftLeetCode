@@ -7,6 +7,7 @@
 #include <queue>
 #include <algorithm>
 #include <map>
+#include <set>
 #include <unordered_set>
 
 using std::cout;
@@ -48,6 +49,8 @@ class Node {
 
 class Solution {
  public:
+  vector<int> intersection(vector<int>& nums1, vector<int>& nums2);
+
   int islandPerimeter(vector<vector<int>>& grid);
 
   int sumNumbers(TreeNode* root);

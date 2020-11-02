@@ -1445,3 +1445,17 @@ bool Solution::hasCycle(ListNode* head) {
 
      return a * 4 - b * 2;
    }
+
+
+   vector<int> Solution::intersection(vector<int>& nums1, vector<int>& nums2) {
+     std::unordered_set<int> res;
+     std::vector<int> ans;
+     int l1 = nums1.size();
+     int l2 = nums2.size();
+     for (int i = 0; i < l1; i++) {
+       auto it = std::find(nums2.begin(), nums2.end(), nums1[i]);
+       if (it != nums2.end()) res.emplace(nums1[i]);
+     }
+     ans.assign(res.begin(), res.end());
+     return ans;
+   }
