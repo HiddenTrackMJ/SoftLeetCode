@@ -422,14 +422,19 @@ int main() {
   std::cout << "sum_tree: " << sum_tree << std::endl;
 
   /*   No. 349. 两个数组的交集    */
-  vector<int> nums1 = {4, 9, 5};
-  vector<int> nums2 = {9, 4, 9, 8, 4};
-  auto inter_sec = s.intersection(nums1, nums2);
-  std::cout << "inter_sec: " << std::endl;
-  size_t len = inter_sec.size();
-  for (size_t j = 0; j < len; j++) {
-     std::cout << inter_sec[j] << ", ";
-  }
+  //vector<int> nums1 = {4, 9, 5};
+  //vector<int> nums2 = {9, 4, 9, 8, 4};
+  //auto inter_sec = s.intersection(nums1, nums2);
+  //std::cout << "inter_sec: " << std::endl;
+  //size_t len = inter_sec.size();
+  //for (size_t j = 0; j < len; j++) {
+  //   std::cout << inter_sec[j] << ", ";
+  //}
+
+  /*  No. 941. 有效的山脉数组  */
+  vector<int> valid = {0, 3, 2, 1};
+  auto is_valid = s.validMountainArray(valid);
+  std::cout << "is_valid: " << is_valid << std::endl;
 
   return 0;
 }
