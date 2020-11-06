@@ -49,6 +49,8 @@ class Node {
 
 class Solution {
  public:
+  vector<int> sortByBits(vector<int>& arr);
+
   bool validMountainArray(vector<int>& A);
 
   vector<int> intersection(vector<int>& nums1, vector<int>& nums2);

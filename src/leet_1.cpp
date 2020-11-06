@@ -1478,3 +1478,17 @@ bool Solution::hasCycle(ListNode* head) {
 
      return i == N - 1;
    }
+
+
+   vector<int> Solution::sortByBits(vector<int>& arr) {
+     auto count_one = [](int a) -> int {
+       int cnt = 0;
+       while (a) a = a & (a - 1), cnt++;
+       return cnt;
+     };
+     sort(arr.begin(), arr.end(), [&](int a, int b) -> bool {
+       int num_a = count_one(a), num_b = count_one(b);
+       return num_a != num_b ? num_a < num_b : a < b;
+     });
+     return arr;
+   }

@@ -436,5 +436,14 @@ int main() {
   auto is_valid = s.validMountainArray(valid);
   std::cout << "is_valid: " << is_valid << std::endl;
 
+  /*  No. 1356. 根据数字二进制下 1 的数目排序  */
+  vector<int> arr = {1024, 512, 256, 128, 64, 32, 16, 8, 4, 2, 1};
+  auto sorted_arr = s.sortByBits(arr);
+   std::cout << "sorted_arr: " << std::endl;
+  size_t len = sorted_arr.size();
+   for (size_t j = 0; j < len; j++) {
+    std::cout << sorted_arr[j] << ", ";
+  }
+
   return 0;
 }
