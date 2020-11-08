@@ -437,13 +437,18 @@ int main() {
   std::cout << "is_valid: " << is_valid << std::endl;
 
   /*  No. 1356. 根据数字二进制下 1 的数目排序  */
-  vector<int> arr = {1024, 512, 256, 128, 64, 32, 16, 8, 4, 2, 1};
-  auto sorted_arr = s.sortByBits(arr);
-   std::cout << "sorted_arr: " << std::endl;
-  size_t len = sorted_arr.size();
-   for (size_t j = 0; j < len; j++) {
-    std::cout << sorted_arr[j] << ", ";
-  }
+  //vector<int> arr = {1024, 512, 256, 128, 64, 32, 16, 8, 4, 2, 1};
+  //auto sorted_arr = s.sortByBits(arr);
+  // std::cout << "sorted_arr: " << std::endl;
+  //size_t len = sorted_arr.size();
+  // for (size_t j = 0; j < len; j++) {
+  //  std::cout << sorted_arr[j] << ", ";
+  //}
+
+   /*   No. 122. 买卖股票的最佳时机 II   */
+  vector<int> profit = {7, 1, 5, 3, 6, 4};
+  auto max_pro = s.maxProfit(profit);
+  std::cout << "max_pro: " << max_pro << std::endl;
 
   return 0;
 }

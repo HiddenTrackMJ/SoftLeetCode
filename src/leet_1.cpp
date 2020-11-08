@@ -1492,3 +1492,27 @@ bool Solution::hasCycle(ListNode* head) {
      });
      return arr;
    }
+
+   int Solution::maxProfit(vector<int>& prices) {
+     int len = prices.size();
+     int tmp;
+     int ans = 0;
+     if (len <= 1)
+       return 0;
+     else
+       tmp = prices[len - 1];
+     for (int i = len - 2; i >= 0; i--) {
+       int cur = prices[i];
+       if (cur > prices[i + 1]) {
+         ans = ans + tmp - prices[i + 1];
+         cout << "ans: " << ans << " , tmp: " << tmp << ", cur: " << cur
+              << endl;
+         tmp = cur;
+       } else if (i == 0 && cur <= prices[i + 1]) {
+         ans = ans + tmp - cur;
+         cout << "ans222: " << ans << " , tmp: " << tmp << ", cur: " << cur
+              << endl;
+       }
+     }
+     return ans;
+   }

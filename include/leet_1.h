@@ -49,6 +49,8 @@ class Node {
 
 class Solution {
  public:
+  int maxProfit(vector<int>& prices);
+
   vector<int> sortByBits(vector<int>& arr);
 
   bool validMountainArray(vector<int>& A);
