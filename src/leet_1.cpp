@@ -1404,8 +1404,148 @@ bool Solution::hasCycle(ListNode* head) {
      return true;
    }
 
-   int Solution::sumNumbers(TreeNode* root) { return 0;
+   int Solution::sumNumbers(TreeNode* root) {
+     if (!root) return 0;
+     std::stack<std::pair<TreeNode*, int>> nodes;
+     nodes.push(std::make_pair(root, root->val));
+     auto res = 0;
+     TreeNode* cur;
+     int now;
+     while (!nodes.empty()) {
+       cur = nodes.top().first;
+       now = nodes.top().second;
+       nodes.pop();
+      
+       if (cur->left) 
+         nodes.push(std::make_pair(cur->left, now * 10 + cur->left->val));
+
+       if (cur->right)
+         nodes.push(std::make_pair(cur->right, now * 10 + cur->right->val));
+
+       if (!cur->left && !cur->right) res = res + now;
+     }  
+     return res;
    }
 
-   int Solution::islandPerimeter(vector<vector<int>>& grid) { return 0;
+   int Solution::islandPerimeter(vector<vector<int>>& grid) {
+     int y = grid.size();
+     int a = 0, b = 0;
+     for (int i = 0; i < y; i++) {
+       int x = grid[i].size();
+       for (int j = 0; j < x; j++) {
+         if (grid[i][j] == 1) {
+           ++a;
+           //if ()
+             if (i < y - 1 && grid [i + 1][j] == 1) ++b;
+           //if ()
+             if (j < x - 1 && grid [i][j + 1] == 1) ++b;
+         }
+       }
+     }
+
+     return a * 4 - b * 2;
    }
+
+
+   vector<int> Solution::intersection(vector<int>& nums1, vector<int>& nums2) {
+     std::unordered_set<int> res;
+     std::vector<int> ans;
+     int l1 = nums1.size();
+     int l2 = nums2.size();
+     for (int i = 0; i < l1; i++) {
+       auto it = std::find(nums2.begin(), nums2.end(), nums1[i]);
+       if (it != nums2.end()) res.emplace(nums1[i]);
+     }
+     ans.assign(res.begin(), res.end());
+     return ans;
+   }
+
+   bool Solution::validMountainArray(vector<int>& A) {
+     int N = A.size();
+     int i = 0;
+
+     while (i + 1 < N && A[i] < A[i + 1]) {
+       i++;
+     }
+
+     if (i == 0 || i == N - 1) {
+       return false;
+     }
+
+     while (i + 1 < N && A[i] > A[i + 1]) {
+       i++;
+     }
+
+     return i == N - 1;
+   }
+
+
+   vector<int> Solution::sortByBits(vector<int>& arr) {
+     auto count_one = [](int a) -> int {
+       int cnt = 0;
+       while (a) a = a & (a - 1), cnt++;
+       return cnt;
+     };
+     sort(arr.begin(), arr.end(), [&](int a, int b) -> bool {
+       int num_a = count_one(a), num_b = count_one(b);
+       return num_a != num_b ? num_a < num_b : a < b;
+     });
+     return arr;
+   }
+
+   int Solution::maxProfit(vector<int>& prices) {
+     int len = prices.size();
+     int tmp;
+     int ans = 0;
+     if (len <= 1)
+       return 0;
+     else
+       tmp = prices[len - 1];
+     for (int i = len - 2; i >= 0; i--) {
+       int cur = prices[i];
+       if (cur > prices[i + 1]) {
+         ans = ans + tmp - prices[i + 1];
+         cout << "ans: " << ans << " , tmp: " << tmp << ", cur: " << cur
+              << endl;
+         tmp = cur;
+       } else if (i == 0 && cur <= prices[i + 1]) {
+         ans = ans + tmp - cur;
+         cout << "ans222: " << ans << " , tmp: " << tmp << ", cur: " << cur
+              << endl;
+       }
+     }
+     return ans;
+   }
+
+   bool Solution::lemonadeChange(vector<int>& bills) { return true;
+   }
+
+   bool isTheSameStr(string a, string b) {
+     int lenA = a.size();
+     int lenB = b.size();
+     if (lenA != lenB) return false;
+     for (int i = 0; i < lenA; i++) {
+       auto res = std::find(b.begin(), b.end(), a[i]);
+       if (res == b.end()) return false;
+     }
+     return true;
+   }
+
+   vector<vector<string>> Solution::groupAnagrams(vector<string>& strs) {
+     vector<vector<string>> ans;
+     int len = strs.size();
+     for (int i = 0; i < len; i++) {
+       bool flag = true;
+       for (int j = 0; j < ans.size(); j++) {
+         if (isTheSameStr(ans[j][0], strs[i])) {
+           ans[j].emplace_back(strs[i]);
+           flag = false;
+         }
+       }
+       if (flag) {
+         vector<string> x = {strs[i]};
+         ans.emplace_back(x);
+       }
+     }
+     return ans;
+    }
