@@ -1404,10 +1404,8 @@ bool Solution::hasCycle(ListNode* head) {
      return true;
    }
 
-   int Solution::sumNumbers(TreeNode* root) {
-
+   int Solution::sumNumbers(TreeNode* root) { return 0;
    }
 
-   int Solution::islandPerimeter(vector<vector<int>>& grid) {
-
+   int Solution::islandPerimeter(vector<vector<int>>& grid) { return 0;
    }
