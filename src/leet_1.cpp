@@ -1516,3 +1516,36 @@ bool Solution::hasCycle(ListNode* head) {
      }
      return ans;
    }
+
+   bool Solution::lemonadeChange(vector<int>& bills) { return true;
+   }
+
+   bool isTheSameStr(string a, string b) {
+     int lenA = a.size();
+     int lenB = b.size();
+     if (lenA != lenB) return false;
+     for (int i = 0; i < lenA; i++) {
+       auto res = std::find(b.begin(), b.end(), a[i]);
+       if (res == b.end()) return false;
+     }
+     return true;
+   }
+
+   vector<vector<string>> Solution::groupAnagrams(vector<string>& strs) {
+     vector<vector<string>> ans;
+     int len = strs.size();
+     for (int i = 0; i < len; i++) {
+       bool flag = true;
+       for (int j = 0; j < ans.size(); j++) {
+         if (isTheSameStr(ans[j][0], strs[i])) {
+           ans[j].emplace_back(strs[i]);
+           flag = false;
+         }
+       }
+       if (flag) {
+         vector<string> x = {strs[i]};
+         ans.emplace_back(x);
+       }
+     }
+     return ans;
+    }

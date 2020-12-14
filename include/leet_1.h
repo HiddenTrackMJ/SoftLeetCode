@@ -9,6 +9,8 @@
 #include <map>
 #include <set>
 #include <unordered_set>
+#include <chrono>
+#include <thread>
 
 using std::cout;
 using std::endl;
@@ -47,8 +49,25 @@ class Node {
       : val(_val), left(_left), right(_right), next(_next) {}
 };
 
+class A {
+ public:
+  int*  a = new int[1024 * 1000]();
+  A(int* x) { a = x; }
+  ~A() { 
+      std::cout << "A has been destroyed." << std::endl;
+    if (a) {
+      delete a;
+      a = nullptr;
+    }
+  }
+};
+
 class Solution {
  public:
+  vector<vector<string>> groupAnagrams(vector<string>& strs);
+
+  bool lemonadeChange(vector<int>& bills);
+
   int maxProfit(vector<int>& prices);
 
   vector<int> sortByBits(vector<int>& arr);

@@ -418,8 +418,8 @@ int main() {
 
 
   /*  No. 129. 求根到叶子节点数字之和  */
-  auto sum_tree = s.sumNumbers(a);
-  std::cout << "sum_tree: " << sum_tree << std::endl;
+  //auto sum_tree = s.sumNumbers(a);
+  //std::cout << "sum_tree: " << sum_tree << std::endl;
 
   /*   No. 349. 两个数组的交集    */
   //vector<int> nums1 = {4, 9, 5};
@@ -432,9 +432,9 @@ int main() {
   //}
 
   /*  No. 941. 有效的山脉数组  */
-  vector<int> valid = {0, 3, 2, 1};
-  auto is_valid = s.validMountainArray(valid);
-  std::cout << "is_valid: " << is_valid << std::endl;
+  //vector<int> valid = {0, 3, 2, 1};
+  //auto is_valid = s.validMountainArray(valid);
+  //std::cout << "is_valid: " << is_valid << std::endl;
 
   /*  No. 1356. 根据数字二进制下 1 的数目排序  */
   //vector<int> arr = {1024, 512, 256, 128, 64, 32, 16, 8, 4, 2, 1};
@@ -446,9 +446,26 @@ int main() {
   //}
 
    /*   No. 122. 买卖股票的最佳时机 II   */
-  vector<int> profit = {7, 1, 5, 3, 6, 4};
-  auto max_pro = s.maxProfit(profit);
-  std::cout << "max_pro: " << max_pro << std::endl;
+  //vector<int> profit = {7, 1, 5, 3, 6, 4};
+  //auto max_pro = s.maxProfit(profit);
+  //std::cout << "max_pro: " << max_pro << std::endl;
 
+  /*    No. 49. 字母异位词分组    */
+  //vector<string> strs = {"eat", "tea", "tan", "ate", "nat", "bat"};
+  //auto group = s.groupAnagrams(strs);
+  //std::cout << "group: " << std::endl;
+  //size_t len = group.size();
+  //for (size_t j = 0; j < len; j++) {
+  //  for (int i = 0; i < group[j].size(); i++) {
+  //    std::cout << group[j][i] << ", ";
+  //  }
+  //  std::cout << std::endl;
+  //}
+
+  int tes = 10;
+  A test_a(&tes);
+  std::this_thread::sleep_for(std::chrono::milliseconds(5000));
+  //test_a.~A();
+  //std::this_thread::sleep_for(std::chrono::milliseconds(50000));
   return 0;
 }
