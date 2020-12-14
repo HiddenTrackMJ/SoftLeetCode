@@ -1517,35 +1517,48 @@ bool Solution::hasCycle(ListNode* head) {
      return ans;
    }
 
-   bool Solution::lemonadeChange(vector<int>& bills) { return true;
+   bool Solution::lemonadeChange(vector<int>& bills) { 
+       return true;
    }
 
    bool isTheSameStr(string a, string b) {
      int lenA = a.size();
      int lenB = b.size();
      if (lenA != lenB) return false;
-     for (int i = 0; i < lenA; i++) {
-       auto res = std::find(b.begin(), b.end(), a[i]);
-       if (res == b.end()) return false;
-     }
-     return true;
+     //for (int i = 0; i < lenA; i++) {
+     //  auto res = std::find(b.begin(), b.end(), a[i]);
+     //  if (res == b.end()) return false;
+     //}
+     std::sort(b.begin(), b.end());
+     std::sort(a.begin(), a.end());
+     if (a == b)
+       return true;
+     else
+       return false;
    }
 
    vector<vector<string>> Solution::groupAnagrams(vector<string>& strs) {
      vector<vector<string>> ans;
+     std::map<string, vector<string>> res;
      int len = strs.size();
      for (int i = 0; i < len; i++) {
-       bool flag = true;
-       for (int j = 0; j < ans.size(); j++) {
-         if (isTheSameStr(ans[j][0], strs[i])) {
-           ans[j].emplace_back(strs[i]);
-           flag = false;
-         }
-       }
-       if (flag) {
-         vector<string> x = {strs[i]};
-         ans.emplace_back(x);
-       }
+       //bool flag = true;
+       //for (int j = 0; j < ans.size(); j++) {
+       //  if (isTheSameStr(ans[j][0], strs[i])) {
+       //    ans[j].emplace_back(strs[i]);
+       //    flag = false;
+       //  }
+       //}
+       //if (flag) {
+       //  vector<string> x = {strs[i]};
+       //  ans.emplace_back(x);
+       //}
+       string ori = strs[i];
+       std::sort(ori.begin(), ori.end());
+       res[ori].emplace_back(strs[i]);
+     }
+     for (auto it = res.begin(); it != res.end(); ++it) {
+       ans.emplace_back(it->second);
      }
      return ans;
     }

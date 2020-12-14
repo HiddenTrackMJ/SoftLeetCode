@@ -451,20 +451,20 @@ int main() {
   //std::cout << "max_pro: " << max_pro << std::endl;
 
   /*    No. 49. 字母异位词分组    */
-  //vector<string> strs = {"eat", "tea", "tan", "ate", "nat", "bat"};
-  //auto group = s.groupAnagrams(strs);
-  //std::cout << "group: " << std::endl;
-  //size_t len = group.size();
-  //for (size_t j = 0; j < len; j++) {
-  //  for (int i = 0; i < group[j].size(); i++) {
-  //    std::cout << group[j][i] << ", ";
-  //  }
-  //  std::cout << std::endl;
-  //}
+  vector<string> strs = {"eat", "tea", "tan", "ate", "nat", "bat"};
+  auto group = s.groupAnagrams(strs);
+  std::cout << "group: " << std::endl;
+  size_t len = group.size();
+  for (size_t j = 0; j < len; j++) {
+    for (int i = 0; i < group[j].size(); i++) {
+      std::cout << group[j][i] << ", ";
+    }
+    std::cout << std::endl;
+  }
 
-  int tes = 10;
-  A test_a(&tes);
-  std::this_thread::sleep_for(std::chrono::milliseconds(5000));
+  //int tes = 10;
+  //A test_a(&tes);
+  //std::this_thread::sleep_for(std::chrono::milliseconds(5000));
   //test_a.~A();
   //std::this_thread::sleep_for(std::chrono::milliseconds(50000));
   return 0;
