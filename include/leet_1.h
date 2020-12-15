@@ -64,6 +64,8 @@ class A {
 
 class Solution {
  public:
+  int monotoneIncreasingDigits(int N);
+
   vector<vector<string>> groupAnagrams(vector<string>& strs);
 
   bool lemonadeChange(vector<int>& bills);

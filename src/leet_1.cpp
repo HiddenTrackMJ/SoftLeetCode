@@ -1548,4 +1548,8 @@ bool Solution::hasCycle(ListNode* head) {
        }
      }
      return ans;
-    }
+   }
+
+   int Solution::monotoneIncreasingDigits(int N) {
+
+   }
