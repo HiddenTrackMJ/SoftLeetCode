@@ -1566,3 +1566,7 @@ bool Solution::hasCycle(ListNode* head) {
    int Solution::monotoneIncreasingDigits(int N) {
 
    }
+
+   bool wordPattern(string pattern, string s) {
+       s.find('1', 1);
+   }

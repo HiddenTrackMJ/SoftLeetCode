@@ -462,6 +462,10 @@ int main() {
     std::cout << std::endl;
   }
 
+  /*    No. 290. 单词规律     */
+
+
+
   //int tes = 10;
   //A test_a(&tes);
   //std::this_thread::sleep_for(std::chrono::milliseconds(5000));
