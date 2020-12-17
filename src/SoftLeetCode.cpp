@@ -4,6 +4,7 @@
 #include "SoftLeetCode.h"
 
 #include "leet_1.h"
+#include "dynamic.h"
 
 //#pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")
 
@@ -467,6 +468,15 @@ int main() {
   auto word_pattern = s.wordPattern(pattern, str); 
   std::cout << "word_pattern: "<< word_pattern << std::endl;
 
+
+  /*    No. 714. 买卖股票的最佳时机含手续费   */
+   vector<int> profit = {7, 1, 5, 3, 4, 6};
+   int fee = 2;
+   auto max_pro1 = s.maxProfit(profit, fee);
+   std::cout << "max_pro1: " << max_pro1 << std::endl;
+
+   //DP dp;
+   std::cout << "dp1 : " << dp1(0) << std::endl;
 
   //int tes = 10;
   //A test_a(&tes);

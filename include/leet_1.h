@@ -1,16 +1,4 @@
-#include <iostream>
-#include <map>
-#include <sstream>
-#include <string>
-#include <stack>
-#include <vector>
-#include <queue>
-#include <algorithm>
-#include <map>
-#include <set>
-#include <unordered_set>
-#include <chrono>
-#include <thread>
+#include "pch.h"
 
 using std::cout;
 using std::endl;
@@ -64,6 +52,8 @@ class A {
 
 class Solution {
  public:
+  int maxProfit(vector<int>& prices, int fee);
+
   bool wordPattern(string pattern, string s);
 
   int monotoneIncreasingDigits(int N);

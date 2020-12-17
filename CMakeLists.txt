@@ -31,6 +31,7 @@ message(STATUS "HEADERS: " ${HEADERS})
 
 add_executable(${PROJECT_NAME}
         "./src/leet_1.cpp"
+        "./src/dynamic.cpp"
         "./src/SoftLeetCode.cpp"
         ${HEADERS}
         )

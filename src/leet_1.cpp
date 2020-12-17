@@ -1596,3 +1596,25 @@ bool Solution::hasCycle(ListNode* head) {
      else return true;
 
    }
+
+   int Solution::maxProfit(vector<int>& prices, int fee) {
+     int len = prices.size();
+     int tmp;
+     int ans = 0;
+     if (len <= 1)
+       return 0;
+     else
+       tmp = prices[0] + fee;
+     for (int i = 1; i < len; i++) {
+       int cur = prices[i] + fee;
+       if (tmp > cur) {
+         std::cout << "tmp1: " << tmp << std::endl;
+         tmp = cur;
+       } else if (tmp < prices[i]) {
+         std::cout << "tmp2: " << tmp << std::endl;
+         ans = ans + prices[i] - tmp;
+         tmp = prices[i];
+       }
+     }
+     return ans;
+   }
