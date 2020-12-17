@@ -451,19 +451,21 @@ int main() {
   //std::cout << "max_pro: " << max_pro << std::endl;
 
   /*    No. 49. 字母异位词分组    */
-  vector<string> strs = {"eat", "tea", "tan", "ate", "nat", "bat"};
-  auto group = s.groupAnagrams(strs);
-  std::cout << "group: " << std::endl;
-  size_t len = group.size();
-  for (size_t j = 0; j < len; j++) {
-    for (int i = 0; i < group[j].size(); i++) {
-      std::cout << group[j][i] << ", ";
-    }
-    std::cout << std::endl;
-  }
+  //vector<string> strs = {"eat", "tea", "tan", "ate", "nat", "bat"};
+  //auto group = s.groupAnagrams(strs);
+  //std::cout << "group: " << std::endl;
+  //size_t len = group.size();
+  //for (size_t j = 0; j < len; j++) {
+  //  for (int i = 0; i < group[j].size(); i++) {
+  //    std::cout << group[j][i] << ", ";
+  //  }
+  //  std::cout << std::endl;
+  //}
 
   /*    No. 290. 单词规律     */
-
+  string pattern = "abba", str = "dog cat cat";
+  auto word_pattern = s.wordPattern(pattern, str); 
+  std::cout << "word_pattern: "<< word_pattern << std::endl;
 
 
   //int tes = 10;

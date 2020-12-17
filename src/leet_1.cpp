@@ -1563,10 +1563,36 @@ bool Solution::hasCycle(ListNode* head) {
      return ans;
    }
 
-   int Solution::monotoneIncreasingDigits(int N) {
-
+   int Solution::monotoneIncreasingDigits(int N) { return 0;
    }
 
-   bool wordPattern(string pattern, string s) {
-       s.find('1', 1);
+   bool Solution::wordPattern(string pattern, string s) {
+     std::stringstream ss(s); 
+     string buf;
+     std::map<char, string> m;
+     int i = 0;
+     int len = pattern.size();
+     while (ss >> buf) 
+     {
+       std::cout << "buf: " << buf << std::endl;
+       if (len < i + 1) return false;
+       auto rst = m.find(pattern[i]);
+       if (rst == m.end()) {
+         m[pattern[i]] = buf;
+       } else {
+         if (rst->second != buf) return false;
+       }
+       i++;
+     }
+     std::cout << "i: " <<i << std::endl;
+     if (i != len) return false;
+     std::unordered_set<string> v;
+     for (auto it : m) {
+       v.emplace(it.second);
+     }
+     ss.clear();
+
+     if (m.size() != v.size()) return false;
+     else return true;
+
    }
