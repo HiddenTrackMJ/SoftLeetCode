@@ -52,13 +52,17 @@ class A {
 
 class Solution {
  public:
+  void rotate(vector<vector<int>>& matrix);
+
+  string removeDuplicateLetters(string s);
+
+  char findTheDifference(string s, string t);
+
   int maxProfit(vector<int>& prices, int fee);
 
   bool wordPattern(string pattern, string s);
 
   int monotoneIncreasingDigits(int N);
-
-  char findTheDifference(string s, string t);
 
   vector<vector<string>> groupAnagrams(vector<string>& strs);
 

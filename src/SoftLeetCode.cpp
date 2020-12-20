@@ -464,9 +464,9 @@ int main() {
   //}
 
   /*    No. 290. 单词规律     */
-  string pattern = "abba", str = "dog cat cat";
-  auto word_pattern = s.wordPattern(pattern, str); 
-  std::cout << "word_pattern: "<< word_pattern << std::endl;
+  //string pattern = "abba", str = "dog cat cat";
+  //auto word_pattern = s.wordPattern(pattern, str); 
+  //std::cout << "word_pattern: "<< word_pattern << std::endl;
 
 
   /*    No. 714. 买卖股票的最佳时机含手续费   */
@@ -480,9 +480,15 @@ int main() {
 
 
    /*   No. 389. 找不同   */
-  string str_s = "abcd", str_t = "abcde";
-  auto diff = s.findTheDifference(str_s, str_t);
-  std::cout << "diff: " << diff << std::endl;
+  //string str_s = "abcd", str_t = "abcde";
+  //auto diff = s.findTheDifference(str_s, str_t);
+  //std::cout << "diff: " << diff << std::endl;
+
+
+     /*   No. 316. 去除重复字母   */
+   string remv = "leetcode";
+  auto remv_letter = s.removeDuplicateLetters(remv);
+  std::cout << "remv_letter: " << remv_letter << std::endl;
 
   //int tes = 10;
   //A test_a(&tes);
