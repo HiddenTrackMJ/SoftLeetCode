@@ -1561,6 +1561,63 @@ bool Solution::hasCycle(ListNode* head) {
        ans.emplace_back(it->second);
      }
      return ans;
+   }
+
+   int Solution::monotoneIncreasingDigits(int N) { return 0;
+   }
+
+   bool Solution::wordPattern(string pattern, string s) {
+     std::stringstream ss(s); 
+     string buf;
+     std::map<char, string> m;
+     int i = 0;
+     int len = pattern.size();
+     while (ss >> buf) 
+     {
+       std::cout << "buf: " << buf << std::endl;
+       if (len < i + 1) return false;
+       auto rst = m.find(pattern[i]);
+       if (rst == m.end()) {
+         m[pattern[i]] = buf;
+       } else {
+         if (rst->second != buf) return false;
+       }
+       i++;
+     }
+     std::cout << "i: " <<i << std::endl;
+     if (i != len) return false;
+     std::unordered_set<string> v;
+     for (auto it : m) {
+       v.emplace(it.second);
+     }
+     ss.clear();
+
+     if (m.size() != v.size()) return false;
+     else return true;
+
+   }
+
+   int Solution::maxProfit(vector<int>& prices, int fee) {
+     int len = prices.size();
+     int tmp;
+     int ans = 0;
+     if (len <= 1)
+       return 0;
+     else
+       tmp = prices[0] + fee;
+     for (int i = 1; i < len; i++) {
+       int cur = prices[i] + fee;
+       if (tmp > cur) {
+         std::cout << "tmp1: " << tmp << std::endl;
+         tmp = cur;
+       } else if (tmp < prices[i]) {
+         std::cout << "tmp2: " << tmp << std::endl;
+         ans = ans + prices[i] - tmp;
+         tmp = prices[i];
+       }
+     }
+     return ans;
+   }
     }
 
    char Solution::findTheDifference(string s, string t) {

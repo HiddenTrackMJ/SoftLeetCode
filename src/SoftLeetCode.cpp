@@ -4,6 +4,7 @@
 #include "SoftLeetCode.h"
 
 #include "leet_1.h"
+#include "dynamic.h"
 
 //#pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")
 
@@ -451,16 +452,31 @@ int main() {
   //std::cout << "max_pro: " << max_pro << std::endl;
 
   /*    No. 49. 字母异位词分组    */
-  vector<string> strs = {"eat", "tea", "tan", "ate", "nat", "bat"};
-  auto group = s.groupAnagrams(strs);
-  std::cout << "group: " << std::endl;
-  size_t len = group.size();
-  for (size_t j = 0; j < len; j++) {
-    for (int i = 0; i < group[j].size(); i++) {
-      std::cout << group[j][i] << ", ";
-    }
-    std::cout << std::endl;
-  }
+  //vector<string> strs = {"eat", "tea", "tan", "ate", "nat", "bat"};
+  //auto group = s.groupAnagrams(strs);
+  //std::cout << "group: " << std::endl;
+  //size_t len = group.size();
+  //for (size_t j = 0; j < len; j++) {
+  //  for (int i = 0; i < group[j].size(); i++) {
+  //    std::cout << group[j][i] << ", ";
+  //  }
+  //  std::cout << std::endl;
+  //}
+
+  /*    No. 290. 单词规律     */
+  string pattern = "abba", str = "dog cat cat";
+  auto word_pattern = s.wordPattern(pattern, str); 
+  std::cout << "word_pattern: "<< word_pattern << std::endl;
+
+
+  /*    No. 714. 买卖股票的最佳时机含手续费   */
+   vector<int> profit = {7, 1, 5, 3, 4, 6};
+   int fee = 2;
+   auto max_pro1 = s.maxProfit(profit, fee);
+   std::cout << "max_pro1: " << max_pro1 << std::endl;
+
+   //DP dp;
+   std::cout << "dp1 : " << dp1(0) << std::endl;
 
 
    /*   No. 389. 找不同   */
