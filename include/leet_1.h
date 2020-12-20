@@ -64,6 +64,8 @@ class A {
 
 class Solution {
  public:
+  char findTheDifference(string s, string t);
+
   vector<vector<string>> groupAnagrams(vector<string>& strs);
 
   bool lemonadeChange(vector<int>& bills);

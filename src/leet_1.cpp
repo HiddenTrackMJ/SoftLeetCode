@@ -1562,3 +1562,41 @@ bool Solution::hasCycle(ListNode* head) {
      }
      return ans;
     }
+
+   char Solution::findTheDifference(string s, string t) {
+     //int len1 = s.size(), len2 = t.size();
+     //std::sort(s.begin(), s.end());
+     //std::sort(t.begin(), t.end());
+     //for (int i = 0; i < len2; i++) {
+     //  if (s[i] != t[i]) return t[i];
+     //}
+     //return t[0];
+
+     //int len2 = t.size();
+     //int c1 = 0, c2 = 0;
+     //for (int i = 0; i < len2; i++) {
+     //  if (i != len2 - 1) c1 += s[i];
+     //  c2 += t[i];
+     //}
+     //return char(c2 - c1);
+
+     //int len2 = t.size();
+     //char c1 = 0;
+     //for (int i = 0; i < len2; i++) {
+     //  if (i != len2 - 1) c1 += s[i];
+     //  std::cout << "c1: " << char(c1) << std::endl;
+     //  c1 -= t[i];
+     //  std::cout << "c2: " << char(c1) << std::endl;
+     //}
+     //
+     //return char(c1);
+
+     int ret = 0;
+     for (char ch : s) {
+       ret ^= ch;
+     }
+     for (char ch : t) {
+       ret ^= ch;
+     }
+     return ret;
+   }

@@ -462,6 +462,12 @@ int main() {
     std::cout << std::endl;
   }
 
+
+   /*   No. 389. 找不同   */
+  string str_s = "abcd", str_t = "abcde";
+  auto diff = s.findTheDifference(str_s, str_t);
+  std::cout << "diff: " << diff << std::endl;
+
   //int tes = 10;
   //A test_a(&tes);
   //std::this_thread::sleep_for(std::chrono::milliseconds(5000));
