@@ -1717,5 +1717,5 @@ bool Solution::hasCycle(ListNode* head) {
    }
 
    void Solution::rotate(vector<vector<int>>& matrix) {
-
+     int len = matrix.size();
    }
