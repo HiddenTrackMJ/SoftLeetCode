@@ -1729,3 +1729,17 @@ bool Solution::hasCycle(ListNode* head) {
        }
      }
    }
+
+   int Solution::minCostClimbingStairs(vector<int>& cost) {
+     int* dp = new int[cost.size() + 1];
+     dp[0] = dp[1] = 0;
+     int i, ans;
+     for (i = 2; i <= cost.size(); i++) {
+       dp[i] = min(dp[i - 1] + cost[i - 1], dp[i - 2] + cost[i - 2]);
+       std::cout << "first: " << dp[i - 1] + cost[i - 1]
+                 << "; second: " << dp[i - 2] + cost[i - 2] <<
+           "; i: " << i << std::endl;
+       ans = dp[i];
+     }
+     return ans;
+    }

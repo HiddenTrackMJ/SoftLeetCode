@@ -490,6 +490,12 @@ int main() {
   auto remv_letter = s.removeDuplicateLetters(remv);
   std::cout << "remv_letter: " << remv_letter << std::endl;
   
+
+  /*     No. 746. 使用最小花费爬楼梯    */
+  vector<int> cost = {1, 100, 1, 1, 1, 100, 1, 1, 100, 1};
+  auto min_cost = s.minCostClimbingStairs(cost);
+  std::cout << "min_cost: " << min_cost << std::endl;
+
   //int tes = 10;
   //A test_a(&tes);
   //std::this_thread::sleep_for(std::chrono::milliseconds(5000));

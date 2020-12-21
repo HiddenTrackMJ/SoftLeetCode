@@ -52,6 +52,8 @@ class A {
 
 class Solution {
  public:
+  int minCostClimbingStairs(vector<int>& cost);
+
   void rotate(vector<vector<int>>& matrix);
 
   string removeDuplicateLetters(string s);
