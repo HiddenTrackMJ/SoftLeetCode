@@ -52,6 +52,8 @@ class A {
 
 class Solution {
  public:
+  int monotoneIncreasingDigits(int N);
+
   int minCostClimbingStairs(vector<int>& cost);
 
   void rotate(vector<vector<int>>& matrix);
@@ -63,8 +65,6 @@ class Solution {
   int maxProfit(vector<int>& prices, int fee);
 
   bool wordPattern(string pattern, string s);
-
-  int monotoneIncreasingDigits(int N);
 
   vector<vector<string>> groupAnagrams(vector<string>& strs);
 

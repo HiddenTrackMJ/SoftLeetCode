@@ -1563,8 +1563,6 @@ bool Solution::hasCycle(ListNode* head) {
      return ans;
    }
 
-   int Solution::monotoneIncreasingDigits(int N) { return 0;
-   }
 
    bool Solution::wordPattern(string pattern, string s) {
      std::stringstream ss(s); 
@@ -1730,6 +1728,7 @@ bool Solution::hasCycle(ListNode* head) {
      }
    }
 
+   //¶¯Ì¬¹æ»®
    int Solution::minCostClimbingStairs(vector<int>& cost) {
      int* dp = new int[cost.size() + 1];
      dp[0] = dp[1] = 0;
@@ -1743,3 +1742,38 @@ bool Solution::hasCycle(ListNode* head) {
      }
      return ans;
     }
+
+   bool is_increase(int n) {
+      int j = 2;
+     int tmp = n % 10;
+      if (n < 10) return true;
+      //std::cout << "n: " << n << std::endl;
+      while (1) {
+        int x = n % (int)pow(10, j);
+        //std::cout << "x: " << x / (int)pow(10, j - 1)  << ", tmp: " << tmp << std::endl;
+
+        if ((x / (int)pow(10, j - 1)) < tmp)
+          tmp = (x / (int)pow(10, j - 1));
+        else
+          return false;
+        if (x == n) break;
+        j++;
+      }
+      return true;
+    }
+
+   int Solution::monotoneIncreasingDigits(int N) {
+     if (N < 10) return N;
+     string strN = std::to_string(N);
+     int i = 1;
+     while (i < strN.size() && strN[i - 1] <= strN[i])  i++;
+     if (i < strN.size()) {
+       while (i > 0 && strN[i - 1] > strN[i]) {
+         strN[i - 1]--;
+         i--;
+       }
+       for (++i; i < strN.size(); ++i) strN[i] = '9';
+     }
+
+     return std::stoi(strN);
+   }

@@ -486,15 +486,21 @@ int main() {
 
 
      /*   No. 316. 去除重复字母   */
-   string remv = "leetcode";
-  auto remv_letter = s.removeDuplicateLetters(remv);
-  std::cout << "remv_letter: " << remv_letter << std::endl;
+  // string remv = "leetcode";
+  //auto remv_letter = s.removeDuplicateLetters(remv);
+  //std::cout << "remv_letter: " << remv_letter << std::endl;
   
 
   /*     No. 746. 使用最小花费爬楼梯    */
-  vector<int> cost = {1, 100, 1, 1, 1, 100, 1, 1, 100, 1};
-  auto min_cost = s.minCostClimbingStairs(cost);
-  std::cout << "min_cost: " << min_cost << std::endl;
+  //vector<int> cost = {1, 100, 1, 1, 1, 100, 1, 1, 100, 1};
+  //auto min_cost = s.minCostClimbingStairs(cost);
+  //std::cout << "min_cost: " << min_cost << std::endl;
+
+
+  /*     No. 738. 单调递增的数字     */
+   int N = 963856657;
+  auto increase = s.monotoneIncreasingDigits(N);
+  std::cout << "increase: " << increase << std::endl;
 
   //int tes = 10;
   //A test_a(&tes);
