@@ -1596,23 +1596,34 @@ bool Solution::hasCycle(ListNode* head) {
    }
 
    int Solution::maxProfit(vector<int>& prices, int fee) {
-     int len = prices.size();
-     int tmp;
+     //int len = prices.size();
+     //int tmp;
+     //int ans = 0;
+     //if (len <= 1)
+     //  return 0;
+     //else
+     //  tmp = prices[0] + fee;
+     //for (int i = 1; i < len; i++) {
+     //  int cur = prices[i] + fee;
+     //  if (tmp > cur) {
+     //    std::cout << "tmp1: " << tmp << std::endl;
+     //    tmp = cur;
+     //  } else if (tmp < prices[i]) {
+     //    std::cout << "tmp2: " << tmp << std::endl;
+     //    ans = ans + prices[i] - tmp;
+     //    tmp = prices[i];
+     //  }
+     //}
+     //return ans;
+
+     int dp[50000][2];
+     dp[0][0] = 0;
+     dp[0][1] = -prices[0];
      int ans = 0;
-     if (len <= 1)
-       return 0;
-     else
-       tmp = prices[0] + fee;
-     for (int i = 1; i < len; i++) {
-       int cur = prices[i] + fee;
-       if (tmp > cur) {
-         std::cout << "tmp1: " << tmp << std::endl;
-         tmp = cur;
-       } else if (tmp < prices[i]) {
-         std::cout << "tmp2: " << tmp << std::endl;
-         ans = ans + prices[i] - tmp;
-         tmp = prices[i];
-       }
+     for (int i = 1; i < prices.size(); i++) {
+       dp[i][0] = max(dp[i - 1][0], dp[i - 1][1] + prices[i] - fee);
+       dp[i][1] = max(dp[i - 1][0] - prices[i], dp[i - 1][1]);
+       ans = dp[i][0];
      }
      return ans;
    }
@@ -1762,7 +1773,7 @@ bool Solution::hasCycle(ListNode* head) {
       return true;
     }
 
-   int Solution::monotoneIncreasingDigits(int N) {
+   int Solution::monotoneIncreasingDigits(int N) { 
      if (N < 10) return N;
      string strN = std::to_string(N);
      int i = 1;
