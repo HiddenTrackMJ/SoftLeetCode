@@ -149,19 +149,19 @@ int main() {
   TreeNode* f = new TreeNode(2);
   TreeNode* g = new TreeNode(1);
 
-  // TreeNode* x = new TreeNode(-2);
-  // TreeNode* y = new TreeNode(-4);
-  // TreeNode* z = new TreeNode(-1);
+   TreeNode* x = new TreeNode(-2);
+   TreeNode* y = new TreeNode(-4);
+   TreeNode* z = new TreeNode(-1);
 
-  a->left = b;
-  a->right = c;
-  //b->left = d;
-  //b->right = e;
-  //c->left = f;
-  //d->left = g;
-  // c->right = g;
-  // x->left = y;
-  // x->right = z;
+   a->left = b;
+   a->right = c;
+   b->left = d;
+   b->right = e;
+   c->left = f;
+   d->left = g;
+   d->right = x;
+   g->left = y;
+   g->right = z;
 
   // int res = s.minCameraCover(a);
   // std::cout << res << std::endl;
@@ -498,9 +498,27 @@ int main() {
 
 
   /*     No. 738. 单调递增的数字     */
-   int N = 963856657;
-  auto increase = s.monotoneIncreasingDigits(N);
-  std::cout << "increase: " << increase << std::endl;
+  //int N = 963856657;
+  //auto increase = s.monotoneIncreasingDigits(N);
+  //std::cout << "increase: " << increase << std::endl;
+
+
+  /*     No. 53. 最大子序和    */
+  //vector<int> nums_subArray = {-1, 0 , -2};
+  //auto nums_sub = s.maxSubArray(nums_subArray);
+  //std::cout << "nums_sub: " << nums_sub << std::endl;
+
+   /*     No. 103. 二叉树的锯齿形层序遍历    */
+   auto zigzag = s.zigzagLevelOrder(a);
+   std::cout << "zigzag: "  << std::endl;
+   size_t len = zigzag.size();
+    for (size_t j = 0; j < len; j++) {
+     for (int i = 0; i < zigzag[j].size(); i++) {
+        std::cout << zigzag[j][i] << ", ";
+     }
+     std::cout << std::endl;
+   }
+
 
   //int tes = 10;
   //A test_a(&tes);

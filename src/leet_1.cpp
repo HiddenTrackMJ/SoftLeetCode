@@ -1788,3 +1788,77 @@ bool Solution::hasCycle(ListNode* head) {
 
      return std::stoi(strN);
    }
+
+
+   int Solution::maxSubArray(vector<int>& nums) {
+     int len = nums.size();
+     if (len == 1) return nums[0];
+     int x, y;
+     x = max(nums[1], nums[0] + nums[1]);
+     y = nums[0];
+     int i;
+     for (i = 2; i < len; i++) {
+       y = max(x, y);
+       x = max(x + nums[i], nums[i]);
+     }
+     return max(x, y);
+   }
+
+   vector<vector<int>> Solution::zigzagLevelOrder(TreeNode* root) {
+     if (!root) return {};
+     vector<vector<int>> ans;
+     std::list<TreeNode*> qu;
+     qu.emplace_back(root);
+     bool flag = true;
+     while (!qu.empty()) {
+       int len = qu.size();
+       std::list<int> tmp;
+       for (int i = 0; i < len; i++) {
+         auto front = qu.front();
+         qu.pop_front();
+     
+         if (flag) tmp.emplace_back(front->val);
+         else tmp.emplace_front(front->val);
+         if (front->left) {
+           qu.emplace_back(front->left);
+         }
+         if (front->right) {
+           qu.emplace_back(front->right);
+         }
+
+       }
+       ans.emplace_back(vector<int>{tmp.begin(), tmp.end()});
+       flag = !flag;
+     }
+
+     return ans;
+   }
+
+
+   int Solution::uniquePaths(int m, int n) {
+     //int dp[100][100];
+     //for (int i = 0; i < m; i++) {
+     //  dp[i][0] = 1;
+     //}
+     //for (int i = 0; i < n; i++) {
+     //  dp[0][i] = 1;
+     //}
+     //for (int i = 1; i < m; i++) {
+     //  for (int j = 1; j < n; j++) {
+     //    dp[i][j] = dp[i - 1][j] + dp[i][j - 1];
+     //  }
+     //}
+     //return dp[m - 1][n - 1];
+
+     int dp[100];
+     for (int i = 0; i < m; i++) {
+       dp[i] = 1;
+     }
+
+     for (int i = 1; i < m; i++) {
+       for (int j = 1; j < n; j++) {
+         dp[j] = dp[j] + dp[j - 1];
+       }
+     }
+     return dp[m - 1];
+   }

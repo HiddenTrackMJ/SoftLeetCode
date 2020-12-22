@@ -52,6 +52,12 @@ class A {
 
 class Solution {
  public:
+  int uniquePaths(int m, int n);
+
+  vector<vector<int>> zigzagLevelOrder(TreeNode* root);
+
+  int maxSubArray(vector<int>& nums);
+
   int monotoneIncreasingDigits(int N);
 
   int minCostClimbingStairs(vector<int>& cost);
