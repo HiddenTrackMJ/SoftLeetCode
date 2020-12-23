@@ -1862,3 +1862,37 @@ bool Solution::hasCycle(ListNode* head) {
      }
      return dp[m - 1];
    }
+
+   int Solution::firstUniqChar(string s) {
+     std::unordered_map<char, int> char_map;
+     for (int i = 0; i < s.size(); i++) {
+       char_map[s[i]]++;
+     }
+
+     for (int i = 0; i < s.size(); i++) {
+       if (char_map[s[i]] == 1) return i;
+     }
+     return -1;
+   }
+
+   int Solution::minPathSum(vector<vector<int>>& grid) {
+     int m = grid.size();
+     int n = grid[0].size();
+     int dp[200];
+     dp[0] = grid[0][0];
+     for (int i = 0; i < m; ++i) {
+       for (int j = 0; j < n; ++j) {
+         std::cout << "dp[j] before: " << dp[j]
+                   << ", grid[j][i]: " << grid[i][j]
+                   << ", j: " << j
+                   << std::endl;
+         if (i == 0 && j > 0) dp[j] = grid[0][j] + dp[j - 1];
+         if (i > 0) {
+           if (j == 0) dp[j] = dp[j] + grid[i][j];
+           else dp[j] = min(dp[j], dp[j - 1]) + grid[i][j];
+         }
+         std::cout << "dp[j]: " << dp[j] << std::endl;
+       }
+     }
+     return dp[n - 1];
+   }

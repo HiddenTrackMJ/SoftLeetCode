@@ -1,13 +1,4 @@
-#include <iostream>
-#include <map>
-#include <sstream>
-#include <string>
-#include <stack>
-#include <vector>
-#include <queue>
-#include <algorithm>
-#include <map>
-#include <unordered_set>
+#include <pch.h>
 
 using std::vector;
 using std::string;

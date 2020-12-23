@@ -52,6 +52,10 @@ class A {
 
 class Solution {
  public:
+  int minPathSum(vector<vector<int>>& grid);
+
+  int firstUniqChar(string s);
+
   int uniquePaths(int m, int n);
 
   vector<vector<int>> zigzagLevelOrder(TreeNode* root);
