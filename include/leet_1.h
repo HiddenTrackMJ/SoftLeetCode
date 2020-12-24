@@ -52,6 +52,8 @@ class A {
 
 class Solution {
  public:
+  int singleNumber(vector<int>& nums);
+
   bool isSymmetric(TreeNode* root);
 
   int maxDepth(TreeNode* root);

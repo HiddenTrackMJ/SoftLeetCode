@@ -2133,3 +2133,16 @@ bool Solution::hasCycle(ListNode* head) {
 
      return true;
    }
+
+   int Solution::singleNumber(vector<int>& nums) {
+     int len = nums.size();
+     std::unordered_map<int, int> m;
+     for (int i = 0; i < nums.size(); ++i) {
+       if (++m[nums[i]] > 1) m.erase(nums[i]);
+     }
+     for (auto it : m) {
+       if (it.second == 1) return it.first;
+     }
+     m.begin()->first;
+     return nums[0];
+   }
