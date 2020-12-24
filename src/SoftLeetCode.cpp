@@ -510,9 +510,23 @@ int main() {
   std::cout << "firstUniqu: " << firstUniqu << std::endl;
 
   /*   No. 64. 最小路径和   */
-  vector<vector<int>> min_path = {{1, 3, 1}, {1, 5, 1}, {4, 2, 1}};
-  auto minPath = s.minPathSum(min_path);
-  std::cout << "minPath: " << minPath << std::endl;
+  //vector<vector<int>> min_path = {{1, 3, 1}, {1, 5, 1}, {4, 2, 1}};
+  //auto minPath = s.minPathSum(min_path);
+  //std::cout << "minPath: " << minPath << std::endl;
+
+    /*   No. 72. 编辑距离   */
+  //string word1 = "horse", word2 = "ros";
+  //auto min_d = s.minDistance(word1, word2);
+  //std::cout << "min_d: " << min_d << std::endl;
+
+
+  /*    No. 135. 分发糖果   */
+  auto candy = s.candy(vector<int>{1, 2, 2, 2, 2});
+  std::cout << "candy: " << candy << std::endl;
+
+  /*    No. 10. 正则表达式匹配   */
+  auto is_match = s.isMatch("aa", "a");
+  std::cout << "is_match: " << is_match << std::endl;
 
   // int tes = 10;
   // A test_a(&tes);

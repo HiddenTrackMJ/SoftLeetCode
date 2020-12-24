@@ -1896,3 +1896,240 @@ bool Solution::hasCycle(ListNode* head) {
      }
      return dp[n - 1];
    }
+
+   int Solution::minDistance(string word1, string word2) {
+     int x = word1.size();
+     int y = word2.size();
+     int dp[500], pre, tmp;
+     //for (int i = 0; i <= x; ++i) {
+     //  dp[i] = i;
+     //}
+
+     for (int i = 0; i <= y; ++i) {
+       if (i > 0) {
+         tmp = dp[0];
+         dp[0] = i;
+       }
+       for (int j = 0; j <= x; ++j) {
+         if (i == 0) dp[j] = j;
+         else if(j != 0){
+           pre = tmp;
+           tmp = dp[j];
+           if (word2[i - 1] == word1[j - 1])
+             dp[j] = pre;
+           else
+             dp[j] = std::min(min(dp[j - 1], dp[j]), pre) + 1;
+         }
+       }
+     }
+     return dp[x];
+   }
+
+   int Solution::candy(vector<int>& ratings) {
+     //int* can = new int[ratings.size() + 1];
+     //int min = 1, pre = 1;
+     //can[0] = 1;
+     //for (int i = 1; i < ratings.size(); ++i) {
+     //  if (ratings[i] > ratings[i - 1])
+     //    pre = pre + 1;
+     //  //else if (ratings[i] < ratings[i - 1])
+     //  //  pre = pre - 1;
+     //  else {
+     //    if (pre - 1 <= 0 && pre - 1 < min) 
+     //      if (can[i - 1] + pre - 1 + ratings.size() * (1 - (pre - 1)) <
+     //          can[i - 1] + pre + ratings.size() * (1 - min))
+     //        pre = pre - 1;
+     //    else
+     //      pre = pre - 1;
+     //  }
+     //  can[i] = can[i - 1] + pre;
+     //  if (pre <= 0 && pre < min) min = pre;
+     //}
+     //return can[ratings.size() - 1] + (ratings.size() * (1 - min));
+
+    //int len = ratings.size(), right = 0, ans = 0;
+    // int* left = new int[len]; 
+    // for (int i = 0; i < len; ++i) {
+    //   if (i > 0 && ratings[i] > ratings[i - 1]) {
+    //     left[i] = left[i - 1] + 1;
+    //   } else {
+    //     left[i] = 1;
+    //   }
+    // }
+
+    // for (int i = len - 1; i >= 0; --i) {
+    //   if (i < len - 1 && ratings[i] > ratings[i + 1]) {
+    //     right++;
+    //   } else
+    //     right = 1;
+    //   ans += max(left[i], right);
+    // }
+    // return ans;
+
+     vector<int> candyVec(ratings.size(), 1);
+     int result = 0;
+     for (int i = 1; i < ratings.size(); i++) {
+       if (ratings[i] > ratings[i - 1]) candyVec[i] = candyVec[i - 1] + 1;
+     }
+
+     for (int i = ratings.size() - 2; i >= 0; i--) {
+       if (ratings[i] > ratings[i + 1]) {
+         candyVec[i] = max(candyVec[i], candyVec[i + 1] + 1);
+       }
+       result += candyVec[i];
+     }
+
+     return result + candyVec[ratings.size() - 1];
+
+   }
+
+   bool Solution::isValid(string s) {
+     //int len = s.size();
+     //std::stack<char> st;
+     //for (int i = 0; i < len; ++i) {
+     //  if (s[i] == '{' || s[i] == '(' || s[i] == '[') {
+     //    st.push(s[i]);
+     //  } else if (s[i] == '}') {
+     //    if (st.empty()) return false;
+     //    if (st.top() == '{')
+     //      st.pop();
+     //    else
+     //      return false;
+     //  } else if (s[i] == ')') {
+     //    if (st.empty()) return false;
+     //    if (st.top() == '(')
+     //      st.pop();
+     //    else
+     //      return false;
+     //  } else if (s[i] == ']') {
+     //    if (st.empty()) return false;
+     //    if (st.top() == '[')
+     //      st.pop();
+     //    else
+     //      return false;
+     //  }
+     //}
+     //if (st.empty())
+     //  return true;
+     //else
+     //  return false;
+
+     int len = s.size();
+     std::stack<char> st;
+     for (int i = 0; i < len; ++i) {
+       if (s[i] == '[')
+         st.push(']');
+       else if (s[i] == '(')
+         st.push(')');
+       else if (s[i] == '{')
+         st.push('}');
+       else if (st.empty() || s[i] != st.top())
+         return false;
+       else if (!st.empty() || s[i] == st.top())
+         st.pop();
+     }
+     return st.empty();
+   }
+
+   ListNode* Solution::mergeTwoLists(ListNode* l1, ListNode* l2) {
+     ListNode* tmp = new ListNode(-1);
+     ListNode* ans = tmp;
+
+     while (l1 && l2) {
+       if (l1->val > l2->val) {
+         tmp->next = l2;
+         l2 = l2->next;
+       } else {
+         tmp->next = l1;
+         l1 = l1->next;
+       }
+       tmp = tmp->next;
+     }
+     tmp->next = l1 == nullptr ? l2 : l1;
+     return ans->next;
+   }
+
+
+   bool Solution::isMatch(string s, string p) {
+     int x = s.size();
+     int y = p.size();
+     vector<vector<bool>> dp(x + 1, vector<bool>(y + 1, false));
+     dp[0][0] = true;
+     for (int i = 0; i <= x; ++i) {
+       for (int j = 1; j <= y; ++j) {
+         if (p[j - 1] == '*' && j > 1) {
+           dp[i][j] =
+               dp[i][j - 2] || (i > 0 && (p[j - 2] == '.' || p[j - 2] == s[i - 1]) &&
+                                (dp[i - 1][j - 2] || dp[i - 1][j]));
+         } else {
+           dp[i][j] = i > 0 && dp[i - 1][j - 1] && (p[j - 1] == '.' || p[j - 1] == s[i - 1]);
+         }
+       }
+     }
+     return dp[x][y];
+   }
+
+
+   int Solution::maxDepth(TreeNode* root) {
+     if (!root) return 0;
+     std::deque<TreeNode*> st;
+     st.push_back(root);
+     int ans = 0;
+     TreeNode* tmp;
+     while (!st.empty()) {
+       int len = st.size();
+       for (int i = 0; i < len; ++i) {
+         tmp = st.back();
+         st.pop_back();
+         if (tmp->left) st.push_front(tmp->left);
+         if (tmp->right) st.push_front(tmp->right);
+       }
+       ++ans;
+     }
+     return ans;
+   }
+
+   bool Solution::isSymmetric(TreeNode* root) {
+     if (!root) return true;
+     std::deque<TreeNode*> qu;
+     qu.push_back(root);
+     while (!qu.empty()) {
+       int len = qu.size();
+       for (int i = 0; i < len / 2; ++i) {
+         auto front = qu.front();
+         qu.pop_front();
+         auto back = qu.front();
+         qu.pop_front();
+         if (front->val != back->val) {
+           return false;
+         }
+
+         if (front->left && back->right) {
+           qu.push_back(front->left);
+           qu.push_back(back->right);
+         }
+         if (front->right && back->left) {
+           qu.push_back(front->right);
+           qu.push_back(back->left);
+         }
+         if ((front->left && !back->right) || (front->right && !back->left) ||
+             (!front->left && back->right) || (!front->right && back->left)) {
+           return false;
+         }
+       }
+       if (len % 2 != 0) {
+         auto fin = qu.front();
+         qu.pop_front();
+         if (fin->left && fin->right) {
+           qu.push_back(fin->right);
+           qu.push_back(fin->left);
+         } else if (!fin->left && !fin->right) {
+           return true;
+         } else {
+           return false;
+         }
+       }
+     }
+
+     return true;
+   }

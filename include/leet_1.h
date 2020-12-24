@@ -52,6 +52,20 @@ class A {
 
 class Solution {
  public:
+  bool isSymmetric(TreeNode* root);
+
+  int maxDepth(TreeNode* root);
+
+  bool isMatch(string s, string p);
+
+  ListNode* mergeTwoLists(ListNode* l1, ListNode* l2);
+
+  bool isValid(string s);
+
+  int candy(vector<int>& ratings);
+
+  int minDistance(string word1, string word2);
+
   int minPathSum(vector<vector<int>>& grid);
 
   int firstUniqChar(string s);
