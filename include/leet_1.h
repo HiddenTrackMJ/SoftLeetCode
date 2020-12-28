@@ -52,6 +52,26 @@ class A {
 
 class Solution {
  public:
+  int diameterOfBinaryTree(TreeNode* root);
+
+  vector<int> findDisappearedNumbers(vector<int>& nums);
+
+  int hammingDistance(int x, int y);
+
+  void moveZeroes(vector<int>& nums);
+
+  int rob(vector<int>& nums);
+
+  ListNode* reverseList(ListNode* head);
+
+  int majorityElement(vector<int>& nums);
+
+  ListNode* getIntersectionNode(ListNode* headA, ListNode* headB);
+
+  int maxProfit1(vector<int>& prices);
+
+  int findContentChildren(vector<int>& g, vector<int>& s);
+
   int singleNumber(vector<int>& nums);
 
   bool isSymmetric(TreeNode* root);

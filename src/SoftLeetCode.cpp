@@ -527,7 +527,9 @@ int main() {
   /*    No. 10. 正则表达式匹配   */
   auto is_match = s.isMatch("aa", "a");
   std::cout << "is_match: " << is_match << std::endl;
+  auto xxx = 5 ^ 2;
 
+  std::cout << "5 ^ 2: " << xxx << std::endl;
   // int tes = 10;
   // A test_a(&tes);
   // std::this_thread::sleep_for(std::chrono::milliseconds(5000));

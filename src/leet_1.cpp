@@ -2146,3 +2146,197 @@ bool Solution::hasCycle(ListNode* head) {
      m.begin()->first;
      return nums[0];
    }
+
+   int Solution::findContentChildren(vector<int>& g, vector<int>& s) {
+     std::sort(g.begin(), g.end());
+     std::sort(s.begin(), s.end());
+     int i = 0, j = 0;
+     while (i < g.size() && j < s.size()) {
+       if (g[i] <= s[j]) {
+         ++i;
+       }
+       ++j;
+
+     }
+     return i;
+   }
+
+   int Solution::maxProfit1(vector<int>& prices) {
+     int len = prices.size();
+     if (len <= 1) return 0;
+     int tmp = prices[0], ans = 0;
+     for (int i = 1; i < len; i++) {
+       if (tmp > prices[i]) tmp = prices[i];
+       if (prices[i] - tmp > ans) ans = prices[i] - tmp;
+     }
+     return tmp;
+   }
+
+   ListNode* Solution::getIntersectionNode(ListNode* headA, ListNode* headB) {
+     //if (!headA || !headB) return nullptr;
+     //std::stack<ListNode*> nodes1;
+     //std::stack<ListNode*> nodes2;
+     //while (headA || headB) {
+     //  if (headA) {
+     //    nodes1.push(headA);
+     //    headA = headA->next;
+     //  }
+     //  if (headB) {
+     //    nodes2.push(headB);
+     //    headB = headB->next;
+     //  }
+     //}
+
+     //ListNode* tmp = nullptr;
+     //if (nodes1.size() == 1 && nodes2.size() == 1 &&
+     //    nodes1.top() == nodes2.top())
+     //  return nodes1.top();
+     //while (!nodes1.empty() && !nodes2.empty()) {
+     //  if (nodes1.top() != nodes2.top()) {
+     //    if (!tmp) {
+     //      return nullptr;
+     //    } else {
+     //      return tmp;
+     //    }
+     //  } else {
+     //    tmp = nodes1.top();
+     //    nodes1.pop();
+     //    nodes2.pop();
+     //  }
+     //}
+     //return tmp;
+
+     //if (!headA || !headB) return nullptr;
+     //std::vector<ListNode*> nodes1;
+     //while (headA || headB) {
+     //  if (headA) {
+     //    nodes1.emplace_back(headA);
+     //    headA = headA->next;
+     //  }
+     //}
+
+     //while (headB) {
+     //  int len = nodes1.size();
+     //  for (int i = 0; i < len; ++i) {
+     //    if (headB == nodes1[i]) return headB;
+     //  }
+     //}
+     //return nullptr;
+
+     if (!headA || !headB) return nullptr;
+     ListNode *tmp1 = headA, *tmp2 = headB;
+     while (tmp1 != tmp2) {
+       tmp1 = (tmp1 != nullptr ? tmp1->next : headB);
+       tmp2 = (tmp2 != nullptr ? tmp2->next : headA);
+     }
+     return tmp1;
+   }
+
+   int Solution::majorityElement(vector<int>& nums) {
+     int len = nums.size();
+     int ans;
+     std::unordered_map<int, int> m;
+     for (int i = 0; i < len; ++i) {
+       if (++m[nums[i]] >= len / 2) {
+         return nums[i];
+       }
+     }
+     return -1;
+   }
+
+   ListNode* Solution::reverseList(ListNode* head) {
+     //ListNode* new_head = nullptr;
+     //while (head) {
+     //  auto tmp = new ListNode(head->val);
+     //  tmp->next = new_head;
+     //  new_head = tmp;
+     //  head = head->next;
+     //}
+     //return new_head;
+     ListNode *tmp = nullptr, *pre = nullptr;
+     while (head) {
+       tmp = head;
+       head = head->next;
+       tmp->next = pre;
+       pre = tmp;
+     }
+     return tmp;
+   }
+
+   int Solution::rob(vector<int>& nums) {
+     int len = nums.size();
+     if (len < 1) return 0;
+     int pre1 = 0, pre2 = nums[0], tmp;
+     for (int i = 1; i < len; ++i) {
+       tmp = pre1;
+       pre1 = max(pre1, pre2);
+       pre2 = tmp + nums[i];
+     }
+     return max(pre1, pre2);
+   }
+
+   void Solution::moveZeroes(vector<int>& nums) {
+     //vector<int> ans;
+     //int cnt = 0;
+     //for (auto it : nums) {
+     //  if (it == 0)
+     //    ++cnt;
+     //  else
+     //    ans.emplace_back(it);
+     //}
+     //for (int i = 0; i < cnt; ++i) {
+     //  ans.emplace_back(0);
+     //}
+     //nums = ans;
+
+     int indexNow = 0;
+     int indexNum = 0;
+     while(indexNow < nums.size()) {
+       if (nums[indexNum] != 0) {
+         nums[indexNow++] = nums[indexNum];
+       }
+       ++indexNum;
+
+     }
+     for (int i = indexNow; i < nums.size(); i++) {
+       nums[i] = 0;
+     }
+   }
+
+   int Solution::hammingDistance(int x, int y) {
+     auto rst = x ^ y;
+     int cnt = 0;
+     while (rst > 1) {
+       int tmp = rst % 2;
+       rst = rst / 2;
+       if (tmp == 1) cnt++;
+     }
+     return cnt;
+   }
+
+   vector<int> Solution::findDisappearedNumbers(vector<int>& nums) {
+     //std::unordered_map<int, int> m;
+     //vector<int> ans;
+     //for (int i = 0; i < nums.size(); ++i) {
+     //  m[nums[i]]++;
+     //}
+     //for (int i = 0; i < nums.size(); ++i) {
+     //  if (m[i + 1] == 0) ans.emplace_back(i + 1);
+     //}
+     //return ans;
+     vector<int> ans;
+     for (int i = 0; i < nums.size(); ++i) {
+       nums[abs(nums[i]) - 1] = abs(nums[abs(nums[i]) - 1]) * -1;
+     }
+     for (int i = 0; i < nums.size(); ++i) {
+       if (nums[i] > 0) ans.emplace_back(i + 1);
+     }
+     return ans;
+   }
+
+   int Solution::diameterOfBinaryTree(TreeNode* root) {
+     int a = 0, b = 0;
+     if (root->left) a = maxDepth(root->left);
+     if (root->right) b = maxDepth(root->right);
+     return a + b + 2;
+   }
