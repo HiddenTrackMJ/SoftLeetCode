@@ -2340,3 +2340,34 @@ bool Solution::hasCycle(ListNode* head) {
      if (root->right) b = maxDepth(root->right);
      return a + b + 2;
    }
+
+   int Solution::maxProfit(int k, vector<int>& prices) {
+     int len = prices.size();
+     if (len < 2) return 0;
+     //   k = min(k, len / 2);
+     vector<vector<vector<int>>> dp(
+         len, vector<vector<int>>(k + 1, vector<int>(2, 0)));
+     int ans = 0, r = 0, tmp;
+
+     dp[0][0][1] = -prices[0];
+     dp[0][0][0] = 0;
+     for (int i = 0; i < len; ++i) {
+       if (i != 0)
+         dp[i][0][1] = max(dp[i - 1][0][1], dp[i - 1][0][0] - prices[i]);
+       for (int j = 1; j <= k; ++j) {
+         if (i == 0)
+           dp[i][j][0] = dp[i][j][1] = INT_MIN / 2;
+         else {
+           //    tmp = dp[i][j][0];
+           dp[i][j][0] = max(dp[i - 1][j - 1][1] + prices[i], dp[i - 1][j][0]);
+           dp[i][j][1] = max(dp[i - 1][j][0] - prices[i], dp[i - 1][j][1]);
+           if (dp[i][j][0] > ans) {
+             ans = dp[i][j][0];
+             r = i;
+           }
+         }
+       }
+     }
+     //  std::cout << "ans: " << ans << ", r: " << r << std::endl;
+     return ans;
+   }

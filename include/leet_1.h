@@ -52,6 +52,8 @@ class A {
 
 class Solution {
  public:
+  int maxProfit(int k, vector<int>& prices);
+
   int diameterOfBinaryTree(TreeNode* root);
 
   vector<int> findDisappearedNumbers(vector<int>& nums);
