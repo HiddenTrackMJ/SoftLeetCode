@@ -52,6 +52,8 @@ class A {
 
 class Solution {
  public:
+  int lengthOfLongestSubstring(string s);
+
   int maxProfit(int k, vector<int>& prices);
 
   int diameterOfBinaryTree(TreeNode* root);

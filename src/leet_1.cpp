@@ -2371,3 +2371,19 @@ bool Solution::hasCycle(ListNode* head) {
      //  std::cout << "ans: " << ans << ", r: " << r << std::endl;
      return ans;
    }
+
+   int Solution::lengthOfLongestSubstring(string s) {
+     int len = s.size();
+     if (len < 2) return len;
+     std::unordered_set<char> char_set;
+     int ans = 0, left = 0;
+     for (int i = 0; i < len; ++i) {
+       while (char_set.find(s[i]) != char_set.end()) {
+         char_set.erase(s[left]);
+         left++;
+       }
+       ans = max(ans, len + 1 - left);
+       char_set.emplace(s[i]);
+     }
+     return ans;
+   }
