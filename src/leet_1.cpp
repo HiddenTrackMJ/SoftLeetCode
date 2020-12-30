@@ -2387,3 +2387,22 @@ bool Solution::hasCycle(ListNode* head) {
      }
      return ans;
    }
+
+   int lastStoneWeight(vector<int>& stones) {
+     std::priority_queue<int> q;
+     for (auto it : stones) {
+       q.push(it);
+     }
+     while (q.size() > 1) {
+
+       auto it1 = q.top();
+       q.pop();
+       auto it2 = q.top();
+       q.pop();
+       
+       if (it1 > it2) {
+         q.push(it1 - it2);
+       }
+     }
+     return q.empty() ? 0 : q.top();
+   }
