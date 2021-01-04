@@ -2451,3 +2451,14 @@ bool Solution::hasCycle(ListNode* head) {
      }
      return ans;
    }
+
+   int fib(int n) {
+     if (n < 2) return n;
+     int a = 0, b = 1, s;
+     for (int i = 1; i < n; ++i) {
+       s = b;
+       b = a + b;
+       a = s;
+     }
+     return b;
+   }
