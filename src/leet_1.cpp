@@ -2406,3 +2406,48 @@ bool Solution::hasCycle(ListNode* head) {
      }
      return q.empty() ? 0 : q.top();
    }
+
+   vector<int> maxSlidingWindow(vector<int>& nums, int k) {
+     int len = nums.size();
+     vector<int> ans;
+     std::priority_queue<std::pair<int, int>> qu;
+     for (int i = 0; i < k; ++i) {
+       qu.emplace(nums[i], i);
+     }
+
+     ans.push_back(qu.top().first);
+     for (int i = k; i < len; ++i) {
+       qu.emplace(nums[i], i);
+       while (qu.top().second < i - k) {
+         qu.pop();
+       }
+       ans.emplace_back(qu.top().first);
+     }
+     return ans;
+   }
+
+   string longestPalindrome(string s) {
+     int len = s.size();
+     if (len == 0) return "";
+     if (len == 1) return s;
+     vector<vector<int>> dp(len, vector<int>(len));
+     string ans;
+     int j;
+     for (int k = 0; k < len; ++k) {
+       for (int i = 0; i + k < len; ++i) {
+         j = i + k;
+         if (k == 0)
+           dp[i][j] = 1;
+         else if (k == 1) {
+           dp[i][j] = (s[i] == s[j]);
+         } else {
+           dp[i][j] = dp[i + 1][j - 1] && (s[i] == s[j]);
+         }
+
+         if (ans.size() < k + 1 && dp[i][j]) ans = s.substr(i, k + 1);
+         //  cout << "i: " << i << ", j: " << j << " , dp[i][j]: " << dp[i][j]
+         //       << " , ans: " << ans << endl;
+       }
+     }
+     return ans;
+   }

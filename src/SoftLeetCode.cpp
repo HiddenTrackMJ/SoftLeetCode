@@ -521,15 +521,19 @@ int main() {
 
 
   /*    No. 135. 分发糖果   */
-  auto candy = s.candy(vector<int>{1, 2, 2, 2, 2});
-  std::cout << "candy: " << candy << std::endl;
+  //auto candy = s.candy(vector<int>{1, 2, 2, 2, 2});
+  //std::cout << "candy: " << candy << std::endl;
 
   /*    No. 10. 正则表达式匹配   */
   auto is_match = s.isMatch("aa", "a");
   std::cout << "is_match: " << is_match << std::endl;
-  auto xxx = 5 ^ 2;
+  string sss = "abcdef";
+  auto xxx = sss.substr(0, 2);
 
-  std::cout << "5 ^ 2: " << xxx << std::endl;
+  std::cout << "xxx: " << xxx << std::endl;
+
+
+
   // int tes = 10;
   // A test_a(&tes);
   // std::this_thread::sleep_for(std::chrono::milliseconds(5000));
