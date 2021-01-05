@@ -2462,3 +2462,29 @@ bool Solution::hasCycle(ListNode* head) {
      }
      return b;
    }
+
+   vector<vector<int>> largeGroupPositions(string s) {
+     int len = s.size();
+     int cnt = 0, start, end;
+     vector<vector<int>> ans;
+     for (int i = 0; i < len; ++i) {
+       if (i = 0) {
+         start = end = 0;
+         cnt = 1;
+       } else {
+         if (s[i] != s[i - 1]) {
+           if (end - start + 1 >= 3) {
+             ans.emplace_back(vector<int>{start, end});
+           }
+           start = end = i;
+           cnt = 1;
+         } else {
+           end = i;
+           cnt++;
+         
+         }
+       }
+     }
+
+     return ans;
+   }
