@@ -2488,3 +2488,134 @@ bool Solution::hasCycle(ListNode* head) {
 
      return ans;
    }
+
+   vector<double> calcEquation(vector<vector<string>>& equations, vector<double>& values, vector<vector<string>>& queries) {
+     //int len = queries.size();
+     //int n = equations.size();
+     //vector<double> ans;
+     //std::unordered_set<string> se;
+     //for (int i = 0; i < n; ++i) {
+     //  se.emplace(equations[i][0]);
+     //  se.emplace(equations[i][1]);
+     //}
+     //for (int i = 0; i < len; ++i) {
+     //  std::unordered_map<std::pair<string, string>, int> m;
+     //  int j = 0;
+     //  string a = queries[i][0];
+     //  string b = queries[i][1];
+     //  while (j < n) {
+     //    string x = equations[j][0];
+     //    string y = equations[j][1];
+     //    if (se.find(a) == se.end() || se.find(b) == se.end()) {
+     //      ans.emplace_back((double)-1.0);
+     //      break;
+     //    }
+     //    if (a == b) {
+     //      ans.emplace_back((double)1.0);
+     //      break;
+     //    }
+     //    if (a == x && b == y) {
+     //      ans.emplace_back(values[i]);
+     //      break;
+     //    }
+     //    if (a == y && b == x) {
+     //      ans.emplace_back(1 / values[i]);
+     //      break;
+     //    }
+     //    if (a == x) {
+     //      if (m.find(std::make_pair(b, y)) != m.end()) {
+     //        ans.emplace_back(values[i] / values[m[std::make_pair(b, y)]]);
+     //        break;
+     //      } else if (m.find(std::make_pair(y, b)) != m.end()) {
+     //        ans.emplace_back(values[i] * values[m[std::make_pair(y, b)]]);
+     //        break;
+     //      }
+     //    }
+     //    if (a == y) {
+     //      if (m.find(std::make_pair(b, x)) != m.end()) {
+     //        ans.emplace_back(1 / (values[i] * values[m[std::make_pair(b, x)]]));
+     //        break;
+     //      } else if (m.find(std::make_pair(x, b)) != m.end()) {
+     //        ans.emplace_back(values[m[std::make_pair(x, b)]] / values[i]);
+     //        break;
+     //      }
+     //    }
+     //    if (b == x) {
+     //      if (m.find(std::make_pair(a, y)) != m.end()) {
+     //        ans.emplace_back(values[m[std::make_pair(a, y)]] / values[i]);
+     //        break;
+     //      } else if (m.find(std::make_pair(y, a)) != m.end()) {
+     //        ans.emplace_back(values[i] * values[m[std::make_pair(y, a)]]);
+     //        break;
+     //      }
+     //    }
+     //    if (b == y) {
+     //      if (m.find(std::make_pair(a, x)) != m.end()) {
+     //        ans.emplace_back(values[i] * values[m[std::make_pair(a, x)]]);
+     //        break;
+     //      } else if (m.find(std::make_pair(x, a)) != m.end()) {
+     //        ans.emplace_back(values[m[std::make_pair(x, a)]] / values[i]);
+     //        break;
+     //      }
+     //    }
+     //    m[std::make_pair(x, y)] = j;
+     //    if (j == n - 1) ans.emplace_back((double)-1.0);
+     //    ++j;
+     //  }
+     //}
+     //return ans;
+     int nvars = 0;
+     std::unordered_map<string, int> variables;
+
+     int n = equations.size();
+     for (int i = 0; i < n; i++) {
+       if (variables.find(equations[i][0]) == variables.end()) {
+         variables[equations[i][0]] = nvars++;
+       }
+       if (variables.find(equations[i][1]) == variables.end()) {
+         variables[equations[i][1]] = nvars++;
+       }
+     }
+     vector<vector<double>> graph(nvars, vector<double>(nvars, -1.0));
+     for (int i = 0; i < n; i++) {
+       int va = variables[equations[i][0]], vb = variables[equations[i][1]];
+       graph[va][vb] = values[i];
+       graph[vb][va] = 1.0 / values[i];
+     }
+
+     for (int k = 0; k < nvars; k++) {
+       for (int i = 0; i < nvars; i++) {
+         for (int j = 0; j < nvars; j++) {
+           if (graph[i][k] > 0 && graph[k][j] > 0) {
+             graph[i][j] = graph[i][k] * graph[k][j];
+           }
+         }
+       }
+     }
+
+     vector<double> ret;
+     for (const auto& q : queries) {
+       double result = -1.0;
+       if (variables.find(q[0]) != variables.end() &&
+           variables.find(q[1]) != variables.end()) {
+         int ia = variables[q[0]], ib = variables[q[1]];
+         if (graph[ia][ib] > 0) {
+           result = graph[ia][ib];
+         }
+       }
+       ret.push_back(result);
+     }
+     return ret;
+    }
+
+    int maxArea(vector<int>& height) {
+      int len = height.size();
+      int ans = 0;
+      int i = 0, j = len - 1;
+      while (i != j) {
+        ans = max(ans, min(height[i], height[j]) * (j - i));
+        if (height[i] > height[j]) ++i;
+        else ++j;
+      }
+      return ans;
+    }
