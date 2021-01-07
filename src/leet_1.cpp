@@ -2619,3 +2619,25 @@ bool Solution::hasCycle(ListNode* head) {
       }
       return ans;
     }
+
+    int findCircleNum(vector<vector<int>>& isConnected) {
+      int len = isConnected.size();
+      vector<int> is_vi(len, 0);
+      std::queue<int> qu;
+      int ans = 0;
+      for (int i = 0; i < len; ++i) {
+        if (!is_vi[i]) {
+          qu.push(i);
+          while (!qu.empty()) {
+            int x = qu.front();
+            qu.pop();
+            is_vi[x] = 1;
+            for (int j = 0; j < len; ++j) {
+              if (isConnected[x][j] == 1 && !is_vi[j]) qu.push(j);
+            }
+          }
+          ans++;
+        }
+      }
+      return ans;
+    }
