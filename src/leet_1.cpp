@@ -2641,3 +2641,48 @@ bool Solution::hasCycle(ListNode* head) {
       }
       return ans;
     }
+
+    void rotate(vector<int>& nums, int k) {
+      //vector<int> tmp;
+      //int len = nums.size();
+      //for (int i = len - k; i < len; ++i) {
+      //  tmp.emplace_back(nums[i]);
+      //}
+      //for (int i = 0; i < len - k; ++i) {
+      //  tmp.emplace_back(nums[i]);
+      //}
+      //nums = tmp;
+
+      int len = nums.size();
+      int tmp;
+      k = k / len;
+      for (int i = 0; i < k; i++) {
+        int n = len / k;
+        if (i < len % k) n++;
+        for (int j = 0; j < n; j++) {
+          int tmp = nums[j * k + i];
+          if (j == 0) nums[j * k + i] = nums[(n - 1) * k + i];
+          else if(j == n - 1);
+          else nums[j * k + i] = tmp;
+        }
+      }
+    }
+
+    vector<vector<int>> threeSum(vector<int>& nums) {
+      int len = nums.size();
+      vector<vector<int>> ans;
+      std::sort(nums.begin(), nums.end());
+
+      for (int i = 0; i < len; i++) {
+        int j = i + 1, k = len - 1;
+        if (i >= 1 && nums[i] == nums[i - 1]) continue;
+        for (; j < len; j++) {
+          if (j > i + 1 && nums[j] == nums[j - 1]) continue;
+          while (k > j && nums[k] + nums[j] > -nums[i]) k--;
+          if (nums[k] + nums[j] == -nums[i])
+            ans.emplace_back(vector<int>{i, j, k});
+          if (j == k) break;
+        }
+      }
+      return ans;
+    }
