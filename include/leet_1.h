@@ -50,6 +50,46 @@ class A {
   }
 };
 
+class Djset {
+ public:
+  vector<int> parent;  // 记录节点的根
+  vector<int> size;
+  vector<int> rank;
+  Djset(int n)
+      : parent(vector<int>(n)), rank(vector<int>(n)), size(vector<int>(n)) {
+    for (int i = 0; i < n; i++) {
+      parent[i] = i;
+      size[i] = 1;
+    }
+  }
+
+  int find(int x) {
+    if (x != parent[x]) {
+      parent[x] = find(parent[x]);
+    }
+    return parent[x];
+  }
+
+  void merge(int x, int y) {
+    int rootx = find(x);
+    int rooty = find(y);
+    if (rootx != rooty) {
+      if (rank[rootx] < rank[rooty]) {
+        std::swap(rootx, rooty);
+      }
+      parent[rooty] = rootx;
+      size[rootx] += size[rooty];
+      if (rank[rootx] == rank[rooty]) rank[rootx] += 1;
+    }
+  }
+  int get_size(int x) {
+    int root = find(x);
+    return size[root];
+  }
+};
+
+
+
 class Solution {
  public:
   int lengthOfLongestSubstring(string s);

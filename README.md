@@ -59,3 +59,88 @@ No. 10. 正则表达式匹配<br>
 
 No. 169. 多数元素<br>
 10、摩尔投票法
+
+22. 括号生成<br>
+回溯 动态规划
+
+1202. 交换字符串中的元素 <br>
+并查集：https://zhuanlan.zhihu.com/p/93647900/
+模板：
+```cpp
+    int* fa, *rank;
+    void init_1202(int n) {
+      for (int i = 0; i < n; i++) {
+        fa[i] = i;
+        rank[i] = 1;
+      }
+    }
+
+    int find_1202(int x) {
+        return x == fa[x] ? x : (fa[x] = find_1202(fa[x]));
+    }
+
+    void merge_1202(int i, int j) {
+        //fa[find_1202(i)] = find_1202(j);
+      int x = find_1202(i), y = find_1202(j);
+      if (rank[x] <= rank[y])
+        fa[x] = y;
+      else
+        fa[y] = x;
+      if (rank[x] == rank[y] && x != y) rank[y]++;
+    }
+```
+```cpp
+    unordered_map<int, int> f, rank;
+    int find(int x) {
+        if (!f.count(x)) {
+            f[x] = x;
+            rank[x] = 1;
+        }
+        return f[x] == x ? x : f[x] = find(f[x]);
+    }
+
+    void unionSet(int x, int y) {
+        int fx = find(x), fy = find(y);
+        if (fx == fy) {
+            return;
+        }
+        if (rank[fx] < rank[fy]) {
+            swap(fx, fy);
+        }
+        rank[fx] += rank[fy];
+        f[fy] = fx;
+    }
+
+    int numberOfConnectedComponent() {
+        int num = 0;
+        for (auto &[x, fa] : f) {
+            if (x == fa) {
+                num++;
+            }
+        }
+        return num;
+    }
+
+```
+
+739. 每日温度 <br>
+单调栈  「力扣」第 42、739、496、316、901、402、581 题。
+![](单调栈.png)
+<br>模板：
+```cpp
+stack<int> mono_stk;
+for (遍历数组)) {
+    while (栈非空 && 栈顶元素大于当前元素) {
+        更新结果;
+        栈顶元素出栈;
+    }
+    入栈;
+}
+```
+
+46. 全排列<br>
+回溯
+
+
+
+二分查找<br>

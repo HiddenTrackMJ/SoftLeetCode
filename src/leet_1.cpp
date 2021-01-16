@@ -2686,3 +2686,663 @@ bool Solution::hasCycle(ListNode* head) {
       }
       return ans;
     }
+
+    int maxProfit3(vector<int>& prices) {
+      int len = prices.size();
+      if (len < 2) return 0;
+      int ans;
+      vector<vector<int>> dp1(len, vector<int>(3, 0)); // i天拥有
+      vector<vector<int>> dp2(len, vector<int>(3, 0)); // i天不拥有
+      dp1[0][0] = -prices[0];
+      dp2[0][0] = 0;
+      for (int i = 0; i < len; i++) {
+        if (i != 0) dp1[i][0] = max(dp1[i - 1][0], dp2[i - 1][0] - prices[i]);
+        for (int j = 1; j <= 2; j++) {
+          if (i == 0)
+            dp1[i][j] = dp2[i][j] = INT_MIN / 2;
+          else {
+              dp1[i][j] = max(dp2[i - 1][j] - prices[i], dp1[i - 1][j]);
+              dp2[i][j] = max(dp1[i - 1][j - 1] + prices[i], dp2[i - 1][j]);  
+          }
+        }
+      }
+      return max(dp2[len - 1][0] , dp2[len - 1][1], dp2[len - 1][2]);
+    }
+
+    string tmp_combination;
+    vector<string> d_map = {"abc", "def",  "ghi", "jkl",
+                            "mno", "pqrs", "tuv", "wxyz"};
+    vector<string> ans_combination;
+    void dfs_combination(string digits, int index) {
+      if (digits.size() == index) {
+        ans_combination.push_back(tmp_combination);
+        return;
+      }
+      for (auto it : d_map[digits[index] - '2']) {
+        tmp_combination.push_back(it);
+        dfs_combination(digits, index + 1);
+        tmp_combination.pop_back();
+      }
+    }
+
+    vector<string> letterCombinations(string digits) {
+      if (digits.size() == 0) return ans_combination;
+      dfs_combination(digits, 0);
+      return ans_combination;
+    }
+
+    vector<string> summaryRanges(vector<int>& nums) {
+      //int len = nums.size();
+      //if (len == 0) return {};
+      //if (len == 1) return {std::to_string(nums[0])};
+      //vector<string> ans;
+      //int start = nums[0], end = nums[0];
+      //string tmp;
+      //for (int i = 1; i < len; i++) {
+      //  if (nums[i] != nums[i - 1] + 1) {
+      //    if (start != end) {
+      //      tmp = std::to_string(start) + "->" + std::to_string(end);
+      //      ans.push_back(tmp);
+      //    } else
+      //      ans.push_back(std::to_string(start));
+      //    start = nums[i];
+      //  }
+      //  end = nums[i];
+      //  if (i == len - 1) {
+      //    if (start != end) {
+      //      tmp = std::to_string(start) + "->" + std::to_string(end);
+      //      ans.push_back(tmp);
+      //    } else
+      //      ans.push_back(std::to_string(start));
+      //  }
+      //}
+      //return ans;
+
+      vector<string> ans;
+      int left = 0;
+      for (int i = 0; i < nums.size(); ++i) {
+        if (i + 1 == nums.size() || nums[i] + 1 != nums[i + 1]) {
+          ans.push_back(std::to_string(nums[left]) +
+                        (left == i ? "" : "->" + std::to_string(nums[i])));
+          left = i + 1;
+        }
+      }
+      return ans;
+    }
+
+    vector<string> ans;
+
+    void dfs_genPa(string s, int left, int right) {
+      if (left == 0 && right == 0) {
+        ans.emplace_back(s);
+        return;
+      }
+      if (left < 0 || right < left) return;
+      dfs_genPa(s + "(", left - 1, right);
+      dfs_genPa(s + ")", left, right - 1);
+
+      //if (left == right) {
+      //  dfs_genPa(s + "(", left - 1, right);
+      //} else {
+      //  if (left > 0)
+      //    dfs_genPa(s + "(", left - 1, right);
+      //  else
+      //    dfs_genPa(s + ")", left, right - 1);
+      //}
+    }
+
+    vector<string> generateParenthesis(int n) {
+      //string tmp;
+      //if (n == 0) return ans;
+      //dfs_genPa("", n, n);
+      //return ans;
+      if (n == 0) return {};
+      if (n == 1) return {"()"};
+      vector<vector<string>> dp(n + 1);
+      for (int i = 2; i < n; ++i) {
+        for (int j = 0; j < i; ++j) {
+          for (auto x : dp[j]) {
+            for (auto y : dp[i - j - 1]) {
+              ans.emplace_back("(" + x + ")" + y);
+            }
+          }
+        }
+      }
+      return ans;
+    }
+
+    void nextPermutation(vector<int>& nums) {
+        int len = nums.size();
+        int i, j, tmp_min;
+        for (i = len - 2; i >= 0; --i) {
+          if (nums[i] < nums[i + 1]) break;
+        }
+        if (i == -1) {
+          std::reverse(nums.begin(), nums.end());
+          return;
+        }
+        for (j = len - 1; j > i; --j) {
+          if (nums[j] > nums[i]) break;
+        }
+        std::swap(nums[i], nums[j]);
+        std::sort(nums.begin() + i + 1, nums.end());
+    }
+
+    vector<vector<int>> ans_permute;
+    vector<bool> status_permute;
+    void dfs_permute(vector<int> s, vector<int>& nums, int len) {
+      if (s.size() == len) {
+        ans.emplace_back(s);
+        return;
+      }
+
+      for (int i = 0; i < len; i++) {
+        if (!status_permute[i]) {
+          status_permute[i] = true;
+          s.push_back(nums[i]);
+          dfs_permute(s, nums, len);
+          s.pop_back();
+          status_permute[i] = false;
+        }
+      }
+    }
+
+    vector<vector<int>> permute(vector<int>& nums) {
+      int len = nums.size();
+      status_permute = vector<bool>(len, false);
+      return ans_permute;
+    }
+
+
+    //并查集解决 1202. 交换字符串中的元素
+    int* fa, *rank;
+    void init_1202(int n) {
+      for (int i = 0; i < n; i++) {
+        fa[i] = i;
+        rank[i] = 1;
+      }
+    }
+
+    int find_1202(int x) {
+        return x == fa[x] ? x : (fa[x] = find_1202(fa[x]));
+    }
+
+    void merge_1202(int i, int j) {
+        //fa[find_1202(i)] = find_1202(j);
+      int x = find_1202(i), y = find_1202(j);
+      if (rank[x] <= rank[y])
+        fa[x] = y;
+      else
+        fa[y] = x;
+      if (rank[x] == rank[y] && x != y) rank[y]++;
+    }
+
+    string smallestStringWithSwaps(string s, vector<vector<int>>& pairs) {
+      int len = s.size();
+      fa = new int[len];
+      rank = new int[len];
+      init_1202(len);
+      for (auto it : pairs) merge_1202(it[0], it[1]);
+      std::unordered_map<int, vector<int>> m;
+      for (int i = 0; i < len; i++) m[find_1202(i)].emplace_back(i);
+      for (auto it : m) {
+        string tmp;
+        for (auto j : it.second) tmp.push_back(s[j]);
+        std::sort(tmp.begin(), tmp.end());
+        for (int j = 0; j < tmp.size(); j++) {
+          s[it.second[j]] = tmp[j];
+        }
+      }
+      return s;
+    }
+
+    //todo : 用单调栈做
+    vector<int> dailyTemperatures(vector<int>& T) {
+      int len = T.size();
+      vector<int> ans(len, 0);
+      for (int i = 0; i < len - 1; i++) {
+        int j;
+        for (j = i + 1; j < len; j++) {
+          if (T[j] > T[i]) {
+            ans[i] = j - i;
+            break;
+          }
+        }
+      }
+      
+      return ans;
+    }
+
+    
+    int largestRectangleArea(vector<int>& heights) {
+      //std::stack<int> st;
+      //int len = heights.size(), ans = 0;
+      //vector<int> left(len), right(len, len);
+      //for (int i = 0; i < len; i++) {
+      //  while (!st.empty() && heights[st.top()] >= heights[i]) {
+      //    right[st.top()] = i;
+      //    st.pop();
+      //  }
+      //  left[i] = st.empty() ? -1 : st.top();
+      //  st.push(i);
+      //}
+      //for (int i = 0; i < len; i++) {
+      //  ans = max(ans, (right[i] - left[i] - 1) * heights[i]);
+      //}
+
+      //return ans;
+
+        //单调栈
+      std::stack<int> st;
+      int len = heights.size(), ans = 0;
+      if (len == 1) return heights[0];
+      for (int i = 0; i <= len; i++) {
+        while ((i == len && !st.empty()) || (!st.empty() && heights[st.top()] >= heights[i]) ) {  
+          int h = heights[st.top()];
+          st.pop();
+          ans = max(ans, (i - (st.empty() ? 0 : st.top() + 1)) * h);
+        }
+        st.push(i);
+      }
+      return ans;
+    }
+
+    int trap(vector<int>& height) {
+
+      //记录每个点左最大和右最大
+      //int len = height.size(), ans = 0;
+      //if (len == 0) return 0;
+      //vector<int> left(len, 0), right(len, 0);
+      //left[0] = height[0];
+      //right[len - 1] = height[len - 1];
+      //for (int i = 1; i < len; i++) {
+      //  left[i] = max(left[i - 1], height[i]);
+      //  right[len - i - 1] = max(right[len - i], height[len - i - 1]);
+      //}
+      //for (int i = 0; i < len; i++) {
+      //  ans += min(left[i], right[i]) - height[i];
+      //}
+      //return ans;
+
+      //单调栈
+      int len = height.size(), ans = 0;
+      if (len < 2) return 0;
+      std::stack<int> st;
+      for (int i = 0; i < len; i++) {
+        while (!st.empty() && st.top() < height[i]) {
+          int h0 = height[st.top()];
+          st.pop();
+          ans = ans + (min(height[i], height[st.top()]) - h0) * (i - st.top() - 1);
+        }
+        st.push(i);
+      }
+      return 0;
+    }
+
+    int* fa;
+    void init(int n) {
+      for (int i = 1; i <= n; i++) {
+        fa[i] = i;
+      }
+    }
+
+    int find(int x) { return x == fa[x] ? x : (fa[x] = find(fa[x])); }
+
+    void merge(int i, int j) { fa[find(i)] = find(j); }
+
+    vector<int> findRedundantConnection(vector<vector<int>>& edges) {
+      //并查集，如果两点已连通，则返回
+      int len = edges.size();
+      fa = new int[len + 1];
+      init(len);
+      for (int i = 0; i < len; i++) {
+        if (find(edges[i][0]) != find(edges[i][1])) {
+          merge(edges[i][0], edges[i][1]);
+        } else {
+          return edges[i];
+        }
+      }
+      return {};
+    }
+
+    //46. 全排列 回溯
+
+    void dfs_46(int n, vector<vector<int>>& res, vector<int>& tmp,
+                vector<bool>& visited, vector<int>& nums) {
+      if (tmp.size() == n) {
+        res.push_back(tmp);
+        return;
+      }
+      for (int i = 0; i < n; i++) {
+        if (!visited[i]) {
+          tmp.push_back(nums[i]);
+          visited[i] = true;
+          dfs_46(n, res, tmp, visited, nums);
+          visited[i] = false;
+          tmp.pop_back();
+        }
+      }
+    }
+
+    vector<vector<int>> permute(vector<int>& nums) {
+      int len = nums.size();
+      vector<vector<int>> ans;
+      vector<bool> visited(len, false);
+      dfs_46(len, ans, {}, visited, nums);
+      return ans;
+    }
+
+    //只关注模即可
+    vector<bool> prefixesDivBy5(vector<int>& A) {
+      int len = A.size();
+      int pre = 0;
+      vector<bool> ans(len);
+      for (int i = 0; i < len; i++) {
+        pre = (pre * 2 + A[i]) % 5;
+        ans[i] = (pre == 0);
+      }
+      return ans;
+    }
+
+    //39. 组合总和 回溯
+    void dfs_39(vector<vector<int>>& ans, vector<int> nums, int target,
+                vector<int>& tmp, int index, int len) {
+      if (target == 0) {
+        ans.push_back(tmp);
+        return;
+      }
+      for (int i = index; i < len; i++) {
+        if (target >= nums[i]) {
+          tmp.push_back(nums[i]);
+          dfs_39(ans, nums, target - nums[i], tmp, i, len);
+          tmp.pop_back();
+        } else
+          break;
+      }
+    }
+
+    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
+      vector<vector<int>> ans;
+      vector<int> tmp;
+      int len = candidates.size();
+      std::sort(candidates.begin(), candidates.end());
+      dfs_39(ans, candidates, target, tmp, 0, len);
+      return ans;
+    }
+
+
+    //47. 全排列 II    回溯
+    vector<vector<int>> permuteUnique(vector<int>& nums) {
+      int len = nums.size();
+      vector<vector<int>> ans;
+    //   vector<vector<int>> res;
+      vector<int> tmp;
+      vector<bool> used(len, false);
+      std::sort(nums.begin(), nums.end());
+      std::function<void(int)> back_trace = [&](int index) {
+        if (index == len) {
+          ans.emplace_back(tmp);
+          return;
+        }
+        for (int i = 0; i < len; i++) {
+          if (used[i] || (i > 0 && nums[i] == nums[i - 1] && nums[i - 1] == false)) {
+            continue;
+          }
+          if (!used[i]) {
+            tmp.emplace_back(nums[i]);
+            used[i] = true;
+            back_trace(index + 1);
+            used[i] = false;
+            tmp.pop_back();
+          }
+        }
+      };
+
+      back_trace(0);
+    //   res.assign(ans.begin(), ans.end());
+      return ans;
+    }
+
+    //40. 组合总和 II  回溯
+    vector<vector<int>> combinationSum2(vector<int>& candidates, int target) {
+      int len = candidates.size();
+      vector<vector<int>> ans;
+      vector<int> tmp;
+      vector<bool> used(len, false);
+      std::sort(candidates.begin(), candidates.end());
+      std::function<void(int, int)> back_trace = [&](int index, int sum) {
+        if (sum == 0) {
+          ans.emplace_back(tmp);
+          return;
+        }
+        for (int i = index; i < len; i++) {
+          if (sum >= candidates[i]) {  //超过target的不要
+            if (i > 0 && candidates[i] == candidates[i - 1] && !used[i - 1])
+              continue;             //剪掉重复的
+            if (used[i]) continue;  //已经用过的不用
+            tmp.emplace_back(candidates[i]);
+            used[i] = true;
+            back_trace(i, sum - candidates[i]);
+            used[i] = false;
+            tmp.pop_back();
+          } else
+            break;
+        }
+      };
+      back_trace(0, target);
+      return ans;
+    }
+
+     // 216. 组合总和 III  回溯
+    vector<vector<int>> combinationSum3(int k, int n) {
+      vector<vector<int>> ans;
+      vector<int> tmp;
+      std::function<void(int, int)> back_trace = [&](int index, int sum) {
+        if (sum != 0 && tmp.size() == k) {
+          return;
+        }
+        if (sum == 0 && tmp.size() == k) {
+          ans.emplace_back(tmp);
+          return;
+        }
+        for (int i = index; i < 10; i++) {
+          if (sum >= i) {
+            tmp.emplace_back(i);
+            back_trace(i + 1, sum - i);
+            tmp.pop_back();
+          } else
+            break;
+        }
+      };
+      back_trace(1, n);
+      return ans;
+    }
+
+    // 377. 组合总和 Ⅳ    回溯
+    int combinationSum4(vector<int>& nums, int target) {
+      int len = nums.size();
+      vector<int> memo(target + 1, -1);
+      std::sort(nums.begin(), nums.end());
+      std::function<int(int)> dfs = [&](int sum) {
+        if (sum == 0) return 1;
+        if (sum < 0) return 0;
+        if (memo[sum] != -1) return memo[sum];
+        int res = 0;
+        for (int i = 0; i < len; i++) {
+          res += dfs(sum - nums[i]);
+        }
+        return memo[sum] = res;
+      };
+      return dfs(target);
+    }
+
+    // 377. 组合总和 Ⅳ    动态规划
+    int combinationSum4(vector<int>& nums, int target) {
+      int len = nums.size();
+      int* dp = new int[len];
+      dp[0] = 1;
+      for (int i = 1; i < target; i++) {
+        for (auto num : nums) {
+          if(i > num) dp[i] = dp[i - num];
+        }
+      }
+      return dp[target];
+    }
+
+    //647. 回文子串 中心扩展算法
+    int countSubstrings(string s) {
+      int len = s.size();
+      if (len < 2) return len;
+      unsigned long long ans = 0;
+      std::function<void(int, int)> expandCenter = [&](int left, int right) {
+        while (left >= 0 && right < len && s[left] == s[right]) {
+          left--;
+          right++;
+          ans++;
+        }
+      };
+      for (int i = 0; i < len; i++) {
+        expandCenter(i, i);
+        expandCenter(i, i + 1);
+      }
+      return ans;
+    }
+
+    //605. 种花问题 回溯复杂度太高 转为 动态规划
+    bool canPlaceFlowers(vector<int>& flowerbed, int n) {
+      int len = flowerbed.size(), ans = 0, pre = 0;
+      //int* dp = new int[len + 2];
+      for (int i = 0; i < len; i++) {
+        if (pre == 0 && !flowerbed[i]) {
+          if ((i == 0 && !flowerbed[i + 1]) ||
+              (i == len - 1 && !flowerbed[i - 1]) ||
+              !(flowerbed[i + 1] && !flowerbed[i - 1])) {
+            pre = 1;
+            ans++;
+          }
+        }
+      }
+      return ans >= n;
+    }
+
+    //打砖块 并查集
+    vector<int> hitBricks(vector<vector<int>>& grid,
+                          vector<vector<int>>& hits) {
+      int m = grid.size();
+      int n = grid[0].size();
+      int l = hits.size();
+      vector<int> res(l);
+      vector<vector<int>> dir = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+      vector<vector<int>> copy(grid);
+      for (auto& v : hits) {
+        copy[v[0]][v[1]] = 0;
+      }
+
+      // 构建初始[天花板]并查集
+      Djset ds(m * n + 1);
+      for (int j = 0; j < n; j++) {
+        if (copy[0][j] == 0) continue;
+        ds.merge(m * n, j);
+      }
+
+      // 初始化并查集
+      for (int i = 1; i < m; i++) {
+        for (int j = 0; j < n; j++) {
+          if (copy[i][j] == 0) continue;
+          // 上方
+          if (copy[i - 1][j] == 1) {
+            ds.merge(i * n + j, (i - 1) * n + j);
+          }
+          if (j > 0 && copy[i][j - 1] == 1) {
+            ds.merge(i * n + j, i * n + j - 1);
+          }
+        }
+      }
+
+      // 逆序遍历hits，在sta中补砖
+      for (int k = l - 1; k >= 0; k--) {
+        int i = hits[k][0];
+        int j = hits[k][1];
+
+        if (grid[i][j] == 0) {
+          continue;
+        }
+        int origin = ds.get_size(m * n);
+        // 被补回的砖块位于房顶
+        if (i == 0) {
+          ds.merge(m * n, j);
+        }
+
+        for (auto& d : dir) {
+          int r = i + d[0];
+          int c = j + d[1];
+          if (r < 0 || r >= m || c < 0 || c >= n || copy[r][c] == 0) continue;
+          ds.merge(i * n + j, r * n + c);
+        }
+        int cur = ds.get_size(m * n);
+        res[k] = max(0, cur - origin - 1);
+        copy[i][j] = 1;
+      }
+      return res;
+    }
+
+
+    //338. 比特位计数 dp
+
+    vector<int> countBits(int num) {
+      vector<int> ans(num + 1);
+      std::function<int(int)> count_1 = [](int n) {
+        int count = 0;
+        unsigned int flag = 1;
+        while (flag) {
+          if (n & flag) {
+            count++;
+          }
+          flag = flag << 1;
+        }
+        return count;
+      };
+
+      for (int i = 0; i <= num; i++) {
+        // ans[i] = count_1(i);
+        // ans[i] = ans[i & (i - 1)] + 1;
+        ans[i] = ans[i >> 1] + (i & 1);
+        ans[i] = count_1(i);
+      }
+      return ans;
+    }
+
+    //238. 除自身以外数组的乘积 
+     vector<int> productExceptSelf(vector<int>& nums) {
+      int len = nums.size();
+      int cnt = 0, sum2 = 1;
+
+      vector<int> ans;
+      for (int i = 0; i < len; i++) {
+        if (nums[i] == 0) cnt++;
+        else sum2 = sum2 * nums[i];  
+      }
+
+      for (int i = 0; i < len; i++) {
+        if (cnt < 1)
+          ans.emplace_back(sum2 / nums[i]);
+        else {
+          if (cnt == 1 && nums[i] == 0)
+            ans.emplace_back(sum2);
+          else
+            ans.emplace_back(0);
+        }
+      }
+      return ans;
+    }
+
+    int findDuplicate(vector<int>& nums) {
+      std::unordered_map<int, int> m;
+      for (int i = 0; i < nums.size(); i++) {
+        if (!m.count(nums[i])) {
+          m[nums[i]] = 1;
+        } else
+          return nums[i];
+      }
+      return -1;
+    }

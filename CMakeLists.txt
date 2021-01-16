@@ -34,7 +34,7 @@ add_executable(${PROJECT_NAME}
         "./src/dynamic.cpp"
         "./src/SoftLeetCode.cpp"
         ${HEADERS}
-        )
+         "src/leet_2.cpp")
 
 target_include_directories(${PROJECT_NAME}
         PRIVATE
@@ -50,7 +50,7 @@ add_executable( jian
         "./src/jian_1.cpp"
         "./src/jian_main.cpp"
         ${HEADERS}
-        )
+         "src/leet_2.cpp")
 
 target_include_directories( jian
         PRIVATE
