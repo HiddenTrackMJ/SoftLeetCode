@@ -3,8 +3,13 @@
 #### Todo
  - [x] 了解莫里斯遍历 https://www.cnblogs.com/AnnieKim/archive/2013/06/15/morristraversal.html
  - [x] 了解动态规划
+ - [x] [回溯](https://leetcode-cn.com/problems/permutations/solution/hui-su-suan-fa-python-dai-ma-java-dai-ma-by-liweiw/)
  - [ ] 四数之和双指针法
  - [ ] LCP No.19 秋叶收藏集、分割等和子集 DP
+ - [ ] 二分查找 [300. 最长递增子序列](https://leetcode-cn.com/problems/longest-increasing-subsequence/solution/zui-chang-shang-sheng-zi-xu-lie-by-leetcode-soluti/)
+ - [ ] 快慢指针 https://leetcode-cn.com/problems/find-the-duplicate-number/solution/xun-zhao-zhong-fu-shu-by-leetcode-solution/
+ - [ ] Manacher 算法 [最长回文子串](https://leetcode-cn.com/problems/longest-palindromic-substring/solution/zui-chang-hui-wen-zi-chuan-by-leetcode-solution/) [647. 回文子串](https://leetcode-cn.com/problems/palindromic-substrings/solution/hui-wen-zi-chuan-by-leetcode-solution/)
+ - [ ] 滑动窗口 https://leetcode-cn.com/problems/longest-substring-without-repeating-characters/solution/hua-dong-chuang-kou-by-powcai/
 
 
 #### 已完成
@@ -142,13 +147,10 @@ for (遍历数组)) {
 回溯
 
 
-### Todo:
-- [ ] 二分查找<br>
-- [ ] 快慢指针 https://leetcode-cn.com/problems/find-the-duplicate-number/solution/xun-zhao-zhong-fu-shu-by-leetcode-solution/
-- [ ] Manacher 算法 https://leetcode-cn.com/problems/palindromic-substrings/solution/hui-wen-zi-chuan-by-leetcode-solution/
-- [ ] 滑动窗口 https://leetcode-cn.com/problems/longest-substring-without-repeating-characters/solution/hua-dong-chuang-kou-by-powcai/
+
 
 #### 2020.1.21 - 59 / 125
 - [x] 1489. 找到最小生成树里的关键边和伪关键边
 - [x] 337. 打家劫舍 III
 - [x] 309. 最佳买卖股票时机含冷冻期
+- [x] 300. 最长递增子序列

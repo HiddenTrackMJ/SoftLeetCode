@@ -3742,26 +3742,16 @@ bool Solution::hasCycle(ListNode* head) {
       return max(res[0], res[1]);
     }
 
-    int dfs_camera(TreeNode* cur, int& res) {
-      if (cur == NULL) return 2;
-
-      int left = dfs_camera(cur->left, res);
-      int right = dfs_camera(cur->right, res);
-
-      if (left == 2 && right == 2) {
-        return 0;
-      } else if (left == 0 || right == 0) {
-        res++;
-        return 1;
-      } else if (left == 1 || right == 1) {
-        return 2;
+    //300. 最长递增子序列 dp
+    int lengthOfLIS(vector<int>& nums) {
+      int len = nums.size();
+      if (len == 1) return 1;
+      vector<int> dp(len, 1);
+      int ans = 0;
+      for (int i = 1; i < len; ++i) {
+        for (int j = 0; j < i; j++) 
+          if (nums[i] > nums[j]) dp[i] = max(dp[i], dp[j] + 1);
+        ans = max(ans, dp[i]);
       }
-    }
-
-    int Solution::minCameraCover(TreeNode* root) {
-      int res = 0;
-      if (dfs_camera(root, res) == 0) {  // root 无覆盖
-        res++;
-      }
-      return res;
+      return ans;
     }
