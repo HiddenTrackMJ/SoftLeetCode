@@ -148,7 +148,7 @@ for (遍历数组)) {
 - [ ] Manacher 算法 https://leetcode-cn.com/problems/palindromic-substrings/solution/hui-wen-zi-chuan-by-leetcode-solution/
 - [ ] 滑动窗口 https://leetcode-cn.com/problems/longest-substring-without-repeating-characters/solution/hua-dong-chuang-kou-by-powcai/
 
-#### 2020.1.21
+#### 2020.1.21 - 59 / 125
 - [x] 1489. 找到最小生成树里的关键边和伪关键边
 - [ ] 337. 打家劫舍 III
 - [ ] 309. 最佳买卖股票时机含冷冻期
