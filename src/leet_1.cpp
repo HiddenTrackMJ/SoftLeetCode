@@ -3158,7 +3158,7 @@ bool Solution::hasCycle(ListNode* head) {
       return ans;
     }
 
-    // 377. 组合总和 Ⅳ    回溯
+    // 377. 组合总和 Ⅳ    dfs
     int combinationSum4(vector<int>& nums, int target) {
       int len = nums.size();
       vector<int> memo(target + 1, -1);
@@ -3181,9 +3181,9 @@ bool Solution::hasCycle(ListNode* head) {
       int len = nums.size();
       int* dp = new int[len];
       dp[0] = 1;
-      for (int i = 1; i < target; i++) {
+      for (int i = 1; i <= target; i++) {
         for (auto num : nums) {
-          if(i > num) dp[i] = dp[i - num];
+          if(i >= num) dp[i] += dp[i - num];
         }
       }
       return dp[target];
@@ -3345,4 +3345,348 @@ bool Solution::hasCycle(ListNode* head) {
           return nums[i];
       }
       return -1;
+    }
+
+    //1232. 缀点成线
+    bool checkStraightLine(vector<vector<int>>& coordinates) {
+      int len = coordinates.size(), k;
+      bool flag = false;
+      for (int i = 1; i < len; i++) {
+        auto a = coordinates[i - 1];
+        auto b = coordinates[i];
+        if (i == 1) {
+          if (a[0] == b[0])
+            flag == true;
+          else
+            k = (a[1] - b[1]) / (a[0] - b[0]);
+        } else {
+          if (flag) {
+            if (k != (a[1] - b[1]) / (a[0] - b[0])) return false;
+          } else {
+            if (a[0] == b[0]) return false;
+          }
+        }
+      }
+      return true;
+    }
+
+    //721. 账户合并 并查集
+    std::unordered_map<string, int> fa_721;
+    // std::unordered_map<string, int> rank_721;
+    int find(string x) {
+      // cout << "x: " << x <<endl;
+      if (!fa_721.count(x)) {
+        fa_721[x] = -1;
+        // rank_721[x] = 1;
+      }
+      return fa_721[x];
+    }
+
+    void merge(string i, string j) {
+      //   cout << "i: " << i << ", j: "<< j << endl;
+      //   string x = find(i), y = find(j);
+      //   if (rank_721[x] <= rank_721[y])
+      //     fa_721[x] = y;
+      //   else
+      //     fa_721[y] = x;
+      //   if (rank_721[x] == rank_721[y] && x != y) rank_721[y]++;
+    }
+
+    vector<vector<string>> accountsMerge(vector<vector<string>>& accounts) {
+      int len = accounts.size();
+      std::map<int, vector<string>> i2addr;
+      vector<vector<string>> ans;
+      for (int i = 0; i < len; i++) {
+        int n = accounts[i].size();
+        if (n != 1) {
+          auto name = accounts[i][0];
+          bool flag = false;
+          int x;
+          for (int j = 1; j < n; j++) {
+            x = find(accounts[i][j]);
+            if (find(accounts[i][j]) != -1) {
+              flag = true;
+              //break;
+            }
+          }
+          if (flag) {
+            for (int j = 1; j < n; j++) {
+              fa_721[accounts[i][j]] = x;
+            }
+          } else {
+            for (int j = 1; j < n; j++) {
+              fa_721[accounts[i][j]] = i;
+            }
+          }
+        }
+      }
+
+      for (auto m : fa_721) {
+        cout << "1: " << m.first << ", 2: " << m.second << endl;
+        i2addr[m.second].emplace_back(m.first);
+      }
+      for (auto m : i2addr) {
+        vector<string> tmp;
+        tmp.emplace_back(accounts[m.first][0]);
+        std::sort(m.second.begin(), m.second.end());
+        for (auto it : m.second) {
+          tmp.emplace_back(it);
+        }
+        ans.emplace_back(tmp);
+      }
+      return {};
+    }
+
+
+
+
+    //  vector<vector<string>> accountsMerge(vector<vector<string>>& accounts) {
+    //  using namespace std;
+    //  map<string, int> emailToIndex;
+    //  map<string, string> emailToName;
+    //  int emailsCount = 0;
+    //  for (auto& account : accounts) {
+    //    string& name = account[0];
+    //    int size = account.size();
+    //    for (int i = 1; i < size; i++) {
+    //      string& email = account[i];
+    //      if (!emailToIndex.count(email)) {
+    //        emailToIndex[email] = emailsCount++;
+    //        emailToName[email] = name;
+    //      }
+    //    }
+    //  }
+    //  UnionFind uf(emailsCount);
+    //  for (auto& account : accounts) {
+    //    string& firstEmail = account[1];
+    //    int firstIndex = emailToIndex[firstEmail];
+    //    int size = account.size();
+    //    for (int i = 2; i < size; i++) {
+    //      string& nextEmail = account[i];
+    //      int nextIndex = emailToIndex[nextEmail];
+    //      uf.unionSet(firstIndex, nextIndex);
+    //    }
+    //  }
+    //  map<int, vector<string>> indexToEmails;
+    //  for (auto& email : emailToIndex) {
+    //    int index = uf.find(emailToIndex[email.first]);
+    //    vector<string>& account = indexToEmails[index];
+    //    account.emplace_back(email.first);
+    //    indexToEmails[index] = account;
+    //  }
+    //  vector<vector<string>> merged;
+    //  for (auto& emails : indexToEmails) {
+    //    sort(emails.second.begin(), emails.second.end());
+    //    string& name = emailToName[emails.second[0]];
+    //    vector<string> account;
+    //    account.emplace_back(name);
+    //    for (auto& email : emails.second) {
+    //      account.emplace_back(email);
+    //    }
+    //    merged.emplace_back(account);
+    //  }
+    //  return merged;
+    //}
+
+
+    //279. 完全平方数 回溯（超时）  dp  数学方法
+    int numSquares(int n) {
+      //int x = sqrt(n);
+      //cout << "x: " << x << endl;
+
+      //int ans = INT_MAX;
+      //vector<int> tmp;
+      //std::function<void(int, int)> back_trace = [&](int index, int sum) {
+      //  if (sum < 0) {
+      //    return;
+      //  }
+      //  if (sum == 0) {
+      //    ans = min(ans, tmp.size());
+      //    return;
+      //  }
+      //  for (int i = 1; i <= x; i++) {
+      //    if (sum >= i) {
+      //      tmp.emplace_back(i * i);
+      //      back_trace(i + 1, sum - i * i);
+      //      tmp.pop_back();
+      //    } else
+      //      break;
+      //  }
+      //};
+      //back_trace(1, n);
+
+      if (n <= 3) return n;
+      int x = sqrt(n);
+      int* dp = new int[n + 2];
+      dp[0] = 0;
+      dp[1] = 1;
+      for (int i = 2; i <= n; i++) {
+        dp[i] = INT_MAX;
+        for (int j = 1; j <= x; j++) {
+          if (i >= j * j) dp[i] = min(dp[i - j * j] + 1, dp[i]);
+        }
+      }
+      return dp[n];
+    }
+
+
+    bool isSquare(int n) {
+      int sq = (int)sqrt(n);
+      return n == sq * sq;
+    }
+
+    int numSquares(int n) {
+      while (n % 4 == 0) n /= 4;
+      if (n % 8 == 7) return 4;
+      if (isSquare(n)) return 1;
+      for (int i = 1; i * i <= n; ++i) {
+        if (isSquare(n - i * i)) return 2;
+      }
+      return 3;
+    }
+
+    //1584. 连接所有点的最小费用 并查集
+    int* fa_1584;
+    void init_1584(int len) {
+      for (int i = 0; i < len; i++) {
+        fa_1584[i] = i;
+      }
+    }
+
+    int find_1584(int x) {
+      return fa_1584[x] == x ? x : fa_1584[x] = find_1584(fa_1584[x]);
+    }
+
+    int minCostConnectPoints(vector<vector<int>>& points) {
+      int len = points.size();
+      fa_1584 = new int[len + 1];
+      std::priority_queue<std::tuple<int, int, int>,
+                          vector<std::tuple<int, int, int>>,
+                          std::greater<std::tuple<int, int, int>>
+                          > pq;
+      init_1584(len);
+      for (int i = 0; i < len; i++) {
+        for (int j = i + 1; j < len; j++) {
+          auto a = points[i], b = points[j];
+          pq.push(std::make_tuple(abs(a[0] - b[0]) + abs(a[1] - b[1]), i, j));
+        }
+      }
+      int ans = 0, cnt = 0;
+      while (!pq.empty()) {
+        auto top = pq.top();
+        pq.pop();
+        int x = find_1584(std::get<1>(top)), y = find_1584(std::get<2>(top));
+        if (x != y) {
+          cnt++;
+          ans += find_1584(std::get<0>(top));
+          fa_1584[y] = x;
+        }
+        if (cnt == len - 1) break;
+      }
+      return ans;
+    }
+
+    // 347. 前 K 个高频元素
+    vector<int> topKFrequent(vector<int>& nums, int k) {
+      int len = nums.size();
+      vector<int> ans;
+      std::unordered_map<int, int> m;
+      for (int i = 0; i < len; i++) {
+        m[nums[i]]++;
+      }
+      std::vector <std::pair<int, int>> se;
+      for (auto x : m) {
+        se.emplace_back(std::make_pair(x.second, x.first));
+      }
+      
+      std::sort(se.rbegin(), se.rend());
+      int cnt = 0;
+      if (se.size() == 1) return {se[0].second};
+      for (int i = 0; i < se.size(); i++) {
+        if (i == 0)
+          cnt++;
+        else {
+          if (se[i].first != se[i - 1].first) cnt++;
+          if (k == cnt) {
+            int j = i;
+            while (se[j].first == se[i].first) {
+              ans.emplace_back(se[j].second);
+            }
+            return ans;
+          }
+        }
+      }
+      return {};
+    }
+
+    // 494. 目标和 dp (可回溯)
+    /*
+    *  正 - 负 = target
+    *  正 + 负 = sum(nums)
+    *  => 2 * 正 = target + sum(nums) 
+    *  => 正 = (target + sum(nums)) / 2
+    */
+    int findTargetSumWays(vector<int>& nums, int S) {
+      int len = nums.size();
+      if (len == 1 && nums[0] == abs(S)) return 1;
+      int* dp = new int[len + 1];
+      int sum = 0, ans = 0;
+      for (int i = 0; i < len; i++) {
+        sum += nums[i];
+      }
+      sum = (sum + S);
+      if (sum % 2 != 0)
+        return 0;
+      else
+        sum = sum / 2;
+      dp[0] = 1;
+      for (int i = 1; i <= sum; i++) {
+        for (auto num : nums) {
+          if (i >= num) dp[i] += dp[i - num];
+        }
+      }
+      return dp[sum];
+    }
+
+
+    //322. 零钱兑换  dp 01背包
+    int coinChange(vector<int>& coins, int amount) { 
+      //if (amount == 0) return 0;
+      //int len = coins.size();
+      //vector<int> dp(amount + 1, 0);
+      //bool flag = false;
+      //for (int i = 0; i < len; i++) {
+      //  if (coins[i] <= amount) flag = true;
+      //  for (int j = amount; j >= coins[i]; j--) {
+      //    int n = j / coins[i];
+      //    if (i == 0) {
+      //      if (j % coins[i] != 0)
+      //        dp[j] = INT_MAX;
+      //      else
+      //        dp[j] = n;
+      //    }
+      //    else {
+      //      for (int k = 0; k <= n; k++) {
+      //        if (dp[j - k * coins[i]] != INT_MAX)
+      //          dp[j] = min(dp[j], dp[j - k * coins[i]] + k);
+      //      }
+      //    }
+      //  }
+      //}
+
+      //if (!flag) return -1;
+      //return dp[amount] == INT_MAX ? -1 : dp[amount];
+        
+
+      if (amount == 0) return 0;
+      int len = coins.size();
+      int m = amount + 1;
+      vector<int> dp(amount + 1, m);
+      dp[0] = 0;
+      for (int i = 0; i <= amount; i++) {
+        for (int j = 0; j < len; j++) {
+          if (coins[j] <= i) dp[i] = min(dp[i], dp[i - coins[j]] + 1);
+        }
+      }
+      return dp[amount] > amount ? -1 : dp[amount];
     }

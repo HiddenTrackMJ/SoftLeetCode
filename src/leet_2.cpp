@@ -24,8 +24,6 @@ void merge(int i, int j) {
 }
 int removeStones(vector<vector<int>>& stones) {
   int len = stones.size();
-  //fa = new int[len];
-  //rank = new int[len];
   init(len);
   for (int i = 0; i < len; i++) {
     merge(stones[i][0], stones[i][1] + 10000);

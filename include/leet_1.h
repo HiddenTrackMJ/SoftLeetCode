@@ -88,6 +88,66 @@ class Djset {
   }
 };
 
+    class UnionFind {
+ public:
+  vector<int> parent;
+
+  UnionFind(int n) {
+    parent.resize(n);
+    for (int i = 0; i < n; i++) {
+      parent[i] = i;
+    }
+  }
+
+  void unionSet(int index1, int index2) { parent[find(index2)] = find(index1); }
+
+  int find(int index) {
+    if (parent[index] != index) {
+      parent[index] = find(parent[index]);
+    }
+    return parent[index];
+  }
+};
+
+// 并查集模板
+class UnionFind2 {
+ public:
+  vector<int> parent;
+  vector<int> size;
+  int n;
+  // 当前连通分量数目
+  int setCount;
+
+ public:
+  UnionFind2(int _n) : n(_n), setCount(_n), parent(_n), size(_n, 1) {
+    std::iota(parent.begin(), parent.end(), 0);
+  }
+
+  int findset(int x) {
+    return parent[x] == x ? x : parent[x] = findset(parent[x]);
+  }
+
+  bool unite(int x, int y) {
+    x = findset(x);
+    y = findset(y);
+    if (x == y) {
+      return false;
+    }
+    if (size[x] < size[y]) {
+      std::swap(x, y);
+    }
+    parent[y] = x;
+    size[x] += size[y];
+    --setCount;
+    return true;
+  }
+
+  bool connected(int x, int y) {
+    x = findset(x);
+    y = findset(y);
+    return x == y;
+  }
+};
 
 
 class Solution {

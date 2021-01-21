@@ -142,5 +142,13 @@ for (遍历数组)) {
 回溯
 
 
+### Todo:
+- [ ] 二分查找<br>
+- [ ] 快慢指针 https://leetcode-cn.com/problems/find-the-duplicate-number/solution/xun-zhao-zhong-fu-shu-by-leetcode-solution/
+- [ ] Manacher 算法 https://leetcode-cn.com/problems/palindromic-substrings/solution/hui-wen-zi-chuan-by-leetcode-solution/
+- [ ] 滑动窗口 https://leetcode-cn.com/problems/longest-substring-without-repeating-characters/solution/hua-dong-chuang-kou-by-powcai/
 
-二分查找<br>
+#### 2020.1.21
+- [x] 1489. 找到最小生成树里的关键边和伪关键边
+- [ ] 337. 打家劫舍 III
+- [ ] 309. 最佳买卖股票时机含冷冻期
