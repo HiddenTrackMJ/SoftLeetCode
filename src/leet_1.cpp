@@ -3690,3 +3690,78 @@ bool Solution::hasCycle(ListNode* head) {
       }
       return dp[amount] > amount ? -1 : dp[amount];
     }
+
+    //309. 最佳买卖股票时机含冷冻期 dp
+    int maxProfit(vector<int>& prices) {
+      //int len = prices.size();
+      //if (len < 2) return 0;
+      //int* dp1 = new int[len];  //拥有
+      //int* dp2 = new int[len];  //不拥有
+      //int* dp3 = new int[len];  //交易后不拥有
+      //dp1[0] = -prices[0];
+      //dp2[0] = 0;
+      //dp3[0] = 0;
+      //for (int i = 1; i < len; i++) {
+      //  dp1[i] = max(dp2[i - 1] - prices[i], dp1[i - 1]);
+      //  dp2[i] = max(dp2[i - 1], dp3[i - 1]);
+      //  dp3[i] = dp1[i - 1] + prices[i];
+      //}
+      //return max(dp2[len - 1], dp3[len - 1]);
+
+      // 空间优化
+      int len = prices.size();
+      if (len < 2) return 0;
+      int dp1 = -prices[0];    //拥有
+      int dp2 = 0;  //不拥有
+      int dp3 = 0;  //交易后不拥有
+      int tmp1, tmp2, tmp3;
+      for (int i = 1; i < len; i++) {
+        tmp1 = dp1;
+        tmp2 = dp2;
+        tmp3 = dp3;
+        dp1 = max(tmp2 - prices[i], tmp1);
+        dp2 = max(tmp2, tmp3);
+        dp3 = tmp1 + prices[i];
+      }
+      return max(dp2, dp3);
+    }
+
+    //337. 打家劫舍 III dp
+    int rob(TreeNode* root) {
+      std::function<vector<int>(TreeNode*)> dfs = [&](TreeNode* cur) {
+        vector<int> dp(2, 0);
+        if (!cur) return dp;
+        auto r1 = dfs(cur->left);
+        auto r2 = dfs(cur->right);
+        dp[0] = r1[1] + r2[1] + cur->val;
+        dp[1] = max(r1[0], r1[1]) + max(r2[0], r2[1]);
+        return dp;
+      };
+
+      auto res = dfs(root);
+      return max(res[0], res[1]);
+    }
+
+    int dfs_camera(TreeNode* cur, int& res) {
+      if (cur == NULL) return 2;
+
+      int left = dfs_camera(cur->left, res);
+      int right = dfs_camera(cur->right, res);
+
+      if (left == 2 && right == 2) {
+        return 0;
+      } else if (left == 0 || right == 0) {
+        res++;
+        return 1;
+      } else if (left == 1 || right == 1) {
+        return 2;
+      }
+    }
+
+    int Solution::minCameraCover(TreeNode* root) {
+      int res = 0;
+      if (dfs_camera(root, res) == 0) {  // root 无覆盖
+        res++;
+      }
+      return res;
+    }
