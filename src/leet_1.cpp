@@ -3755,3 +3755,218 @@ bool Solution::hasCycle(ListNode* head) {
       }
       return ans;
     }
+
+    //989. 数组形式的整数加法
+    vector<int> addToArrayForm(vector<int>& A, int K) {
+      int len = A.size();
+      vector<int> ans;
+
+      for (int i = len - 1; i >= 0; i--) {
+        int sum = A[i] + K % 10;
+        K /= 10;
+        if (sum >= 10) {
+          K++;
+          sum -= 10;
+        }
+        ans.emplace_back(sum);
+      }
+
+      for (; K > 0; K /= 10) {
+        ans.push_back(K % 10);
+      }
+      reverse(ans.begin(), ans.end());
+      return ans;
+    }
+
+    //152. 乘积最大子数组 dp 
+    int maxProduct(vector<int>& nums) {
+      int len = nums.size();
+      if (len == 0) return 0;
+      int m = nums[0], x = nums[0], y = nums[0];
+      for (int i = 1; i < len; i++) {
+        int tmp = x;
+        x = max(y * nums[i], max(x * nums[i], nums[i]));
+        y = min(tmp * nums[i], min(y * nums[i], nums[i]));
+        m = max(x, m);
+      }
+      return m;
+    }
+
+    //581. 最短无序连续子数组
+    int findUnsortedSubarray(vector<int>& nums) {
+      int len = nums.size();
+      if (len < 2) return 0;
+      int max_n = nums[0], min_n = nums[len - 1], pos_max = -1, pos_min = 0;
+      for (int i = 0; i < len; i++) {
+        if (max_n > nums[i])
+          pos_max = i;
+        else
+          max_n = nums[i];
+        if (min_n < nums[len - i - 1])
+          pos_min = len - i - 1;
+        else
+          min_n = nums[len - i - 1];
+      }
+      return (pos_max - pos_min) + 1;
+    }
+    // 1319. 连通网络的操作次数
+    int makeConnected(int n, vector<vector<int>>& connections) {
+      int len = connections.size();
+      if (n > len + 1) return -1;
+      UnionFind2 uf(n);
+      int cnt = 0;
+      for (int i = 0; i < len; i++) {
+        if (!uf.unite(connections[i][0], connections[i][0])) cnt++;
+      }
+      cout << "cnt: " << cnt << ", set: " << uf.setCount << endl;
+      return cnt > uf.setCount - 1 ? uf.setCount - 1 : -1;
+    }
+
+    //674. 最长连续递增序列 dp
+    int findLengthOfLCIS(vector<int>& nums) {
+      int len = nums.size();
+      if (len == 0) return 0;
+      int x = 1, y = 0;
+      for (int i = 1; i < len; ++i) {
+        y = max(x, y);
+        if (nums[i] > nums[i - 1])
+          x = x + 1;
+        else
+          x = 1;
+      }
+      return max(x, y);
+    }
+
+    //221. 最大正方形
+    int maximalSquare(vector<vector<char>>& matrix) {
+      int x = matrix[0].size(), y = matrix.size();
+      vector<vector<int>> dp(y, vector<int>(x, 0));
+      for (int i = 0; i < y; ++i) {
+        for (int j = 0; j < x; ++j) {
+          if (i == 0 || j == 0) {
+            dp[i][j] = matrix[i][j] == '1';
+          } else {
+            dp[i][j] = min(dp[i - 1][j - 1], min(dp[i][j - 1], dp[i - 1][j])) + 1;
+          }
+        }
+      }
+      return dp[y - 1][x - 1];
+    }
+
+    //437. 路径总和 III
+    int pathSum(TreeNode* root, int sum) {
+      if (!root) return 0;
+      int ans = 0;
+      vector<int> sum_vec;
+      std::function<void(TreeNode*, vector<int>)> dfs = [&](TreeNode* cur,
+                                                            vector<int> vec) {
+        if (!cur) return;
+        vec.emplace_back(0);
+        for (int i = 0; i < vec.size(); i++) {
+          if (vec[i] + cur->val == sum) {
+            ans++;
+            vec.erase(vec.begin() + i);
+          } else if (vec[i] + cur->val > sum)
+            vec.erase(vec.begin() + i);
+          else
+            vec[i] += cur->val;
+        }
+        dfs(cur->left, vec);
+        dfs(cur->right, vec);
+        vec.pop_back();
+      };
+      dfs(root, sum_vec);
+      return ans;
+    }
+
+    //560. 和为K的子数组 暴力超时  改用前缀
+    int subarraySum(vector<int>& nums, int k) {
+      //int len = nums.size();
+      //int ans = 0;
+      //for (int i = 0; i < len; i++) {
+      //  int sum = 0;
+      //  for (int j = i; j < len; j++) {
+      //    sum += nums[j];
+      //    if (sum == k) {
+      //      ans++;
+      //    }
+      //  }
+      //}
+      //return ans;
+
+      int len = nums.size();
+      int ans = 0, pre = 0;
+      std::unordered_map<int, int> m;
+      m[0] = 1;
+      for (int i = 0; i < len; i++) {
+        pre += nums[i];
+        if (m.find(pre - k) != m.end()) {
+          ans += m[pre - k];
+        }
+        m[pre]++;
+      }
+      return ans;
+    }
+
+    //55. 跳跃游戏 递归超时
+    bool canJump(vector<int>& nums) {
+      //int len = nums.size();
+      //if (len == 0) return true;
+      //std::function<bool(int, int)> dfs = [&](int index, int w) {
+      //  if (index + w >= len - 1) return true;
+      //  for (int i = index + 1; i <= index + w; i++) {
+      //    if (dfs(i, nums[i])) return true;
+      //  }
+      //  return false;
+      //};
+      //return dfs(0, nums[0]);
+
+      int len = nums.size();
+      if (len == 0) return true;
+      int max_dis = nums[0];
+      for (int i = 0; i < len; i++) {
+        if (i <= max_dis) max_dis = max(max_dis, i + nums[i]);
+        if (max_dis >= len - 1) return true;
+      }
+      return max_dis >= len - 1;
+    }
+
+    //56. 合并区间
+    vector<vector<int>> merge(vector<vector<int>>& intervals) {
+      int len = intervals.size();
+      if (len == 0) return {};
+      std::sort(intervals.begin(), intervals.end(),
+                [&](const auto a, const auto b) { return a[0] < b[0]; });
+      vector<vector<int>> ans;
+      ans.emplace_back(intervals[0]);
+      for (int i = 1; i < len; i++) {
+        auto left = intervals[i][0];
+        auto right = intervals[i][1];
+        if (ans.back()[1] < left)
+          ans.emplace_back(intervals[i]);
+        else
+          ans.back()[1] = max(ans.back()[1], right);
+      }
+      return ans;
+    }
+
+    //78. 子集 回溯
+    vector<vector<int>> subsets(vector<int>& nums) {
+      vector<vector<int>> ans;
+      int len = nums.size();
+      if (len == 0) return ans;
+      vector<int> tmp;
+
+      std::function<void(int)> back_trace = [&](int index) {
+        if (index == len) {
+          ans.emplace_back(tmp);
+          return;
+        }
+        back_trace(index + 1);
+        tmp.emplace_back(nums[index]);
+        back_trace(index + 1);
+        tmp.pop_back();
+      };
+      back_trace(0);
+      return ans;
+    }
