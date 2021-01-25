@@ -3970,3 +3970,113 @@ bool Solution::hasCycle(ListNode* head) {
       back_trace(0);
       return ans;
     }
+
+    // 200. 岛屿数量 并查集
+    int numIslands(vector<vector<char>>& grid) {
+      int x = grid.size(), y = grid[0].size();
+      UnionFind2 uf(x * y);
+
+      for (int i = 0; i < x; i++) {
+        for (int j = 0; j < y; j++) {
+          if (i == 0) {
+            if (j == 0) continue;
+            if (grid[i][j] == '1' && grid[i][j - 1] == '1')
+              uf.unite(grid[i][j], grid[i][j - 1]);
+          } else if (j == 0) {
+            if (grid[i][j] == '1' && grid[i - 1][j] == '1')
+              uf.unite(grid[i][j], grid[i][j - 1]);
+          } else {
+            if (grid[i][j] == '1' && grid[i][j - 1] == '1')
+              uf.unite(grid[i][j], grid[i][j - 1]);
+            if (grid[i][j] == '1' && grid[i - 1][j] == '1')
+              uf.unite(grid[i][j], grid[i][j - 1]);
+          }
+        }
+      }
+
+      return uf.setCount;
+    }    
+
+    //959. 由斜杠划分区域
+    vector<string> a = {"//", "\\/"};
+    int regionsBySlashes(vector<string>& grid) {
+      int len = grid.size();
+      UnionFind2 uf(len * len * 4);
+      for (int i = 0; i < len; i++) {
+        for (int j = 0; j < len; j++) {
+          int index = i * len + j;
+          if (i > 0) uf.unite(index * 4 + 2, (index - len) * 4);
+          if (j > 0) uf.unite(index * 4 + 1, (index - 1) * 4 + 3);
+          if (grid[i][j] == '/') {
+            uf.unite(index * 4 + 2, (index - len) * 4 + 1);
+            uf.unite(index * 4, (index - 1) * 4 + 3);
+          } else if (grid[i][j] == '\\') {
+            uf.unite(index * 4 + 2, (index - len) * 4 + 3);
+            uf.unite(index * 4, (index - 1) * 4 + 1);
+          } else {
+            uf.unite(index * 4, (index - 1) * 4 + 3);
+            uf.unite(index * 4 + 2, (index - len) * 4 + 3);
+            uf.unite(index * 4, (index - 1) * 4 + 1);
+          }
+        }
+      }
+
+      return uf.setCount;
+    }
+
+    // 79. 单词搜索
+    bool exist(vector<vector<char>>& board, string word) {
+      int x = board.size();
+      int y = board[0].size();
+      int len = word.size();
+      vector<std::pair<int, int>> tmp;
+      std::function<bool(int, int, int, int)> dfs = [&](int index, int a, int b,
+                                                        int flag) {
+        if (std::find(tmp.begin(), tmp.end(), std::make_pair(a, b)) !=
+            tmp.end())
+          return false;
+        if (flag != 0 && word[index] != board[a][b]) return false;
+        if (index == len - 1 && word[index] == board[a][b]) return true;
+        if (flag == 0)
+          for (int i = 0; i < x; i++) {
+            for (int j = 0; j < y; j++) {
+              if (board[i][j] == word[index]) {
+                if (len == 1) return true;
+                tmp.emplace_back(i, j);
+                if (i - 1 >= 0 && dfs(index + 1, i - 1, j, 1)) return true;
+                if (j - 1 >= 0 && dfs(index + 1, i, j - 1, 4)) return true;
+                if (j + 1 < y && dfs(index + 1, i, j + 1, 2)) return true;
+                if (i + 1 < x && dfs(index + 1, i + 1, j, 3)) return true;
+                tmp.pop_back();
+              }
+            }
+          }
+        else {
+          tmp.emplace_back(a, b);
+          if (flag != 3)
+            if (a - 1 >= 0 && dfs(index + 1, a - 1, b, 1)) return true;
+          if (flag != 2)
+            if (b - 1 >= 0 && dfs(index + 1, a, b - 1, 4)) return true;
+          if (flag != 1)
+            if (a + 1 < x && dfs(index + 1, a + 1, b, 3)) return true;
+          if (flag != 4)
+            if (b + 1 < y && dfs(index + 1, a, b + 1, 2)) return true;
+          tmp.pop_back();
+        }
+
+        return false;
+      };
+      return dfs(0, 0, 0, 0);
+    }
+
+
+   // 236. 二叉树的最近公共祖先
+    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+      if (!root || root == p || root == q) return root;
+      auto left = lowestCommonAncestor(root->left, p, q);
+      auto right = lowestCommonAncestor(root->right, p, q);
+      if (left && right) return root;
+      if (left) return left;
+      if (right) return right;
+      return nullptr;
+    }
