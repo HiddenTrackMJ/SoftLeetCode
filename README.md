@@ -6,7 +6,7 @@
  - [x] [回溯](https://leetcode-cn.com/problems/permutations/solution/hui-su-suan-fa-python-dai-ma-java-dai-ma-by-liweiw/)
  - [ ] 四数之和双指针法
  - [ ] LCP No.19 秋叶收藏集、分割等和子集 DP
- - [ ] 二分查找 [300. 最长递增子序列](https://leetcode-cn.com/problems/longest-increasing-subsequence/solution/zui-chang-shang-sheng-zi-xu-lie-by-leetcode-soluti/)
+ - [x] 二分查找 [一文带你搞定二分查找及其多个变种](https://leetcode-cn.com/problems/find-first-and-last-position-of-element-in-sorted-array/solution/yi-wen-dai-ni-gao-ding-er-fen-cha-zhao-j-ymwl/)[300. 最长递增子序列](https://leetcode-cn.com/problems/longest-increasing-subsequence/solution/zui-chang-shang-sheng-zi-xu-lie-by-leetcode-soluti/)
  - [ ] 快慢指针 https://leetcode-cn.com/problems/find-the-duplicate-number/solution/xun-zhao-zhong-fu-shu-by-leetcode-solution/
  - [ ] Manacher 算法 [最长回文子串](https://leetcode-cn.com/problems/longest-palindromic-substring/solution/zui-chang-hui-wen-zi-chuan-by-leetcode-solution/) [647. 回文子串](https://leetcode-cn.com/problems/palindromic-substrings/solution/hui-wen-zi-chuan-by-leetcode-solution/)
  - [ ] 滑动窗口 https://leetcode-cn.com/problems/longest-substring-without-repeating-characters/solution/hua-dong-chuang-kou-by-powcai/
@@ -173,9 +173,17 @@ for (遍历数组)) {
 - [x] 78. 子集 回溯
 
 
-#### 2020.1.24 - 70 / 139
+#### 2020.1.25 - 71 / 139
 - [x] 200. 岛屿数量 并查集
 - [x] 959. 由斜杠划分区域
 - [x] 79. 单词搜索
 - [x] 236. 二叉树的最近公共祖先
 
+#### 2020.1.26 - 78 / 150
+- [x] 1128. 等价多米诺骨牌对的数量
+- [x] 34. 在排序数组中查找元素的第一个和最后一个位置
+- [x] 35. 搜索插入位置
+- [x] 33. 搜索旋转排序数组
+- [x] 96. 不同的二叉搜索树
+- [x] 139. 单词拆分
+- [x] 394. 字符串解码

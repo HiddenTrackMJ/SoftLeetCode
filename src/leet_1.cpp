@@ -4080,3 +4080,151 @@ bool Solution::hasCycle(ListNode* head) {
       if (right) return right;
       return nullptr;
     }
+
+    //1128. 等价多米诺骨牌对的数量
+    int numEquivDominoPairs(vector<vector<int>>& dominoes) {
+      int len = dominoes.size(), ans = 0;
+      std::unordered_map<int, int> m;
+      for (auto num : dominoes) {
+        int key = num[0] > num[1] ? num[1] * 10 + num[0] : num[0] * 10 + num[1];
+        ans += m[key];
+        m[key]++;
+      }
+      return ans;
+    }
+
+    //34. 在排序数组中查找元素的第一个和最后一个位置
+    vector<int> searchRange(vector<int>& nums, int target) {
+      //int len = nums.size();
+      //if (len == 0) return {-1, -1};
+      //int left = 0, right = len - 1, mid = (left + right) / 2;
+      //while (left <= right) {
+      //  mid = (left + right) / 2;
+      //  if (nums[mid] == target)
+      //    break;
+      //  else if (nums[mid] > target)
+      //    right = mid - 1;
+      //  else
+      //    left = mid + 1;
+      //}
+
+      //if (nums[mid] != target) return {-1, -1};
+      //left = right = mid;
+
+      //while (left >= 0 && nums[left] == target) left--;
+      //while (right < len && nums[right] == target) right++;
+
+      //return {left + 1, right - 1};
+
+      int len = nums.size();
+      if (len == 0) return {-1, -1};
+      int left = 0, right = len - 1, mid = (left + right) / 2;
+      while (left <= right) {
+        mid = (left + right) / 2;
+        if (nums[mid] >= target)
+          right = mid - 1;
+        else
+          left = mid + 1;
+      }
+      int low = left;
+      left = 0, right = len - 1;
+      while (left <= right) {
+        mid = (left + right) / 2;
+        if (nums[mid] > target)
+          right = mid - 1;
+        else
+          left = mid + 1;
+      }
+      if (low > right) return {-1, -1};
+      return {low, right};
+    }
+
+    // 35. 搜索插入位置
+    int searchInsert(vector<int>& nums, int target) {
+      int left = 0, right = nums.size() - 1;
+      while (left <= right) {
+        int mid = left + ((right - left) >> 1);
+        if (nums[mid] == target)
+          return mid;
+        else if (nums[mid] > target)
+          right = mid - 1;
+        else
+          left = mid + 1;
+      }
+      return left;
+    }
+
+    //33. 搜索旋转排序数组
+    int search(vector<int>& nums, int target) {
+      int left = 0, right = nums.size() - 1;
+      while (left <= right) {
+        int mid = left + right >> 1;
+        if (nums[mid] == target) return mid;
+        if (nums[left] <= nums[mid]) {
+          if (target < nums[mid] && target >= nums[left])
+            right = mid - 1;
+          else if (target > nums[mid] || target < nums[left])
+            left = mid + 1;
+        } else if (nums[right] > nums[mid]) {
+          if (target > nums[mid] && target <= nums[right])
+            left = mid + 1;
+          else if (target < nums[mid] || target > nums[right])
+            right = mid - 1;
+        }
+      }
+      return -1;
+    }
+
+
+    // 96. 不同的二叉搜索树
+    int numTrees(int n) {
+      vector<unsigned long long> dp(n + 1, 0);
+      dp[0] = dp[1] = 1;
+      for (int i = 2; i <= n; i++) {
+        for (int j = 0; j < i; j++) {
+          dp[i] += dp[j] * dp[i - 1 - j];
+        }
+      }
+      return dp[n];
+    }
+
+    //139. 单词拆分
+    bool wordBreak(string s, vector<string>& wordDict) {
+      int len = s.size();
+      int* dp = new int[len + 1];
+      dp[0] = 1;
+      for (int i = 1; i <=  len; i++) {
+        for (int j = 0; j < i; j++) {
+          if (dp[j] == 1 && std::find(wordDict.begin(), wordDict.end(), s.substr(j, i - j)) != wordDict.end()) {
+            dp[i] = 1;
+            break;
+          }
+        }
+      }
+      return dp[len];
+    }
+
+    //394. 字符串解码 "2[abc]3[cd]ef"
+    string decodeString(string s) {
+      if (s.size() == 0) return "";
+      std::stack<std::pair<int, string>> st;
+      string ans;
+      int num = 0;
+      for (auto& cur : s) {
+        if (cur >= '0' && cur <= '9')
+          num = num * 10 + (cur - '0');
+        else if (cur == '[') {
+          st.push(std::make_pair(num, ans));
+          num = 0;
+          ans = "";
+        } else if (cur == ']') {
+          auto x = st.top();
+          st.pop();
+          string tmp;
+          for (int i = 0; i < x.first; i++) tmp += ans;
+          ans = x.second + tmp;
+        } else
+          ans += cur;
+      }
+      return ans;
+    }
