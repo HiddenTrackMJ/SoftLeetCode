@@ -4228,3 +4228,114 @@ bool Solution::hasCycle(ListNode* head) {
       }
       return ans;
     }
+
+    //1579. 保证图可完全遍历
+    int maxNumEdgesToRemove(int n, vector<vector<int>>& edges) {
+      UnionFind2 uf1(n + 1), uf2(n + 1);
+      int ans = 0;
+      for (auto& e : edges) {
+        if (e[0] == 3) {
+          if (uf1.findset(e[1]) == uf1.findset(e[2]) &&
+              uf2.findset(e[1]) == uf2.findset(e[2]))
+            ans++;
+          else {
+            uf1.unite(e[1], e[2]);
+            uf2.unite(e[1], e[2]);
+          }
+        }
+      }
+      for (auto& e : edges) {
+        if (e[0] == 1) {
+          if (uf1.findset(e[1]) == uf1.findset(e[2])) ans++;
+          else uf1.unite(e[1], e[2]);
+        }
+        if (e[0] == 2) {
+          if (uf2.findset(e[1]) == uf2.findset(e[2]))
+            ans++;
+          else
+            uf2.unite(e[1], e[2]);
+        }
+      }
+
+      if (uf1.setCount > 1 || uf2.setCount > 1) return -1;
+      return ans;
+    }
+
+
+    //240. 搜索二维矩阵 II
+    class Point {
+     public:
+      int x, y;
+      Point(int a, int b): x(a), y(b) {};
+      Point(){};
+      static bool is_end(Point a, Point b) { return b.x - a.x == 1 || b.y - a.y == 1;
+      }
+
+      static Point get_mid(Point a, Point b) {
+        return Point((a.x + b.x) / 2, (a.y + b.y) / 2);
+      }
+    };
+    bool searchMatrix(vector<vector<int>>& matrix, int target) {
+      //Point left(0, 0);
+      //Point right(matrix.size(), matrix[0].size());
+      //Point mid;
+      //while (!Point::is_end(left, right)) {
+      //  mid = Point::get_mid(left, right);
+      //  if (matrix[mid.x][mid.y] == target)
+      //    return true;
+      //  else if (matrix[mid.x][mid.y] < target)
+      //    left = mid;
+      //  else
+      //    right = mid;
+      //}
+
+      int y = matrix.size() - 1;
+      int x = 0;
+      while (x < matrix.size() && y > 0) {
+        if (matrix[x][y] == target)
+          return true;
+        else if (matrix[x][y] > target)
+          y--;
+        else
+          x++;
+      }
+      return false;
+    }
+
+
+    // 148. 排序链表 todo排序算法
+    ListNode* sortList(ListNode* head) {
+      vector<ListNode*> vec;
+      while (head) {
+        vec.emplace_back(head);
+        head = head->next;
+      }
+      std::sort(vec.begin(), vec.end(),
+                [](const auto a, const auto b) { return a->val < b->val; });
+      int len = vec.size();
+      for (int i = 0; i < len; i++) {
+        if (i < len - 1)
+          vec[i]->next = vec[i + 1];
+        else
+          vec[i]->next = nullptr;
+      }
+      return vec[0];
+    }
+
+    
+    // 724. 寻找数组的中心索引
+    int pivotIndex(vector<int>& nums) {
+      int len = nums.size();
+      int sum = 0, pre = 0;
+      for (auto& n : nums) sum += n;
+      for (int i = 0; i < len; ++i) {
+        if (sum == 2 * pre + nums[i]) return i;
+        pre += nums[i];
+      }
+      return -1;
+    }
+
+
+    // 105. 从前序与中序遍历序列构造二叉树
+    TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
+    }

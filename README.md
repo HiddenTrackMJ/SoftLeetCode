@@ -10,7 +10,7 @@
  - [ ] 快慢指针 https://leetcode-cn.com/problems/find-the-duplicate-number/solution/xun-zhao-zhong-fu-shu-by-leetcode-solution/
  - [ ] Manacher 算法 [最长回文子串](https://leetcode-cn.com/problems/longest-palindromic-substring/solution/zui-chang-hui-wen-zi-chuan-by-leetcode-solution/) [647. 回文子串](https://leetcode-cn.com/problems/palindromic-substrings/solution/hui-wen-zi-chuan-by-leetcode-solution/)
  - [ ] 滑动窗口 https://leetcode-cn.com/problems/longest-substring-without-repeating-characters/solution/hua-dong-chuang-kou-by-powcai/
-
+ - [ ] 排序算法 [148. 排序链表](https://leetcode-cn.com/problems/sort-list/solution/pai-xu-lian-biao-by-leetcode-solution/)
 
 #### 已完成
 ![](进度.png)
@@ -129,7 +129,7 @@ No. 169. 多数元素<br>
 ```
 
 739. 每日温度 <br>
-单调栈  「力扣」第 42、739、496、316、901、402、581 题。
+单调栈 https://zhuanlan.zhihu.com/p/61423849 「力扣」第 42、739、496、316、901、402、581 题。
 ![](单调栈.png)
 <br>模板：
 ```cpp
@@ -145,6 +145,15 @@ for (遍历数组)) {
 
 46. 全排列<br>
 回溯
+
+208. 实现 Trie (前缀树) [题目](https://leetcode-cn.com/problems/implement-trie-prefix-tree/solution/)<br>
+前缀树实现，可以自动补全等
+- 找到具有同一前缀的全部键值。
+- 按词典序枚举字符串的数据集。
+#### Trie 树是一个有根的树，其结点具有以下字段：。
+- 最多 R 个指向子结点的链接，其中每个链接对应字母表数据集中的一个字母。
+- 本文中假定 R 为 26，小写拉丁字母的数量。
+- 布尔字段，以指定节点是对应键的结尾还是只是键前缀。
 
 
 
@@ -187,3 +196,17 @@ for (遍历数组)) {
 - [x] 96. 不同的二叉搜索树
 - [x] 139. 单词拆分
 - [x] 394. 字符串解码
+
+
+#### 2020.1.27 - 81/ 155
+- [x] 1579. 保证图可完全遍历
+- [x] 240. 搜索二维矩阵 II
+- [x] 208. 实现 Trie (前缀树)
+- [x] 148. 排序链表
+
+
+#### 2020.1.28 - 81/ 155
+- [x] 724. 寻找数组的中心索引
+- [x] 
+- [x] 
+- [x] 
