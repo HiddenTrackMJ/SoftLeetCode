@@ -4336,6 +4336,94 @@ bool Solution::hasCycle(ListNode* head) {
     }
 
 
-    // 105. 从前序与中序遍历序列构造二叉树
+    // 105. 从前序与中序遍历序列构造二叉树 哈希表存位置减少时间损耗
     TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
+      int la = preorder.size();
+      int lb = inorder.size();
+      if (la == 0 || lb == 0 || la != lb) return nullptr;
+      std::unordered_map<int, int> in_map;
+      for (int i = 0; i < lb; i++) in_map[inorder[i]] = i;
+     
+      std::function<TreeNode*(int, int, int, int)> build =
+          [&](int p_start, int p_end, int i_start, int i_end) {
+            TreeNode* root = nullptr;
+            if (p_start > p_end) return root;
+            int cur = preorder[p_start];
+            int pos = in_map[cur];
+            root = new TreeNode(cur);
+            root->left = build(p_start + 1, p_start + 1 + (pos - 1 - i_start), i_start, pos - 1);
+            root->right = build(p_start + 1 + pos - i_start, p_end, pos + 1, i_end);
+            return root;
+          };
+
+      return build(0, la - 1, 0, lb - 1);
+    }
+
+
+    // 114. 二叉树展开为链表 逆后序遍历
+    void flatten(TreeNode* root) {
+      TreeNode* tmp = nullptr;
+      std::function<void(TreeNode*)> dfs = [&](TreeNode* cur) {
+        if (!root) return;
+        dfs(root->right);
+        dfs(root->left);
+        cout << "cur: " << root->val << endl;
+        if (tmp) cout << "tmp: " << tmp->val << endl;
+        root->right = tmp;
+        tmp = root;
+      };
+      dfs(root);
+    }
+
+
+    // 1631. 最小体力消耗路径
+    int minimumEffortPath(vector<vector<int>>& heights) {
+      int ans = 0;
+      int x = heights.size(), y = heights[0].size();
+      std::priority_queue<std::tuple<int, int, int>,
+                          vector<std::tuple<int, int, int>>,
+                          std::greater<std::tuple<int, int, int>>> pq;
+
+      for (int i = 0; i < x; i++) {
+        for (int j = 0; j < y; j++) {
+          if (i + 1 < x - 1) pq.push(std::make_tuple(abs(heights[i][j] - heights[i + 1][j]), i * y + j, (i + 1) * y + j));
+          if (j + 1 < y - 1) pq.push(std::make_tuple(abs(heights[i][j] - heights[i][j + 1]) , i * y + j, i * y + j + 1));
+        }
+      }
+
+      UnionFind2 uf(x * y);
+      while (!pq.empty()) {
+        auto top = pq.top();
+        pq.pop();
+        if (uf.unite(std::get<1>(top), std::get<2>(top))) ans = max(ans, std::get<0>(top));
+        if (uf.connected(0, x * y - 1)) break;
+      }
+      return ans;
+    }
+
+
+    //207. 课程表 拓扑排序
+    bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {
+      vector<int> deg(numCourses, 0);
+      vector<vector<int>> edges(numCourses, vector<int>{});
+      int len = prerequisites.size();
+      for (auto& it : prerequisites) {
+        deg[it[1]]++;
+        edges[it[1]].emplace_back(it[0]);
+      }
+      int cnt = 0;
+      std::queue<int> q;
+      for (int i = 1; i <= numCourses; ++i)
+        if (deg[i] == 0) q.push(i);
+      while (!q.empty()) {
+        int t = q.front();
+        q.pop();
+        cnt++;
+        for (auto to : edges[t]) {
+          deg[to]--;
+          if (deg[to] == 0)  // 出现了新的入度为0的点
+            q.push(to);
+        }
+      }
+      return cnt == numCourses;
     }

@@ -50,6 +50,55 @@ class A {
   }
 };
 
+//146. LRU 缓存机制
+struct DLinkedNode {
+    int key, value;
+    DLinkedNode* prev;
+    DLinkedNode* next;
+    DLinkedNode(): key(0), value(0), prev(nullptr), next(nullptr) {}
+    DLinkedNode(int _key, int _value): key(_key), value(_value), prev(nullptr), next(nullptr) {}
+};
+
+class LRUCache {
+ private:
+  int n, cnt, index;
+  std::unordered_map<int, std::pair<int, int>> LRU_map;
+  std::map<int, int> fre;
+  std::queue<int> LRU_qu;
+
+ public:
+  LRUCache(int capacity) {
+    n = capacity;
+    cnt = index = 0;
+  }
+
+  int get(int key) { 
+    if (LRU_map.count(key) == 0) return -1;
+    LRU_map[key].second = (index++);
+    return LRU_map[key].first;
+  }
+
+  void put(int key, int value) {
+    if (LRU_map.count(key) == 0) {
+      cnt++;
+      if (n < cnt) {
+        int max_val = -1, tmp;
+        for (auto& it : LRU_map) {
+          if (index - it.second.second > max_val) {
+            max_val = index - it.second.second;
+            tmp = it.first;
+          }
+        }
+        LRU_map.erase(tmp);
+        cnt--;
+      }
+      LRU_map[key] = std::make_pair(value, index++);
+    } else {
+      LRU_map[key] = std::make_pair(value, index++);
+    }
+  }
+};
+
 class Djset {
  public:
   vector<int> parent;  // 记录节点的根
