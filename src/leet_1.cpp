@@ -4427,3 +4427,18 @@ bool Solution::hasCycle(ListNode* head) {
       }
       return cnt == numCourses;
     }
+
+
+    // 98. 验证二叉搜索树 前序遍历 注意边界
+    bool isValidBST(TreeNode* root) {
+      if (!root) return true;
+      long flag = LONG_MIN;
+      std::function<bool(TreeNode*)> dfs = [&](TreeNode* cur) {
+          auto f1 = dfs(cur->left);
+          if (cur->val < flag) return false;
+          else flag = cur->val;
+          auto f2 = dfs(cur->right);
+          return f1 && f2;
+      };
+      return dfs(root);
+    }
