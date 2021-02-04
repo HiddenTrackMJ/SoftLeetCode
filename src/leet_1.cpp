@@ -4386,8 +4386,8 @@ bool Solution::hasCycle(ListNode* head) {
 
       for (int i = 0; i < x; i++) {
         for (int j = 0; j < y; j++) {
-          if (i + 1 < x - 1) pq.push(std::make_tuple(abs(heights[i][j] - heights[i + 1][j]), i * y + j, (i + 1) * y + j));
-          if (j + 1 < y - 1) pq.push(std::make_tuple(abs(heights[i][j] - heights[i][j + 1]) , i * y + j, i * y + j + 1));
+          if (i + 1 <= x - 1) pq.push(std::make_tuple(abs(heights[i][j] - heights[i + 1][j]), i * y + j, (i + 1) * y + j));
+          if (j + 1 <= y - 1) pq.push(std::make_tuple(abs(heights[i][j] - heights[i][j + 1]) , i * y + j, i * y + j + 1));
         }
       }
 
@@ -4441,4 +4441,335 @@ bool Solution::hasCycle(ListNode* head) {
           return f1 && f2;
       };
       return dfs(root);
+    }
+
+
+    // 778. 水位上升的泳池中游泳
+    int swimInWater(vector<vector<int>>& grid) {
+      int ans = 0;
+      int x = grid.size(), y = grid[0].size();
+      std::priority_queue<std::tuple<int, int, int>,
+                          vector<std::tuple<int, int, int>>,
+                          std::greater<std::tuple<int, int, int>>>
+          pq;
+
+      for (int i = 0; i < x; i++) {
+        for (int j = 0; j < y; j++) {
+          if (i + 1 <= x - 1)
+            pq.push(std::make_tuple(max(grid[i][j], grid[i + 1][j]),
+                                    i * y + j, (i + 1) * y + j));
+          if (j + 1 <= y - 1)
+            pq.push(std::make_tuple(max(grid[i][j], grid[i][j + 1]),
+                                    i * y + j, i * y + j + 1));
+        }
+      }
+
+      UnionFind2 uf(x * y);
+      while (!pq.empty()) {
+        auto top = pq.top();
+        pq.pop();
+        if (uf.unite(std::get<1>(top), std::get<2>(top)))
+          ans = max(ans, std::get<0>(top));
+        if (uf.connected(0, x * y - 1)) break;
+      }
+      return ans;
+    }
+
+
+
+    // 621. 任务调度器
+    int leastInterval(vector<char>& tasks, int n) {
+        int len = tasks.size();
+        if (len == 0) return 0;
+        vector<int> fre(26, 0);
+        int cnt = 0, tmp = -1;
+        for (auto& t : tasks) {
+          fre[t - 'A']++;
+        }
+        std::sort(fre.begin(), fre.end());
+        for (int i = len - 1; fre[i] == fre[len - 1]; i++) cnt++;
+        return max(len, (fre[len - 1] - 1) * (n + 1) + cnt);
+    }
+
+    //839. 相似字符串组
+    int numSimilarGroups(vector<string>& strs) {
+      int x = strs.size();
+      int y = strs[0].size();
+      UnionFind2 uf(x);
+      std::function<bool(string, string)> check = [&](string a, string b) {
+        int cnt = 0;
+        for (int i = 0; i < y; ++i)
+          if (a[i] != b[i]) ++cnt;
+        return cnt == 0 || cnt == 2;
+      };
+      for (int i = 0; i < x; i++) {
+        for (int j = i + 1; j < x; j++) {
+          if (check(strs[i], strs[j])) uf.unite(i, j);
+        }
+      }
+      return x - uf.setCount + 1;
+    }
+
+
+    //438. 找到字符串中所有字母异位词 滑动窗口
+    vector<int> findAnagrams(string s, string p) {
+      int x = s.size(), y = p.size();
+      vector<int> ans;
+      if (x == 0 || y == 0) return ans;
+      vector<int> cnt1(26, 0), cnt2(26, 0);
+      for (int i = 0; i < y; ++i) {
+        cnt1[s[i] - 'a']++;
+        cnt2[p[i] - 'a']--;
+      }
+      int l = 0, r = y - 1;
+      while (r < x) {
+        if (cnt1 == cnt2) ans.emplace_back(l);
+        cnt1[s[++l] - 'a']--;
+        cnt1[s[++r] - 'a']++;
+      }
+      return ans;
+    }
+
+    // 888. 公平的糖果棒交换
+    vector<int> fairCandySwap(vector<int>& A, vector<int>& B) {
+      int x = A.size(), y = B.size();
+      int sum1 = 0, sum2 = 0;
+      vector<int> ans;
+      for (auto& a : A) sum1 += a;
+      for (auto& b : B) sum2 += b;
+      int dis = (sum1 + sum2) / 2 - sum2;
+      std::sort(A.begin(), A.end());
+      std::sort(B.begin(), B.end());
+      int i = 0, j = 0;
+      while (i < x && j < y) {
+        if (A[i] - B[j] == dis)
+          return {A[i], B[j]};
+        else if (A[i] - B[j] < dis)
+          i++;
+        else if (A[i] - B[j] > dis)
+          j++;
+      }
+      return {};
+    }
+
+    // 406. 根据身高重建队列
+    vector<vector<int>> reconstructQueue(vector<vector<int>>& people) {
+      int len = people.size();
+      if (len == 0) return {};
+
+      std::sort(people.begin(), people.end(), [](const auto& a, const auto& b) {
+        return a[0] == b[0] ? a[1] > b[1] : a[0] < b[0];
+      });
+
+      vector<vector<int>> ans(len, vector<int>{});
+      vector<int> m(len);
+      std::iota(m.begin(), m.end(), 0);
+
+      for (auto& p : people) {
+        ans[m[p[1]]] = p;
+        m.erase(m.begin() + p[1]);
+      }
+      
+      return ans;
+    }
+
+    // 424. 替换后的最长重复字符 滑动窗口
+    int characterReplacement(string s, int k) {
+      int len = s.size();
+      vector<int> hash(26, 0);
+      int left = 0, right = 0, maxn = 0;
+      while (right < len) {
+        hash[s[right] - 'A']++;
+        maxn = max(maxn, hash[s[right] - 'A']);
+        if (right - left + 1 - maxn > k) {
+          left++;
+          hash[s[left] - 'A']--;
+        }
+        right++;
+      }
+      return right - left + 1;
+    }
+
+    // 76. 最小覆盖子串
+    int count_index(char c) { return c >= 'a' ? c - 'a' + 26 : c - 'A'; }
+    string minWindow(string s, string t) {
+      //int x = s.size(), y = t.size();
+      //if (x == 0 || y == 0 || x < y) return "";
+      //
+      //vector<int> cnt1(52, 0);
+      //vector<int> cnt2(52, 0);
+
+      //for (auto& it : s) cnt1[count_index(it)]++;
+      //for (auto& it : t) cnt2[count_index(it)]++;
+
+      //std::function<string(vector<int>, vector<int>, bool)> func = [&](vector<int> a, vector<int> b, bool flag) {
+      //  int left = 0, right = x - 1;
+      //  while (left <= right) {
+      //    cout << "left: " << s[left] << ", num: " << a[count_index(s[left])];
+      //    cout << ", right: " << s[right] << ", num: " << a[count_index(s[right])] << endl;
+      //    if (flag) {
+      //      if (a[count_index(s[left])] > b[count_index(s[left])]) {
+      //        a[count_index(s[left])]--;
+      //        left++;
+      //      } else if (a[count_index(s[right])] > b[count_index(s[right])]) {
+      //        a[count_index(s[right])]--;
+      //        right--;
+      //      } else
+      //        break;
+      //    } else {
+      //      if (a[count_index(s[right])] > b[count_index(s[right])]) {
+      //        a[count_index(s[right])]--;
+      //        right--;
+      //      } else if (a[count_index(s[left])] > b[count_index(s[left])]) {
+      //        a[count_index(s[left])]--;
+      //        left++;
+      //      } else
+      //        break;
+      //    }
+      //  }
+      //   return s.substr(left, right - left + 1);
+      //};
+
+      //auto m = func(cnt1, cnt2, true);
+      //auto n = func(cnt1, cnt2, false);
+
+      //if ((m.size() == 1 || n.size() == 1) && m != t) return "";
+      //return m.size() > n.size() ? n : m;
+
+
+       int x = s.size(), y = t.size();
+       if (x == 0 || y == 0 || x < y) return "";
+        vector<int> cnt1(52, 0);
+        vector<int> cnt2(52, 0);
+
+        for (auto& it : t) cnt2[count_index(it)]++;
+
+        int l = 0, r = -1, left = -1, right = x;
+        while (l <= x - y) {
+          if (r - l + 1 < y) {
+            if (r + 1 < x) cnt1[count_index(s[++r])]++;
+            else break;
+          } else {
+            int i = 0;
+            for (; i < 52; ++i)
+              if (cnt1[i] < cnt2[i]) break;
+            if (i < 52) {
+              if (r + 1 < x) cnt1[count_index(s[++r])]++;
+              else break;
+            } else {
+              if (r - l + 1 == y) return s.substr(l, y);
+              if (r - l < right - left) {
+                right = r;
+                left = l;
+              }
+              cnt1[count_index(s[l++])]--;
+            }
+            
+          }
+        }
+        return left == -1 ? "" : s.substr(left, right - left + 1);
+    }
+
+
+    // 480. 滑动窗口中位数 1、维护一个有序的容器，二分查找删除或添加 2、创建大小根堆分别维护，再延迟删除
+    double getMiddle(vector<int> x, int k) {
+      if (k % 2 == 1)
+        return (double)x[k / 2];
+      else
+        return ((double)x[k / 2] + (double)x[k / 2 - 1]) / 2;
+    }
+
+    vector<double> medianSlidingWindow(vector<int>& nums, int k) {
+      vector<double> ans;
+      int len = nums.size();
+      if (len < k) return ans;
+      vector<int> pq;
+      for (int i = 0; i < k; ++i) pq.emplace_back(nums[i]);
+      std::sort(pq.begin(), pq.end());
+      ans.emplace_back(getMiddle(pq, k));
+      std::function<int(int, int, int)> ins = [&](int left, int right,
+                                                  int target) {
+        while (left <= right) {
+          int mid = (left + right) >> 1;
+          if (pq[mid] > target) {
+            if (mid == 0 || pq[mid - 1] < target)
+              return mid;
+            else
+              right = mid - 1;
+          } else if (pq[mid] < target)
+            left = mid + 1;
+          else
+            return mid + 1;
+        }
+        return k - 1;
+      };
+      for (int i = 0; i + k < len; ++i) {
+        int left = 0, right = k - 1;
+        while (left <= right) {
+          int mid = (left + right) >> 1;
+          if (pq[mid] == nums[i]) {
+            pq.erase(pq.begin() + mid);
+            break;
+          } else if (pq[mid] > nums[i])
+            right = mid - 1;
+          else
+            left = mid + 1;
+        }
+
+        auto mid = ins(0, k - 2, nums[i + k]);
+        pq.insert(pq.begin() + mid, nums[i + k]);
+        // cout << "i: " << i << endl;
+        // for (auto& it : pq) cout << "it: " << it << ",";
+        // cout << endl;
+        ans.emplace_back(getMiddle(pq, k));
+      }
+      return ans;
+    }
+
+
+    // 643. 子数组最大平均数 I
+    double findMaxAverage(vector<int>& nums, int k) {
+      int len = nums.size();
+      if (len == 0 || len < k) return 0;
+      int l = 0, r = k - 1;
+      double ans = 0, aver;
+      for (int i = 0; i < k; ++i) ans += (double)nums[i];
+      aver = ans = ans / k;
+      while (l + k < len || r < len - 1) {
+        aver = (double)(aver * k - (double)nums[++l] + (double)nums[++r]) /
+               (double)k;
+        ans = max(ans, aver);
+      }
+      return ans;
+    }
+
+
+    // 128. 最长连续序列 并查集 思路：遍历每个元素 i，先判断 i 是否在并查集中已存在，
+    // 之后判断 i - 1 和 i + 1 是否存在，再合并，最后取size最大值即可
+    int longestConsecutive(vector<int>& nums) {
+      if (nums.size() == 0) return 0;
+      Djset2 uf;
+      for (auto& it : nums) {
+        if (uf.init(it)) {
+          if (uf.is_exist(it + 1)) uf.merge(it, it + 1);
+          if (uf.is_exist(it - 1)) uf.merge(it, it - 1);
+        }
+      }
+      return uf.get_max_size();
+           
+    }
+
+    // 124. 二叉树中的最大路径和 第一反应递归
+    int maxPathSum(TreeNode* root) {
+      int ans = INT_MIN;
+      if (!root) return ans;
+      std::function<int(TreeNode*)> dfs = [&](TreeNode* cur) {
+        if (!cur) return 0;
+        int left = max(0, dfs(cur->left));
+        int right = max(0, dfs(cur->right));
+        ans = max(ans, left + right + cur->val);
+        return max(left, right) + cur->val;
+      };
+      dfs(root);
+      return ans;
     }

@@ -12,6 +12,12 @@
  - [ ] 滑动窗口 https://leetcode-cn.com/problems/longest-substring-without-repeating-characters/solution/hua-dong-chuang-kou-by-powcai/
  - [ ] 排序算法 [148. 排序链表](https://leetcode-cn.com/problems/sort-list/solution/pai-xu-lian-biao-by-leetcode-solution/)
 
+
+
+#### 实习信息
+https://mp.weixin.qq.com/s/sSXONnIDTnfNUTGYxLuSRQ
+
+
 #### 已完成
 ![](进度.png)
 
@@ -215,3 +221,15 @@ for (遍历数组)) {
 - [x] 207. 课程表 拓扑排序
 - [x] 98. 验证二叉搜索树 前序遍历 注意边界
 
+#### 2020.1.30 - 86/ 162
+- [x] 778. 水位上升的泳池中游泳
+- [x] 621. 任务调度器
+
+#### 2020.1.30 - 86/ 162
+- [x] 839. 相似字符串组
+- [x] 438. 找到字符串中所有字母异位词 滑动窗口
+
+#### 2020.2.4 - 92/ 173
+- [x] 839. 相似字符串组
+- [x] 438. 找到字符串中所有字母异位词 滑动窗口
+- [x] 124. 二叉树中的最大路径和 第一反应递归 

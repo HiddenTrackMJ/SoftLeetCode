@@ -137,7 +137,63 @@ class Djset {
   }
 };
 
-    class UnionFind {
+ class Djset2 {
+  public:
+   std::unordered_map<int, int> parent;  // 记录节点的根
+   std::unordered_map<int, int> size;
+   int max_size;
+ //   std::unordered_map<int, int> rank;
+
+   Djset2() {
+       max_size = 1;
+   }
+
+   bool init(int x) {
+     if (!parent.count(x)) {
+       parent[x] = x;
+       size[x] = 1;
+     //   rank[x] = 1;
+       return true;
+     }
+     return false;
+   }
+
+   int find(int x) {
+     if (x != parent[x]) {
+       parent[x] = find(parent[x]);
+     }
+     return parent[x];
+   }
+
+   void merge(int x, int y) {
+     int rootx = find(x);
+     int rooty = find(y);
+     if (rootx != rooty) {
+     //   if (rank[rootx] < rank[rooty]) {
+     //     std::swap(rootx, rooty);
+     //   }
+       parent[rooty] = rootx;
+       size[rootx] += size[rooty];
+       max_size = max(size[rootx], max_size);
+     //   if (rank[rootx] == rank[rooty]) rank[rootx] += 1;
+     }
+   }
+
+   bool is_exist(int x) {
+       return parent.count(x);
+   }
+
+   int get_size(int x) {
+     int root = find(x);
+     return size[root];
+   }
+
+   int get_max_size() {
+     return max_size;
+   }
+ };
+
+ class UnionFind {
  public:
   vector<int> parent;
 
