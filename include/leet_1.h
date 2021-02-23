@@ -141,11 +141,12 @@ class Djset {
   public:
    std::unordered_map<int, int> parent;  // 记录节点的根
    std::unordered_map<int, int> size;
-   int max_size;
+   int max_size, setCnt;
  //   std::unordered_map<int, int> rank;
 
    Djset2() {
-       max_size = 1;
+     max_size = 1;
+     setCnt = 0;
    }
 
    bool init(int x) {
@@ -153,6 +154,7 @@ class Djset {
        parent[x] = x;
        size[x] = 1;
      //   rank[x] = 1;
+       setCnt++;
        return true;
      }
      return false;
@@ -175,6 +177,7 @@ class Djset {
        parent[rooty] = rootx;
        size[rootx] += size[rooty];
        max_size = max(size[rootx], max_size);
+       --setCnt;
      //   if (rank[rootx] == rank[rooty]) rank[rootx] += 1;
      }
    }
@@ -303,6 +306,39 @@ class Trie {
  * bool param_2 = obj->search(word);
  * bool param_3 = obj->startsWith(prefix);
  */
+
+
+class KthLargest {
+ private:
+  std::priority_queue<int, std::vector<int>, std::greater<int>> q;
+  int n;
+
+ public:
+  KthLargest(int k, vector<int>& nums) { 
+    n = k;
+    for (auto& num : nums) {
+      if (q.size() == n) {
+        if (q.top() < num) {
+          q.pop();
+          q.push(num);
+        }
+      } else
+        q.push(num);
+    }
+    
+  }
+
+  int add(int val) {
+    if (q.size() == n) {
+      if (q.top() < val) {
+        q.pop();
+        q.push(val);
+      }
+    } else
+      q.push(val);
+    return q.top();
+  }
+};
 
 class Solution {
  public:

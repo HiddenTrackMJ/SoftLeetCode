@@ -4773,3 +4773,579 @@ bool Solution::hasCycle(ListNode* head) {
       dfs(root);
       return ans;
     }
+
+    // 85. 最大矩形
+    class rectangle {
+     public:
+      int w, h;
+      rectangle() : w(0), h(0) {}
+      rectangle(int _w, int _h) : w(_w), h(_h) {}
+    };
+    int maximalRectangle(vector<vector<char>>& matrix) {
+      int x = matrix.size(), y = matrix[0].size();
+      vector<vector<rectangle>> dp(x, vector<rectangle>(y, rectangle()));
+      int ans = 0;
+      dp[0][0] = matrix[0][0] == '1' ? rectangle(1, 1) : rectangle(0, 0);
+      for (int i = 0; i < x; i++) {
+        for (int j = 0; j < y; j++) {
+          if (matrix[i][j] == '0') continue;
+          if (i == 0 && j == 0) continue;
+          else if (i == 0) {
+            dp[i][j].w = dp[i][j - 1].w + 1;
+          } else if (j == 0) {
+            dp[i][j].h = dp[i - 1][j].h + 1;
+          } else {
+            if (min(dp[i][j - 1].w + 1, dp[i - 1][j].w + 1) *
+                    (dp[i - 1][j].h + 1) >
+                min(dp[i][j - 1].h + 1, dp[i - 1][j].h + 1) *
+                    (dp[i][j - 1].w + 1)) {
+              dp[i][j].w = min(dp[i][j - 1].w + 1, dp[i - 1][j].w + 1);
+              dp[i][j].h = dp[i - 1][j].h + 1;
+            } else {
+              dp[i][j].w = (dp[i][j - 1].w + 1);
+              dp[i][j].h = min(dp[i][j - 1].h + 1, dp[i - 1][j].h + 1);
+            }
+            ans = max(ans, dp[i][j].w * dp[i][j].h);
+          }
+        }
+      }
+      return ans;
+    }
+
+
+    //1208. 尽可能使字符串相等
+    int equalSubstring(string s, string t, int maxCost) { 
+      int len = s.size();
+      if (len == 0) return 0;
+      int ans = 0, cnt = 0;
+      int l = 0, r = 0;
+      cnt += abs(s[0] - t[0]);
+      while (r < len - 1) {
+        if (cnt > maxCost) {
+          cnt -= abs(s[l] - t[l++]);
+        } else {
+          ans = max(ans, r - l + 1);
+          cnt += abs(s[++r] - t[r]);
+        }
+      }
+
+      return ans;
+    }
+
+    //1423. 可获得的最大点数
+    int maxScore(vector<int>& cardPoints, int k) {
+      int len = cardPoints.size();
+      if (len == 0 || k == 0) return 0;
+      int sum = 0, ans = INT_MIN;
+      k = min(k, len);
+      for (int i = 0; i < k; ++i) sum += cardPoints[i];
+      if (k == len) return sum;
+      int l = k - 1, r = len - 1;
+      while (l >= 0) {
+        ans = max(ans, sum);
+        sum = sum - cardPoints[l--] + cardPoints[r--];
+      }
+      return ans;
+    }
+
+
+    // 1742. 盒子中小球的最大数量
+    int getSum(int x) {
+      int sum = x % 10;
+      while (x > 10) {
+        x = x / 10;
+        sum += sum % 10;
+      }
+      return sum;
+    }
+    int countBalls(int lowLimit, int highLimit) {
+      if (lowLimit == highLimit) return 1;
+      if (lowLimit > highLimit) return 0;
+      int ans = 0;
+      std::unordered_map<int, int> m;
+      for (int i = lowLimit; i < highLimit; i++) {
+        auto cur = getSum(i);
+        m[cur]++;
+        ans = max(ans, m[cur]);
+      }
+      return ans;
+    }
+
+    // 665. 非递减数列
+    bool checkPossibility(vector<int>& nums) {
+      int len = nums.size();
+      if (len == 0) return true;
+      int cnt = 0, tmp = INT_MIN;
+      for (int i = 1; i < len; i++) {
+        if (nums[i] < nums[i - 1]) {
+          if (i - 2 < 0)
+            tmp = nums[i];
+          else
+            tmp = nums[i - 1];
+
+          if (++cnt > 1) return false;
+        } else
+          tmp = nums[i];
+      }
+      return true;
+    }
+
+
+    // 978. 最长湍流子数组
+    int maxTurbulenceSize(vector<int>& arr) {
+      int len = arr.size();
+      if (len < 2) return len;
+      int l = 0, r = 1, flag = 2, ans = 0;
+      if (arr[r - 1] != arr[r]) ans = 2;
+      while (r < len) {
+        if (flag == 1) {
+          if (arr[r] < arr[r - 1]) {
+            l = r - 1;
+          } else if (arr[r - 1] == arr[r]) {
+            l = r;
+            flag = 2;
+          } else {
+            ans = max(r - l + 1, ans);
+            flag = 0;
+          }
+        } else if (flag == 0) {
+          if (arr[r] > arr[r - 1]) {
+            l = r - 1;
+          } else if (arr[r - 1] == arr[r]) {
+            l = r;
+            flag = 2;
+          } else {
+            ans = max(r - l + 1, ans);
+            flag = 1;
+          }
+        } else {
+          if (arr[r - 1] == arr[r])
+            l = r;
+          else if (arr[r - 1] > arr[r])
+            flag = 1;
+          else
+            flag = 0;
+          ans = max(ans, r - l + 1);
+        }
+        r++;
+      }
+      return ans;
+    }
+
+
+    // Encodes a tree to a single string.
+    void dfs_preorder(TreeNode* root, string& res) {
+      if (!root) {
+        return;
+      }
+      res.push_back(root->val + '0');
+      dfs_preorder(root->left, res);
+      dfs_preorder(root->right, res);
+    }
+
+    void dfs_inorder(TreeNode* root, string& res) {
+      if (!root) {
+        return;
+      }
+      dfs_preorder(root->left, res);
+      res.push_back(root->val + '0');
+      dfs_preorder(root->right, res);
+    }
+
+    string serialize(TreeNode* root) {
+      string pre = "", in = "";
+      dfs_preorder(root, pre);
+      dfs_inorder(root, in);
+      return pre + in;
+    }
+
+    // Decodes your encoded data to tree.
+    TreeNode* deserialize(string data) {
+      int len = data.size();
+      auto preorder = data.substr(0, len / 2);
+      auto inorder = data.substr(len / 2, len / 2);
+      int la = preorder.size();
+      int lb = inorder.size();
+      if (la == 0 || lb == 0 || la != lb) return nullptr;
+      std::unordered_map<int, int> in_map;
+      for (int i = 0; i < lb; i++) in_map[inorder[i]] = i;
+
+      std::function<TreeNode*(int, int, int, int)> build =
+          [&](int p_start, int p_end, int i_start, int i_end) {
+            TreeNode* root = nullptr;
+            if (p_start > p_end) return root;
+            int cur = preorder[p_start];
+            int pos = in_map[cur];
+            root = new TreeNode(cur - '0');
+            root->left = build(p_start + 1, p_start + 1 + (pos - 1 - i_start), i_start, pos - 1);
+            root->right = build(p_start + 1 + pos - i_start, p_end, pos + 1, i_end);
+            return root;
+          };
+
+      return build(0, la - 1, 0, lb - 1);
+    }
+
+
+    // 5. 最长回文子串
+    int expand(string& s, int left, int right) {
+      while (left > 0 && right < s.size() && s[left] == s[right]) {
+        left--;
+        right++;
+      }
+      return (right - left - 2) / 2;
+    }
+
+    string longestPalindrome(string s) {
+      int len1 = s.size();
+      if (len1 < 2) return s;
+      string t = "#";
+      for (auto& c : s) {
+        t += c;
+        t += '#';
+      }
+      int len2 = 2 * len1 + 1;
+      int start = 0, end = -1, right = -1, center = -1;
+      vector<int> arm_len;
+for (int i = 0; i < len2; i++) {
+    int cur;
+    if (right > i) {
+        int min_cur = min(arm_len[2 * center - i], right - i);
+        cur = expand(t, i - min_cur, i + min_cur);
+    }
+    else {
+        cur = expand(t, i, i);
+    }
+    arm_len.emplace_back(cur);
+    if (cur + i > right) {
+        right = cur + i;
+        center = i;
+    }
+    if (2 * cur + 1 > end - start) {
+        start = i - cur;
+        end = i + cur;
+    }
+}
+
+string ans;
+for (int i = start; i <= end; i++) {
+    if (t[i] != '#') ans += t[i];
+}
+return ans;
+    }
+
+
+    //992. K 个不同整数的子数组
+    int subarraysWithK(int k, vector<int>& A) {
+        std::unordered_map<int, int> m;
+        int cnt = 0, res = 0, left = 0, right = 0;
+        int len = A.size();
+        while (right < len) {
+            m[A[right]]++;
+            if (m[A[right]] == 1) cnt++;
+            right++;
+            while (cnt > k) {
+                m[A[left]]--;
+                if (m[A[left]] == 0) cnt--;
+                left++;
+            }
+            res += right - left + 1;
+        }
+        return res;
+    }
+
+    int subarraysWithKDistinct(vector<int>& A, int K) {
+        return subarraysWithK(K, A) - subarraysWithK(K - 1, A);
+    }
+
+    //567. 字符串的排列
+    bool checkInclusion(string s1, string s2) {
+        //int len1 = s1.size();
+        //int len2 = s2.size();
+        //if (len1 > len2) return false;
+        //std::unordered_map<int, int> m1;
+        //std::unordered_map<int, int> m2;
+        //for (auto& it : s1) m1[it]++;
+        //for (auto& it : s2) m2[it]++;
+        //int l = 0, r = len2 - 1;
+
+        int x = s1.size(), y = s2.size();
+        if (y == 0 || x > y) return false;
+        if (x == 0) return true;
+        vector<int> cnt1(26, 0);
+        vector<int> cnt2(26, 0);
+
+        for (auto& it : s1) cnt1[(it)-'a']++;
+        for (int i = 0; i < x; i++) cnt2[s2[i] - 'a']++;
+        int l = 0, r = x - 1;
+        while (l <= y - x) {
+            if (cnt1 == cnt2) return true;
+            else {
+                --cnt2[s2[l++] - 'a'];
+                ++cnt2[s2[++r] - 'a'];
+            }
+        }
+        return false;
+    }
+
+    // 119. 杨辉三角 II
+    vector<int> getRow(int rowIndex) {
+        if (rowIndex == 0) return { 1 };
+        vector<int> a(rowIndex + 1, 1);
+        for (int i = 2; i <= rowIndex; ++i) {
+            for (int j = i; j >= 0; --j) {
+                if (j == i || j == 0)
+                    a[j] = 1;
+                else
+                    a[j] = a[j - 1] + a[j];
+            }
+        }
+        return a;
+    }
+
+    //765. 情侣牵手
+    int minSwapsCouples(vector<int>& row) {
+      int len = row.size();
+      Djset2 uf;
+      for (int i = 0; i < len; i += 2) {
+        if ((row[i] + row[i + 1] + 3) % 4 == 0 &&
+            (row[i] == row[i + 1] + 1 || row[i] == row[i + 1] - 1)) 
+          continue;
+        uf.merge(row[i], row[i + 1]);
+      }
+      return uf.setCnt;
+    }
+
+    //485. 最大连续1的个数
+    int findMaxConsecutiveOnes(vector<int>& nums) {
+      int dp1, dp2, ans = 0;
+      int len = nums.size();
+      if (len == 0) return 0;
+      dp1 = 0;
+      dp2 = nums[0] == 1 ? 1 : 0;
+      for (int i = 1; i < len; i++) {
+        if (nums[i] == 0) {
+          dp1 = max(dp2, dp1);
+          dp2 = 0;
+        }
+
+        else
+          dp2 = dp2 + 1;
+        ans = max(dp1, max(ans, dp2));
+      }
+      return ans;
+    }
+
+
+    // 561. 数组拆分 I
+    int arrayPairSum(vector<int>& nums) {
+      int len = nums.size() / 2;
+      std::sort(nums.begin(), nums.end());
+      int ans = 0;
+      for (int i = 0; i < len; i++) {
+        ans += nums[i * 2];
+      }
+      return ans;
+    }
+
+    // 566. 重塑矩阵
+    vector<vector<int>> matrixReshape(vector<vector<int>>& nums, int r, int c) {
+      int x = nums.size(), y = nums[0].size();
+      if (x * y != r * c || (x == r && y == c)) return nums;
+      vector<vector<int>> ans(r, vector<int>(c, 0));
+      for (int i = 0; i < x * y; i++) {
+        ans[i / c][i % c] = nums[i / y][i % y];
+      }
+      return ans;
+    }
+
+    // 1004. 最大连续1的个数 III
+    int longestOnes(vector<int>& A, int K) {
+      int len = A.size();
+      int l = 0, r = 0, ans = 0;
+      std::queue<int> zero;
+      while (r < len) {
+        if (A[r] == 0) {
+          zero.push(r);
+          K--;
+          if (K < 0) {
+            //while (A[l] != 0) l++;
+            //K = 0;
+            //l++;
+            l = zero.front() + 1;
+            zero.pop();
+            K = 0;
+          }
+        }
+        ans = max(ans, r - l + 1);
+        r++;
+      }
+      return ans;
+    }
+
+
+    // 32. 最长有效括号
+    int longestValidParentheses(string s) { 
+      int len = s.size();
+      int l = 0, r = 0, ans = 0;
+      for (int i = 0; i < len; i++) {
+        if (s[i] == '(')
+          l++;
+        else
+          r++;
+        if (r == l)
+          ans = max(ans, r * 2);
+        else if (r > l)
+          r = l = 0;
+      }
+      r = l = 0;
+      for (int i = len - 1; i >= 0; i--) {
+        if (s[i] == '(')
+          l++;
+        else
+          r++;
+        if (r == l)
+          ans = max(ans, l * 2);
+        else if (l > r)
+          r = l = 0;
+      }
+      return ans;
+    }
+
+    //697. 数组的度
+    int findShortestSubArray(vector<int>& nums) {
+      int len = nums.size();
+      std::unordered_map<int, int> fre, first, last;
+      for (int i = 0; i < len; i++) {
+        if (fre[nums[i]]++ == 0) first[nums[i]] = i;
+        last[nums[i]] = i;
+      }
+      vector<int> most;
+      int max_num = 0, ans = 0;
+      for (auto& it : fre) max_num = max(max_num, it.second);
+      for (auto& it : fre)
+        if (max_num == it.second) most.emplace_back(it.first);
+      for (auto& it : most) ans = max(ans, last[it] - first[it] + 1);
+      return ans;
+    }
+
+    // 1438. 绝对差不超过限制的最长连续子数组
+    double getMiddle(vector<int> x, int k) {
+      if (k % 2 == 1)
+        return (double)x[k / 2];
+      else
+        return ((double)x[k / 2] + (double)x[k / 2 - 1]) / 2;
+    }
+
+
+    int longestSubarray(vector<int>& nums, int limit) {
+      //int len = nums.size();
+      //if (len < 2) return len;
+      //int min_num = nums[0], max_num = nums[0];
+      //int l = 0, r = 0, ans = 0;
+      //while (r < len) {
+      //  if (abs(nums[r] - min_num) < limit && abs(nums[r] - max_num) < limit) {
+      //    min_num = min(min_num, nums[r]);
+      //    max_num = max(max_num, nums[r]);
+      //  } else {
+      //    l = r;
+      //    min_num = max_num = nums[r];
+      //  }
+      //  ans = max(ans, r - l + 1);
+      //  r++;
+      //}
+      //return ans;
+      int l = 0, r = 0, ans = 0;
+      int len = nums.size();
+      if (len < 2) return len;
+      vector<int> pq = {nums[0]};
+
+      std::function<int(int, int, int)> ins = [&](int left, int right,
+                                                  int target) {
+        while (left <= right) {
+          int mid = (left + right) >> 1;
+          if (pq[mid] > target) {
+            if (mid == 0 || pq[mid - 1] < target)
+              return mid;
+            else
+              right = mid - 1;
+          } else if (pq[mid] < target)
+            left = mid + 1;
+          else
+            return mid + 1;
+        }
+        return (int)pq.size() - 1;
+      };
+
+      while (r < len) {
+        if (abs(nums[r] - pq.front()) < limit && abs(nums[r] - pq.back()) < limit) {
+
+        } else {
+          while (pq.empty() || (abs(nums[r] - pq.front()) < limit &&
+                  abs(nums[r] - pq.back()) < limit)) {
+            int left = 0, right = pq.size() - 1;
+            while (left <= right) {
+              int mid = (left + right) >> 1;
+              if (pq[mid] == nums[l]) {
+                pq.erase(pq.begin() + mid);
+                break;
+              } else if (pq[mid] > nums[l])
+                right = mid - 1;
+              else
+                left = mid + 1;
+            }
+            l++;
+          }
+        }
+
+
+        auto mid = ins(0, pq.size(), nums[r]);
+        pq.insert(pq.begin() + mid, nums[r]);
+        // cout << "i: " << i << endl;
+        // for (auto& it : pq) cout << "it: " << it << ",";
+        // cout << endl;
+        // ans.emplace_back(getMiddle(pq, k));
+      }
+      return ans;
+    }
+
+    // 766. 托普利茨矩阵
+    bool isToeplitzMatrix(vector<vector<int>>& matrix) {
+      int x = matrix.size(), y = matrix[0].size();
+      for (int i = 0; i < x; i++) {
+        int tmp = matrix[i][0];
+        for (int j = 1; i + j < x && j < y; j++) {
+          if (matrix[i + j][j] != tmp) return false;
+        }
+      }
+      for (int i = 1; i < x; i++) {
+        int tmp = matrix[0][i];
+        for (int j = 1; i + j < y && j < x; j++) {
+          if (matrix[j][i + j] != tmp) return false;
+        }
+      }
+      return true;
+    }
+
+    // 1052. 爱生气的书店老板
+    int maxSatisfied(vector<int>& customers, vector<int>& grumpy, int X) {
+      int len = customers.size();
+      int sa = 0, min_l, l = 0, tmp, ans = 0;
+      for (int i = 0; i < X; i++) {
+        if (grumpy[i] == 1) sa += customers[i];
+      }
+      tmp = sa;
+      while (l + X < len) {
+        if (grumpy[l] == 1) sa -= customers[l];
+        if (grumpy[l + X] == 1) sa += customers[l + X];
+        if (sa > tmp) {
+          tmp = sa;
+          min_l = l;
+        }
+        l++;
+      }
+      for (int i = 0; i < len; i++) {
+        if (grumpy[i] == 1 || (i >= min_l && i <= min_l + X - 1))
+          ans += customers[i];
+      }
+      return ans;
+    }

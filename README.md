@@ -16,6 +16,7 @@
 
 #### 实习信息
 https://mp.weixin.qq.com/s/sSXONnIDTnfNUTGYxLuSRQ
+https://join.qq.com/judgetalent.html?rec_key=nALjtQJbK9K2dXX_-h70sRMDGAQLE8KKo7Ehj8khMc0
 
 
 #### 已完成
