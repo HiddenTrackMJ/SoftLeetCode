@@ -2898,18 +2898,29 @@ bool Solution::hasCycle(ListNode* head) {
 
     //todo : 用单调栈做
     vector<int> dailyTemperatures(vector<int>& T) {
+      //int len = T.size();
+      //vector<int> ans(len, 0);
+      //for (int i = 0; i < len - 1; i++) {
+      //  int j;
+      //  for (j = i + 1; j < len; j++) {
+      //    if (T[j] > T[i]) {
+      //      ans[i] = j - i;
+      //      break;
+      //    }
+      //  }
+      //}
+      //
+      //return ans;
       int len = T.size();
+      std::stack<int> st;
       vector<int> ans(len, 0);
-      for (int i = 0; i < len - 1; i++) {
-        int j;
-        for (j = i + 1; j < len; j++) {
-          if (T[j] > T[i]) {
-            ans[i] = j - i;
-            break;
-          }
+      for (int i = 0; i < len; i++) {
+        while (st.empty() || T[st.top()] < T[i]) {
+          ans[st.top()] = i - st.top();
+          st.pop();
         }
+        st.push(i);
       }
-      
       return ans;
     }
 
@@ -5348,4 +5359,106 @@ return ans;
           ans += customers[i];
       }
       return ans;
+    }
+
+    // 832. 翻转图像
+    vector<vector<int>> flipAndInvertImage(vector<vector<int>>& A) {
+      int x = A.size(), y = A[0].size();
+      vector<vector<int>> ans(x, vector<int>(y));
+      for (int i = 0; i < x; ++i) {
+        for (int j = 0; j < y; ++j) {
+          ans[i][j] = ~A[i][y - 1 - i];
+        }
+      }
+      return ans;
+    }
+
+    //867. 转置矩阵
+    vector<vector<int>> transpose(vector<vector<int>>& matrix) {
+      int x = matrix.size(), y = matrix[0].size();
+      if (x == 1 || y == 1) return matrix;
+      if (x == y) {
+        for (int i = 0; i < x; i++) {
+          for (int j = i + 1; j < y; j++) {
+            std::swap(matrix[i][j], matrix[j][i]);
+          }
+        }
+        return matrix;
+      }
+
+      else {
+        vector<vector<int>> ans(x, vector<int>(y));
+        for (int i = 0; i < x; i++) {
+          for (int j = 0; j < y; j++) {
+            ans[i][j] = matrix[j][i];
+          }
+        }
+        return ans;
+      }
+    }
+
+    // 4. 寻找两个正序数组的中位数
+    double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {
+      int x = nums1.size(), y = nums2.size();
+      int m = (x + y + 1) >> 1;
+      int n = (x + y + 2) >> 1;
+      std::function<int(int, int, int)> findKth = [&](int i, int j, int k) {
+        if (i > nums1.size()) return nums2[j + k - 1];
+        if (j > nums2.size()) return nums1[i + k - 1];
+        if (k == 1) return min(nums1[i], nums2[j]);
+        int mid1 = nums1.size() >= k / 2 ? nums1[i + k / 2 - 1] : INT_MAX;
+        int mid2 = nums2.size() >= k / 2 ? nums2[j + k / 2 - 1] : INT_MAX;
+        if (mid1 < mid2) return findKth(i + k / 2, j, k / 2);
+        if (mid1 > mid2) return findKth(i, j + k / 2, k / 2);
+      };
+      if (m == n)
+        return findKth(0, 0, m);
+      else
+        return (findKth(0, 0, m) + findKth(0, 0, m)) / 2;
+    }
+
+    // 395. 至少有 K 个重复字符的最长子串
+    int longestSubstring(string s, int k) {
+      int len = s.size();
+      int l = 0, r = 0, ans = 0;
+      std::unordered_map<char, int> m;
+      for (int i = 0; i < len; i++) {
+        m[s[i]]++;
+      }
+      int tmp = -1;
+      for (int i = 0; i < len; i++) {
+        if (m[s[i]] < k) {
+          ans = max(ans, i - tmp - 1);
+          tmp = i;
+        }
+      }
+      return ans;
+    }
+
+
+    // 896. 单调数列
+    bool isMonotonic(vector<int>& A) {
+      int len = A.size();
+      if (len < 2) return true;
+      int flag = 0;
+      for (int i = 1; i < len; i++) {
+        if (i == 1) {
+          if (A[i] == A[i - 1])
+            flag = 0;
+          else
+            flag = A[i] > A[i - 1] ? flag = 1 : flag = 2;
+        } else {
+          if (flag == 0) {
+            if (A[i] == A[i - 1])
+              flag = 0;
+            else
+              flag = A[i] > A[i - 1] ? flag = 1 : flag = 2;
+          } else if (flag == 1) {
+            if (A[i] < A[i - 1]) return false;
+          } else {
+            if (A[i] > A[i - 1]) return false;
+          }
+        }
+      }
+      return true;
     }

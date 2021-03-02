@@ -60,3 +60,18 @@ target_include_directories( jian
 target_link_libraries( jian
 	    PRIVATE 
 )
+
+add_executable( test
+        "./src/jian_1.cpp"
+        "./src/test.cpp"
+        ${HEADERS}
+         "src/leet_2.cpp")
+
+target_include_directories( test
+        PRIVATE
+        ${PROJECT_SOURCE_DIR}/include
+        )
+
+target_link_libraries( jian
+	    PRIVATE 
+)

@@ -273,14 +273,79 @@ int quickSelect(vector<int> nums, int k) {
   return q_select(0, len).first;
 }
 
-int main() {
+enum ssstring {
+  x1,
+  x2,
+  x3 = 10,
+  x4,
+  x5,
+} x;
+void Func(char str_arg[100]) { printf("%d\n", sizeof(str_arg)); }
+int main1() {
   vector<int> a = {4,4,8,9,12,1,9,8,11,5,6,20};
   //bubleSort(a);
   //selectionSort(a);
   //insertionSort(a);
   //shellSort(a);
   //mergeSort(a);
-  quickSort(a);
-  heapSort(a);
-  heapSort2(a);
+  //quickSort(a);
+  //heapSort(a);
+  //heapSort2(a);
+  char str[] = "glad to test something";
+  char* p = str;
+  p++;
+  int* p1 = reinterpret_cast<int*>(p);
+  p1++;
+  p = reinterpret_cast<char*>(p1);
+  printf("result is %s\n", p);
+  return 1;
 }
+
+class A {
+ public:
+  void FuncA() { printf("FuncA called\n"); }
+  virtual void FuncB() { printf("FuncB called\n"); }
+};
+class B : public A {
+ public:
+  void FuncA() {
+    A::FuncA();
+    printf("FuncAB called\n");
+  }
+  virtual void FuncB() { printf("FuncBB called\n"); }
+};
+
+string char_count(string str) {
+  int len = str.size();
+  if (len == 1) return "1" + str;
+  std::stringstream ss;
+  int cnt = 1;
+  string ans;
+  for (int i = 1; i < len; i++) {
+    if (str[i] != str[i - 1]) {
+      string tmp;
+      while (cnt != 0) {
+        char x = '0' + cnt % 10;
+        tmp = x + tmp;
+        cnt /= 10;
+      }
+      cnt = 1;
+      ans += string(tmp + str[i - 1]);
+    } else {
+      cnt++;
+    }
+    if (i == len - 1) {
+      string tmp;
+      while (cnt != 0) {
+        char x = '0' + cnt % 10;
+        tmp = x + tmp;
+        cnt /= 10;
+      }
+
+      ans += string(tmp + str[i]);
+    }
+  }
+  return ans;
+}
+
+int main() { char_count("aaabbcccaab"); }
